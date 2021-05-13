@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/login_page.dart';
 import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -53,8 +54,8 @@ class SplashScreenState extends State<SplashScreen>
             ),
             Padding(padding: EdgeInsets.only(top: 10.0)),
             MaterialButton(
-              onPressed: () {
-                Navigator.push(context, ScaleRoute(page: LoginPage()));
+              onPressed: () async {
+               await Navigator.push(context, ScaleRoute(page: LoginPage()));
               },
               color: Color(0x99008B83),
               elevation: 8.0,
@@ -65,11 +66,11 @@ class SplashScreenState extends State<SplashScreen>
                   borderRadius: BorderRadius.circular(10.0)),
               child: Text(
                 'Get started',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18.0,
-                  fontFamily: 'Poppins',
-                ),
+                style: GoogleFonts.poppins(
+                  textStyle: TextStyle(
+                    color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.w600
+                  )
+                )
               ),
             ),
           ],
