@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/ui/pages/login_page/login_page.dart';
+import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -20,6 +22,7 @@ class SplashScreenState extends State<SplashScreen>
         AnimationController(vsync: this, duration: Duration(seconds: 2));
     animation = CurvedAnimation(
         parent: animationController, curve: Curves.fastOutSlowIn);
+
     animationController.forward();
   }
 
@@ -50,7 +53,9 @@ class SplashScreenState extends State<SplashScreen>
             ),
             Padding(padding: EdgeInsets.only(top: 10.0)),
             MaterialButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context, ScaleRoute(page: LoginPage()));
+              },
               color: Color(0x99008B83),
               elevation: 8.0,
               height: 45.0,
@@ -61,12 +66,12 @@ class SplashScreenState extends State<SplashScreen>
               child: Text(
                 'Get started',
                 style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18.0,
-                    fontFamily: 'Poppins',
+                  color: Colors.white,
+                  fontSize: 18.0,
+                  fontFamily: 'Poppins',
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
