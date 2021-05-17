@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 
-import 'package:flutter_mindpost/ui/pages/login_page/widgets/buttons/sign_in.dart';
+
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_forgot_password.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_sign_up.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_welcome.dart';

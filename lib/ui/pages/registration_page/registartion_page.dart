@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
-import 'package:flutter_mindpost/ui/pages/registration_page/widgets/buttons/sign_up_button.dart';
+
 import 'package:flutter_mindpost/ui/pages/registration_page/widgets/label_sign_in.dart';
 import 'package:flutter_mindpost/ui/pages/registration_page/widgets/label_welcome.dart';
 import 'package:flutter_mindpost/ui/pages/registration_page/widgets/register_forms.dart';
