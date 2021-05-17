@@ -1,0 +1,9 @@
+{
+  "welcome_string": "Ласкаво просимо!",
+  "email_string": "Введіть вашу почту",
+  "password_string": "Введіть ваш пароль",
+  "forgot_password_string": "Забули пароль?",
+  "sign_in_string": "Увійти",
+  "dont_have_acc_string": "Немає аккаунту? ",
+  "sign_up_string": "Зареєструватися"
+}

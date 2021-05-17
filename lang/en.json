@@ -1,0 +1,9 @@
+{
+  "welcome_string": "Welcome Back!",
+  "email_string": "Enter your email",
+  "password_string": "Enter password",
+  "forgot_password_string": "Forgot password?",
+  "sign_in_string": "Sign in",
+  "dont_have_acc_string": "Don't have an account? ",
+  "sign_up_string": "Sign up"
+}
