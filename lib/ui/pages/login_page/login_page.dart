@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/buttons/facebook_google_sign.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/buttons/sign_in.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_forgot_password.dart';
-import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_sign_in.dart';
+import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_sign_up.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_welcome.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/text_fields/email_form.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/text_fields/password_form.dart';
@@ -54,7 +54,7 @@ class LoginPageState extends State<LoginPage> {
             ),
             Padding(
               padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
-              child: labelSignIn(context),
+              child: labelSignUp(context),
             )
           ]
           ),

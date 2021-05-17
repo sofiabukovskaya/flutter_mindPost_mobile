@@ -2,18 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget signInButton(BuildContext context) {
+Widget signUpButton(BuildContext context) {
 
   return FlatButton(
     onPressed: () {
     },
     color: Color(0x80008B83),
-    height: 45.0,
-    minWidth: 282.0,
+    height: 55,
+    minWidth: 320,
     textColor: Colors.white,
     shape:
     RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-    child: Text(AppLocalizations.of(context).translate('sign_in_string'),
+    child: Text('Sign up',
         style: GoogleFonts.poppins(
             textStyle: TextStyle(
                 color: Colors.white,

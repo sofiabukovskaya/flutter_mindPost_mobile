@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget emailFormField(BuildContext context) {
-
+Widget surnameFormField(BuildContext context) {
   return TextFormField(
     decoration: InputDecoration(
       filled: true,
-      labelText: AppLocalizations.of(context).translate('email_string'),
+      labelText: 'Surname',
       fillColor: Color(0x1A008B83),
       border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),

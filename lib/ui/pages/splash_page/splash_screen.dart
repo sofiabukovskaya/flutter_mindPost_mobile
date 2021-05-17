@@ -55,7 +55,7 @@ class SplashScreenState extends State<SplashScreen>
             Padding(padding: EdgeInsets.only(top: 10.0)),
             MaterialButton(
               onPressed: () async {
-               await Navigator.push(context, ScaleRoute(page: LoginPage()));
+               await Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
               },
               color: Color(0x99008B83),
               elevation: 8.0,

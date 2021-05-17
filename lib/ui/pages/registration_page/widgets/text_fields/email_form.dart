@@ -3,11 +3,10 @@ import 'package:flutter_mindpost/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Widget emailFormField(BuildContext context) {
-
   return TextFormField(
     decoration: InputDecoration(
       filled: true,
-      labelText: AppLocalizations.of(context).translate('email_string'),
+      labelText: 'Email',
       fillColor: Color(0x1A008B83),
       border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
