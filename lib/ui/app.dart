@@ -11,7 +11,7 @@ class App extends StatelessWidget {
      home: SplashScreen(),
      supportedLocales: [
        Locale('en', 'US'),
-       Locale('uk', 'UA'),
+       Locale('uk', ''),
        Locale('ru', 'RU')
      ],
      localizationsDelegates: [

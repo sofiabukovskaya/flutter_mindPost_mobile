@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/app_localizations.dart';
+import 'package:flutter_mindpost/ui/pages/registration_page/registartion_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Widget labelSignIn(BuildContext context) {
@@ -20,7 +21,7 @@ Widget labelSignIn(BuildContext context) {
               fontWeight: FontWeight.w600),
           recognizer: TapGestureRecognizer()
             ..onTap = () {
-              print('Next lala');
+              Navigator.push(context, MaterialPageRoute(builder: (context) => RegistrationPage()));
             })
     ]),
   );

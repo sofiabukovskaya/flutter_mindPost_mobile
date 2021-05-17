@@ -5,5 +5,7 @@
   "forgot_password_string": "Забули пароль?",
   "sign_in_string": "Увійти",
   "dont_have_acc_string": "Немає аккаунту? ",
-  "sign_up_string": "Зареєструватися"
+  "sign_up_string": "Зареєструватися",
+  "reset_password_string": "Відновити",
+  "reset_password_label_string": "Відновити свій пароль"
 }
