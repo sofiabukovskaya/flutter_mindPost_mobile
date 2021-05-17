@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindpost/app_localizations.dart';
+import 'file:///D:/Work%20InternShip/flutter_mindPost/flutter_mindpost/lib/utils/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Widget nameFormField(BuildContext context) {

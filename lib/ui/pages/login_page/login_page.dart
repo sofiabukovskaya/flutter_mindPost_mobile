@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mindpost/ui/pages/login_page/widgets/buttons/facebook_google_sign.dart';
+import 'package:flutter_mindpost/ui/common/common_widgets.dart';
+
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/buttons/sign_in.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_forgot_password.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_sign_up.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_welcome.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/text_fields/email_form.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/text_fields/password_form.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatefulWidget {
@@ -16,6 +18,8 @@ class LoginPage extends StatefulWidget {
     return LoginPageState();
   }
 }
+
+
 
 class LoginPageState extends State<LoginPage> {
   @override
@@ -46,11 +50,12 @@ class LoginPageState extends State<LoginPage> {
                     child: Image.asset('assets/Or.png', height: 23.0, width: 282.0))),
             Padding(
                 padding: EdgeInsets.only(top: 15, left: 53, right: 53),
-                child: buttonsFacebookGoogle()
+                child: buttonsFacebookGoogle(onTappedFacebookButton: (){}, onTappedGoogleButton: (){})
             ),
             Padding(
                 padding: EdgeInsets.only(top: 36, left: 38, right: 40),
-                child: signInButton(context)
+                child: button(context, AppLocalizations.of(context).translate('sign_in_string'),
+                    Color(0x80008B83), (){})
             ),
             Padding(
               padding: EdgeInsets.only(top: 10.0, bottom: 15.0),

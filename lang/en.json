@@ -7,5 +7,6 @@
   "dont_have_acc_string": "Don't have an account? ",
   "sign_up_string": "Sign up",
   "reset_password_string": "Reset password",
-  "reset_password_label_string": "Reset your password"
+  "reset_password_label_string": "Reset your password",
+  "checkbox_string" : ""
 }

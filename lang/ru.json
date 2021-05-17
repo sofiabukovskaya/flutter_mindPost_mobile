@@ -7,5 +7,6 @@
   "dont_have_acc_string": "Нет аккаунта? ",
   "sign_up_string": "Зарегистрироваться",
   "reset_password_string": "Восстановить",
-  "reset_password_label_string": "Восстановить свой пароль"
+  "reset_password_label_string": "Восстановить свой пароль",
+  "checkbox_string" : ""
 }

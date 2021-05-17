@@ -1,10 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mindpost/ui/pages/registration_page/widgets/buttons/facebook_google_registration.dart';
+import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/ui/pages/registration_page/widgets/buttons/sign_up_button.dart';
 import 'package:flutter_mindpost/ui/pages/registration_page/widgets/label_sign_in.dart';
 import 'package:flutter_mindpost/ui/pages/registration_page/widgets/label_welcome.dart';
 import 'package:flutter_mindpost/ui/pages/registration_page/widgets/register_forms.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class RegistrationPage extends StatefulWidget {
@@ -60,11 +61,12 @@ class RegistrationPageState extends State<RegistrationPage> {
                     child: Image.asset('assets/Or.png', height: 23.0, width: 282.0))),
             Padding(
                 padding: EdgeInsets.only(top: 10, left: 53, right: 53),
-                child: buttonsFacebookGoogleRegistration()
+                child: buttonsFacebookGoogle(onTappedFacebookButton: (){}, onTappedGoogleButton: (){})
             ),
             Padding(
                 padding: EdgeInsets.only(top: 15, left: 38, right: 40),
-                child: signUpButton(context)
+                child: button(context, 'Sign up',
+                    Color(0x80008B83), (){})
             ),
             Padding(
                 padding: EdgeInsets.only(top: 15, left: 38, right: 40),

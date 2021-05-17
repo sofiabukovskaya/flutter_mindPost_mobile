@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindpost/app_localizations.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 Widget emailFormField(BuildContext context) {

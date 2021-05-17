@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_mindpost/app_localizations.dart';
+
 import 'package:flutter_mindpost/ui/pages/splash_page/splash_screen.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 
 class App extends StatelessWidget {
   @override

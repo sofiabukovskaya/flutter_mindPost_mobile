@@ -1,8 +1,9 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mindpost/app_localizations.dart';
+
 import 'package:flutter_mindpost/ui/pages/registration_page/registartion_page.dart';
 import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Widget labelSignUp(BuildContext context) {
