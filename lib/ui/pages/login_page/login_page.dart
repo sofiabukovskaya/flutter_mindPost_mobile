@@ -22,6 +22,8 @@ class LoginPage extends StatefulWidget {
 
 
 class LoginPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +36,7 @@ class LoginPageState extends State<LoginPage> {
                 child: labelText(context)),
             Padding(
                 padding: EdgeInsets.only(top: 20, left: 38, right: 39),
-                child: emailFormField(context)
+                child: emailFormField(context, emailController)
             ),
             Padding(
                 padding: EdgeInsets.only(top: 20, left: 38, right: 39),
@@ -55,7 +57,7 @@ class LoginPageState extends State<LoginPage> {
             Padding(
                 padding: EdgeInsets.only(top: 36, left: 38, right: 40),
                 child: button(context, AppLocalizations.of(context).translate('sign_in_string'),
-                    Color(0x80008B83), (){})
+                    Color(0x80008B83), (){print(emailController.text.toString());})
             ),
             Padding(
               padding: EdgeInsets.only(top: 10.0, bottom: 15.0),

@@ -10,7 +10,8 @@ import 'package:flutter_mindpost/ui/pages/registration_page/widgets/text_fields/
 import 'package:flutter_mindpost/ui/pages/registration_page/widgets/text_fields/surname_form.dart';
 
 
-Widget textFormField(BuildContext context){
+Widget textFormField(BuildContext context, TextEditingController nameController){
+
   return Column(
     children: <Widget>[
       Center(
@@ -29,7 +30,7 @@ Widget textFormField(BuildContext context){
               child: ListView(
                 children: <Widget>[
                   nameFormField(context),
-                  Padding(padding: EdgeInsets.only(top: 14.0), child: surnameFormField(context),),
+                  Padding(padding: EdgeInsets.only(top: 14.0), child: surnameFormField(context, ),),
                   Padding(padding: EdgeInsets.only(top: 14.0), child: nicknameFormField(context),),
                   Padding(padding: EdgeInsets.only(top: 14.0), child: emailFormField(context),),
                   Padding(padding: EdgeInsets.only(top: 14.0), child: dateOfBirthForm(context),),
@@ -43,5 +44,6 @@ Widget textFormField(BuildContext context){
       )
     ],
   );
+
 
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 
 import 'package:flutter_mindpost/ui/pages/registration_page/widgets/label_sign_in.dart';
@@ -17,6 +18,14 @@ class RegistrationPage extends StatefulWidget {
 
 class RegistrationPageState extends State<RegistrationPage> {
   bool isChecked = false;
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController surnameController = TextEditingController();
+  final TextEditingController nicknameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController dateOfBirthdayController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +41,7 @@ class RegistrationPageState extends State<RegistrationPage> {
 
             Padding(
                   padding: EdgeInsets.only(top: 30.0),
-                  child: textFormField(context)),
+                  child: textFormField(context, nameController, surnameController, nicknameController, emailController, dateOfBirthdayController, phoneNumberController, passwordController, confirmPasswordController)),
 
             Padding(
                 padding: EdgeInsets.only(top: 20.0, left: 25.0),
@@ -49,6 +58,9 @@ class RegistrationPageState extends State<RegistrationPage> {
                   ),
                   onChanged: (newValue) {
                     setState(() {
+                      nameController;
+                      confirmPasswordController;
+                      dateOfBirthdayController;
                       isChecked = newValue;
                     });
                   },
@@ -66,7 +78,8 @@ class RegistrationPageState extends State<RegistrationPage> {
             Padding(
                 padding: EdgeInsets.only(top: 15, left: 38, right: 40),
                 child: button(context, AppLocalizations.of(context).translate('sign_up_string'),
-                    Color(0x80008B83), (){})
+                    Color(0x80008B83), ()async { await FirestoreRepository().signUp(nameController.text.trim(), surnameController.text.trim(), nicknameController.text.trim(),
+                    emailController.text.trim(),  dateOfBirthdayController.text.trim(), phoneNumberController.text.trim(), passwordController.text.trim()  );})
             ),
             Padding(
                 padding: EdgeInsets.only(top: 15, left: 38, right: 40),
