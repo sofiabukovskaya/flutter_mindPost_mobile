@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Widget labelWelcomeText(BuildContext context){
   return Column(
     children: <Widget>[
     Text(
-  'Welcome to MindPost!',
+        AppLocalizations.of(context).translate('welcome_mindpost_string'),
     style: GoogleFonts.poppins(
       textStyle: TextStyle(
           color: Colors.black,

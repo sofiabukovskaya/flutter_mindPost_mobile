@@ -7,5 +7,7 @@
   "dont_have_acc_string": "Немає аккаунту? ",
   "sign_up_string": "Зареєструватися",
   "reset_password_string": "Відновити",
-  "reset_password_label_string": "Відновити свій пароль"
+  "reset_password_label_string": "Відновити свій пароль",
+  "checkbox_string" : "Я старший за 14 років",
+  "welcome_mindpost_string" : "Вітаємо у MindPost!"
 }

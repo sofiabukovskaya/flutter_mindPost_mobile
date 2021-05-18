@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "107038544527",
+    "project_id": "mindpost-2bf6a",
+    "storage_bucket": "mindpost-2bf6a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:107038544527:android:052ba2a89e10c61afc16fa",
+        "android_client_info": {
+          "package_name": "com.example.flutter_mindpost"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "107038544527-grpikigfukfr7hne8bd7gt2ilq88ajqn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.flutter_mindpost",
+            "certificate_hash": "b46d6cf649e00efa9bad67f9311ee9fab4b16a0e"
+          }
+        },
+        {
+          "client_id": "107038544527-s3b8nubpuk81ofrquh7uqf0ftslhim2q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDRYeFxIeUV5e5NTavymlaU4H2kZxeI5wI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "107038544527-s3b8nubpuk81ofrquh7uqf0ftslhim2q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -8,5 +8,7 @@
   "sign_up_string": "Sign up",
   "reset_password_string": "Reset password",
   "reset_password_label_string": "Reset your password",
-  "checkbox_string" : ""
+  "checkbox_string" : "I am over 14 years old",
+  "welcome_mindpost_string" : "Welcome to MindPost!"
+
 }

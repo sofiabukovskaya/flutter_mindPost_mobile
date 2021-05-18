@@ -41,7 +41,7 @@ class RegistrationPageState extends State<RegistrationPage> {
                   checkColor: Colors.green,
                   value: isChecked,
                   title: Text(
-                    'I am over 14 years old',
+                    AppLocalizations.of(context).translate('checkbox_string'),
                     style: GoogleFonts.poppins(
                         color: Colors.black,
                         fontSize: 18.0,
@@ -65,7 +65,7 @@ class RegistrationPageState extends State<RegistrationPage> {
             ),
             Padding(
                 padding: EdgeInsets.only(top: 15, left: 38, right: 40),
-                child: button(context, 'Sign up',
+                child: button(context, AppLocalizations.of(context).translate('sign_up_string'),
                     Color(0x80008B83), (){})
             ),
             Padding(
