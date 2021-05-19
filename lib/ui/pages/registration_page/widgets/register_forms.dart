@@ -51,7 +51,6 @@ class RegistrationFormState extends State<RegistrationForm> {
   void initState() {
     super.initState();
     _registrationBloc = BlocProvider.of<RegistrationBloc>(context);
-
   }
 
   @override
@@ -157,7 +156,8 @@ class RegistrationFormState extends State<RegistrationForm> {
                       context,
                       AppLocalizations.of(context).translate('sign_up_string'),
                       Color(0x80008B83), ()  {
-                   _registrationBloc.add(Submitted(email: emailController.text.trim(), phone: phoneNumberController.text.trim(), name: nameController.text.trim(), surname: surnameController.text.trim(), nickname: nicknameController.text.trim(), birthday: dateOfBirthdayController.text.trim(), password: passwordController.text.trim()));
+                   _registrationBloc.add(Submitted
+                     (email: emailController.text.trim(), phone: phoneNumberController.text.trim(), name: nameController.text.trim(), surname: surnameController.text.trim(), nickname: nicknameController.text.trim(), birthday: dateOfBirthdayController.text.trim(), password: passwordController.text.trim()));
                   })),
               Padding(
                   padding: EdgeInsets.only(top: 15, left: 38, right: 40),

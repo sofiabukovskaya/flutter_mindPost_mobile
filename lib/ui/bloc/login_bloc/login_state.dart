@@ -1,5 +1,7 @@
 class LoginState {}
 
+class LoginEmptyState extends LoginState {}
+
 class LoginSuccessfulState extends LoginState {}
 class LoginLoadingState extends LoginState {}
 class LoginInvalidState extends LoginState {}

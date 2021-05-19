@@ -24,7 +24,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       try {
         await firestoreRepository.signUp(name, surname, nickname, email, birthday, phone, password);
         yield RegistrationSuccessState();
-      } catch (_) {
+      } catch (e) {
           yield RegistrationFailureState();
       }
     }
