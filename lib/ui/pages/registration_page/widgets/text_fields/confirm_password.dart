@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'file:///D:/Work%20InternShip/flutter_mindPost/flutter_mindpost/lib/utils/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget confirmPasswordFormField(BuildContext context) {
+Widget confirmPasswordFormField(BuildContext context, TextEditingController confirmPasswordController) {
   return TextFormField(
+    controller: confirmPasswordController,
     decoration: InputDecoration(
       filled: true,
       labelText: 'Confirm password',

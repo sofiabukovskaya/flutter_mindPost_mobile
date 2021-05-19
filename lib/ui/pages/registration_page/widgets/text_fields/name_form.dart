@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'file:///D:/Work%20InternShip/flutter_mindPost/flutter_mindpost/lib/utils/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget nameFormField(BuildContext context) {
+Widget nameFormField(BuildContext context, TextEditingController nameController) {
 
   return TextFormField(
+    controller: nameController,
     decoration: InputDecoration(
       filled: true,
       labelText: 'Name',

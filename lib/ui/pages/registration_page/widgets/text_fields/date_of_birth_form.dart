@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-Widget dateOfBirthForm(BuildContext context) {
-  final dateController = TextEditingController();
+Widget dateOfBirthForm(BuildContext context, TextEditingController dateOfBirthdayController) {
+
   return TextFormField(
-    controller: dateController,
+    controller: dateOfBirthdayController,
     decoration: InputDecoration(
       filled: true,
       labelText: 'Date of birth',
@@ -24,7 +24,7 @@ Widget dateOfBirthForm(BuildContext context) {
           initialDate: DateTime.now(),
           firstDate: DateTime(1900),
           lastDate: DateTime(2100));
-      dateController.text = date.toString().substring(0, 10);
+      dateOfBirthdayController.text = date.toString().substring(0, 10);
     },
     cursorColor: Color(0x99008B83),
   );

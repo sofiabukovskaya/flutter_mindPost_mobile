@@ -9,9 +9,9 @@ class FirebaseProvider {
   FirebaseFirestore.instance.collection('users');
    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-void signUp(String name, String surname, String nickname, String email, String birthday,
+ signUp(String name, String surname, String nickname, String email, String birthday,
       String phone, String password) async {
-    await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password).then((result) =>
+     return await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password).then((result) =>
         collectionReference.doc(result.user.uid).set({
           'id': result.user.uid,
           'name': name,

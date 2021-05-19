@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget surnameFormField(BuildContext context) {
+Widget surnameFormField(BuildContext context, TextEditingController surnameController) {
   return TextFormField(
+    autovalidateMode: AutovalidateMode.always,
+    validator: (_) {
+
+    },
+    controller: surnameController,
     decoration: InputDecoration(
       filled: true,
       labelText: 'Surname',

@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/utils/validators.dart';
+import 'package:flutter_mindpost/utils/validators.dart';
+import 'package:flutter_mindpost/utils/validators.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget phoneNumberFormField(BuildContext context) {
+Widget phoneNumberFormField(BuildContext context, TextEditingController phoneNumberController) {
+
   return TextFormField(
+    validator: (String input) {
+      return !Validators.isValidPhoneNumber(input) ? 'Invalid phone number' : null;
+    },
+    controller: phoneNumberController,
     decoration: InputDecoration(
       filled: true,
       labelText: 'Phone number',

@@ -5,5 +5,5 @@ class FirestoreRepository {
   final firebaseProvider = FirebaseProvider();
 
   signUp(String name, String surname, String nickname, String email, String birthday,
-      String phone, String password ) => firebaseProvider.signUp(name, surname, nickname, email, birthday, phone, password);
+      String phone, String password )  =>  firebaseProvider.signUp(name, surname, nickname, email, birthday, phone, password);
 }
