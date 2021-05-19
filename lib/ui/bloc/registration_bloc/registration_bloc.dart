@@ -27,12 +27,6 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       } catch (_) {
           yield RegistrationFailureState();
       }
-    } else if(event is SignInLabelPressed) {
-      try {
-        yield RegistrationOpenPageState();
-      } catch (_) {
-        yield RegistrationEmptyState();
-      }
     }
   }
 }

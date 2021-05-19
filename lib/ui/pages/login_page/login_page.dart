@@ -23,7 +23,7 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
-
+  bool passwordVisible = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +40,9 @@ class LoginPageState extends State<LoginPage> {
             ),
             Padding(
                 padding: EdgeInsets.only(top: 20, left: 38, right: 39),
-                child: passwordFormField(context)
+                child: passwordFormField(context, passwordVisible, (){setState(() {
+                  passwordVisible =!passwordVisible;
+                });})
             ),
             Padding(
                 padding: EdgeInsets.only(top: 10, left: 111, right: 111),

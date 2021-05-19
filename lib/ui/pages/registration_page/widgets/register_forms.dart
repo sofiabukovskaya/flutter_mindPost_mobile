@@ -34,6 +34,7 @@ class RegistrationForm extends StatefulWidget {
 
 class RegistrationFormState extends State<RegistrationForm> {
   bool isChecked = false;
+  bool passwordVisible = true;
   final TextEditingController nameController = TextEditingController();
   final TextEditingController surnameController = TextEditingController();
   final TextEditingController nicknameController = TextEditingController();
@@ -51,6 +52,7 @@ class RegistrationFormState extends State<RegistrationForm> {
   void initState() {
     super.initState();
     _registrationBloc = BlocProvider.of<RegistrationBloc>(context);
+
   }
 
   @override
@@ -106,7 +108,9 @@ class RegistrationFormState extends State<RegistrationForm> {
                           Padding(
                             padding: EdgeInsets.only(top: 14.0),
                             child:
-                                passwordFormField(context, passwordController),
+                                passwordFormField(context, passwordController, passwordVisible, (){setState(() {
+                                  passwordVisible =!passwordVisible;
+                                });}),
                           ),
                           Padding(
                             padding: EdgeInsets.only(top: 14.0),
@@ -154,14 +158,6 @@ class RegistrationFormState extends State<RegistrationForm> {
                       context,
                       AppLocalizations.of(context).translate('sign_up_string'),
                       Color(0x80008B83), ()  {
-                    // await FirestoreRepository().signUp(
-                    //     nameController.text.trim(),
-                    //     surnameController.text.trim(),
-                    //     nicknameController.text.trim(),
-                    //     emailController.text.trim(),
-                    //     dateOfBirthdayController.text.trim(),
-                    //     phoneNumberController.text.trim(),
-                    //     passwordController.text.trim());
                    _registrationBloc.add(Submitted(email: emailController.text.trim(), phone: phoneNumberController.text.trim(), name: nameController.text.trim(), surname: surnameController.text.trim(), nickname: nicknameController.text.trim(), birthday: dateOfBirthdayController.text.trim(), password: passwordController.text.trim()));
                   })),
               Padding(
