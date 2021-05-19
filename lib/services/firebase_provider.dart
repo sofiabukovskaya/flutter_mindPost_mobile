@@ -3,13 +3,15 @@ import 'package:firebase/firebase_io.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/editable_text.dart';
 import 'package:flutter_mindpost/data/models/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FirebaseProvider {
   final CollectionReference collectionReference =
   FirebaseFirestore.instance.collection('users');
    FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
- signUp(String name, String surname, String nickname, String email, String birthday,
+
+ void signUp(String name, String surname, String nickname, String email, String birthday,
       String phone, String password) async {
      return await firebaseAuth.createUserWithEmailAndPassword(email: email, password: password).then((result) =>
         collectionReference.doc(result.user.uid).set({
@@ -24,4 +26,15 @@ class FirebaseProvider {
           'notes':null
         }));
   }
+
+Future signIn(String email, String password) async {
+  SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+   firebaseAuth.signInWithEmailAndPassword(email: email, password: password).then((result) => sharedPreferences.setString('token', result.user.uid));
+ }
+ Future logoutUser() async {
+   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+   await firebaseAuth.signOut();
+   sharedPreferences.clear();
+   sharedPreferences.commit();
+ }
 }

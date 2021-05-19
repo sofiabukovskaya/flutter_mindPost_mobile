@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/login_page.dart';
+import 'package:flutter_mindpost/ui/pages/notes_page/notes_page.dart';
 import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -35,6 +37,7 @@ class SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    SharedPreferences sharedPreferences;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -55,7 +58,9 @@ class SplashScreenState extends State<SplashScreen>
             Padding(padding: EdgeInsets.only(top: 10.0)),
             MaterialButton(
               onPressed: () async {
-               await Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+                sharedPreferences = await SharedPreferences.getInstance();
+                String token = sharedPreferences.getString('token');
+               await Navigator.push(context, MaterialPageRoute(builder: (context) => token == null? LoginPage():NotesPage()));
               },
               color: Color(0x99008B83),
               elevation: 8.0,

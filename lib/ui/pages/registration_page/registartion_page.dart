@@ -20,7 +20,7 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class RegistrationPageState extends State<RegistrationPage> {
-  FirestoreRepository firestoreRepository;
+  FirestoreRepository firestoreRepository = FirestoreRepository();
   RegistrationBloc registrationBloc;
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,6 @@ class RegistrationPageState extends State<RegistrationPage> {
               padding: EdgeInsets.only(top: 75.0),
               child: labelWelcomeText(context),
             ),
-
             Padding(
                 padding: EdgeInsets.only(top: 30.0),
                 child: RegistrationForm(firestoreRepository:  firestoreRepository,)),

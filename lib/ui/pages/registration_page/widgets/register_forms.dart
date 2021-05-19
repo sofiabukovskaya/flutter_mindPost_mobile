@@ -22,7 +22,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'label_sign_in.dart';
 
 class RegistrationForm extends StatefulWidget {
-  final firestoreRepository = FirestoreRepository();
 
   RegistrationForm({@required FirestoreRepository firestoreRepository});
 

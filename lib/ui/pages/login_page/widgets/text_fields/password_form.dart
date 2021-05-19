@@ -3,9 +3,10 @@ import 'package:flutter_mindpost/utils/app_localizations.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-Widget passwordFormField(BuildContext context,  bool passwordVisible, Function setState) {
+Widget passwordFormField(BuildContext context,  bool passwordVisible, Function setState, TextEditingController passwordController) {
   return TextFormField(
     obscureText: passwordVisible,
+    controller: passwordController,
     decoration: InputDecoration(
       filled: true,
       labelText: AppLocalizations.of(context).translate('password_string'),

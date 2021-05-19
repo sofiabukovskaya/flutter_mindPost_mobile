@@ -6,4 +6,5 @@ class FirestoreRepository {
 
   signUp(String name, String surname, String nickname, String email, String birthday,
       String phone, String password )  =>  firebaseProvider.signUp(name, surname, nickname, email, birthday, phone, password);
+  Future signIn(String email, String password) async => await firebaseProvider.signIn(email, password);
 }

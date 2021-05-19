@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 
 
@@ -9,6 +10,8 @@ import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_sign_up.dart'
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_welcome.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/text_fields/email_form.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/text_fields/password_form.dart';
+import 'package:flutter_mindpost/ui/pages/notes_page/notes_page.dart';
+import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
 import 'package:flutter_mindpost/utils/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -20,9 +23,10 @@ class LoginPage extends StatefulWidget {
 }
 
 
-
 class LoginPageState extends State<LoginPage> {
+  FirestoreRepository firestoreRepository = FirestoreRepository();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   bool passwordVisible = true;
   @override
   Widget build(BuildContext context) {
@@ -40,9 +44,9 @@ class LoginPageState extends State<LoginPage> {
             ),
             Padding(
                 padding: EdgeInsets.only(top: 20, left: 38, right: 39),
-                child: passwordFormField(context, passwordVisible, (){setState(() {
+                child: passwordFormField(context, passwordVisible,  (){setState(() {
                   passwordVisible =!passwordVisible;
-                });})
+                });}, passwordController)
             ),
             Padding(
                 padding: EdgeInsets.only(top: 10, left: 111, right: 111),
@@ -59,7 +63,10 @@ class LoginPageState extends State<LoginPage> {
             Padding(
                 padding: EdgeInsets.only(top: 36, left: 38, right: 40),
                 child: button(context, AppLocalizations.of(context).translate('sign_in_string'),
-                    Color(0x80008B83), (){print(emailController.text.toString());})
+                    Color(0x80008B83), (){
+                      firestoreRepository.signIn(emailController.text.trim(), passwordController.text.trim()).then((_) => Navigator.push(context, ScaleRoute(page: NotesPage())))
+                          .catchError((err) {print('error');});
+                    })
             ),
             Padding(
               padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
