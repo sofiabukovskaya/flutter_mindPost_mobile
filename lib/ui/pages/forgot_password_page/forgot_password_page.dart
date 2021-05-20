@@ -34,7 +34,7 @@ class ForgotPasswordState extends State<ForgotPasswordPage> {
         child: Column (
           crossAxisAlignment:  CrossAxisAlignment.center,
           children: <Widget>[
-            Padding(padding: EdgeInsets.only(top: 225, left: 120, right: 120), child: labelTextResetPassword(context),),
+            Padding(padding: EdgeInsets.only(top: 225, left: 100, right: 100), child: labelTextResetPassword(context),),
             Padding(padding:  EdgeInsets.only(top: 35, left: 38, right: 39), child: emailFormResetPassword(context),),
             Padding(padding:  EdgeInsets.only(top: 40, left: 38, right: 39), child: button(context, AppLocalizations.of(context).translate('reset_password_string'),
                 Color(0x80008B83), (){}),),

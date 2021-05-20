@@ -60,7 +60,8 @@ class SplashScreenState extends State<SplashScreen>
               onPressed: () async {
                 sharedPreferences = await SharedPreferences.getInstance();
                 String token = sharedPreferences.getString('token');
-               await Navigator.push(context, MaterialPageRoute(builder: (context) => token == null? LoginPage():NotesPage()));
+               // await Navigator.push(context, MaterialPageRoute(builder: (context) => token == null? LoginPage():NotesPage()));
+                await Navigator.pushNamed(context, '/home_page',arguments: token);
               },
               color: Color(0x99008B83),
               elevation: 8.0,

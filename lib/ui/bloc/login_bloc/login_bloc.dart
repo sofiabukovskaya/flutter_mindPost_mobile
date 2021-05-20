@@ -18,21 +18,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       } catch(e) {
         yield LoginErrorInternetConnectionState();
       }
-    } else if(event is LoginGoogleEvent) {
+    }  if(event is LoginGoogleEvent) {
       yield LoginLoadingState();
       try {
         yield LoginSuccessfulState();
       } catch(e) {
         yield LoginErrorInternetConnectionState();
       }
-    } else if( event is LoginFacebookEvent) {
+    }  if( event is LoginFacebookEvent) {
       yield LoginLoadingState();
       try {
         yield LoginSuccessfulState();
       } catch(e) {
         yield LoginErrorInternetConnectionState();
       }
-    } else if(event is SignInEvent) {
+    }  if(event is SignInEvent) {
       yield LoginLoadingState();
       try {
         String email = event.email;

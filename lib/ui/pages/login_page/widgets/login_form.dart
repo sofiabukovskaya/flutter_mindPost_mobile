@@ -45,8 +45,9 @@ class LoginFormState extends State<LoginForm> {
       bloc: loginBloc,
       builder: (BuildContext context, LoginState state) {
         if (state is LoginSuccessfulState) {
-          WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-           Navigator.push(context, ScaleRoute(page: NotesPage()));
+          WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
+           // Navigator.push(context, ScaleRoute(page: NotesPage()));
+            Navigator.pushNamed(context, '/login');
           });
         } else if (state is LoginLoadingState) {
           Future.delayed(Duration(seconds: 3), () {
@@ -123,8 +124,18 @@ class LoginFormState extends State<LoginForm> {
                         AppLocalizations.of(context)
                             .translate('sign_in_string'),
                         Color(0x80008B83), () {
-                      loginBloc.add(SignInEvent(emailController.text.trim(),
-                          passwordController.text.trim()));
+                          if(emailController.text == '' && passwordController.text == '' || passwordController.text == '' || emailController.text == '') {
+                            final snackBar = SnackBar(content: Text('Please, enter all details'),
+                                action: SnackBarAction(
+                                  textColor: Colors.teal,
+                                  label: 'Ok',
+                                  onPressed: (){},
+                                ));
+                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          } else {
+                            loginBloc.add(SignInEvent(emailController.text.trim(),
+                                passwordController.text.trim()));
+                          }
                     })),
                 Padding(
                   padding: EdgeInsets.only(top: 10.0, bottom: 15.0),

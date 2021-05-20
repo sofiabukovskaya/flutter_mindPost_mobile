@@ -4,12 +4,16 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'package:flutter_mindpost/ui/pages/splash_page/splash_screen.dart';
 import 'package:flutter_mindpost/utils/app_localizations.dart';
+import 'package:flutter_mindpost/utils/routes.dart';
 
 class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
    return MaterialApp(
-     home: SplashScreen(),
+     theme:  ThemeData(primaryColor: Colors.green),
+     initialRoute: '/',
+     onGenerateRoute: routes,
+     // home: SplashScreen(),
      supportedLocales: [
        Locale('en', 'US'),
        Locale('uk', ''),

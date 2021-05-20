@@ -23,7 +23,8 @@ Widget labelSignUp(BuildContext context) {
               fontWeight: FontWeight.w600),
           recognizer: TapGestureRecognizer()
             ..onTap = () async {
-              await Navigator.push(context, ScaleRoute(page: RegistrationPage()));
+              // await Navigator.push(context, ScaleRoute(page: RegistrationPage()));
+              await Navigator.pushNamed(context, '/signUp');
             })
     ]),
   );
