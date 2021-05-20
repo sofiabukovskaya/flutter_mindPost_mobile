@@ -6,7 +6,7 @@ import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_bloc.dar
 import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_event.dart';
 import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_state.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
-import 'package:flutter_mindpost/ui/pages/notes_page/notes_page.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
 import 'package:flutter_mindpost/ui/pages/registration_page/widgets/text_fields/confirm_password.dart';
 import 'package:flutter_mindpost/ui/pages/registration_page/widgets/text_fields/date_of_birth_form.dart';
 import 'package:flutter_mindpost/ui/pages/registration_page/widgets/text_fields/email_form.dart';
@@ -62,7 +62,7 @@ class RegistrationFormState extends State<RegistrationForm> {
             return Center(child:  CircularProgressIndicator());
           }
           if(state is RegistrationSuccessState) {
-           Navigator.push(context, ScaleRoute(page: NotesPage()));
+           Navigator.push(context, ScaleRoute(page: MainPage()));
           }
           return Column(
             children: <Widget>[

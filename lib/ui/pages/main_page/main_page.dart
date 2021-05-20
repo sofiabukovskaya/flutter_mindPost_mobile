@@ -2,20 +2,31 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/login_page.dart';
-import 'package:flutter_mindpost/ui/pages/notes_page/widgets/alert_dialog.dart';
-import 'package:flutter_mindpost/ui/pages/notes_page/widgets/tab_bar.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/calendar_screen/calendar_screen.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/notes_screen.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_notes_screen.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/profile_screen.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/widgets/alert_dialog.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/widgets/tab_bar.dart';
 
 FirestoreRepository firestoreRepository =
     FirestoreRepository(); //и эту херню убрать
 
-class NotesPage extends StatefulWidget {
+class MainPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return NotesPageState();
+    return MainPageState();
   }
 }
 
-class NotesPageState extends State<NotesPage> {
+class MainPageState extends State<MainPage>
+    with SingleTickerProviderStateMixin {
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -38,19 +49,18 @@ class NotesPageState extends State<NotesPage> {
           ],
           backgroundColor: Colors.white38,
           elevation: 0,
+          title: Text(
+            'Title',
+            style: TextStyle(color: Colors.black87),
+          ),
+          centerTitle: true,
         ),
         body: TabBarView(
           children: [
-            Container(
-              color: Colors.green,
-            ),
-            Container(color: Colors.teal),
-            Container(
-              color: Colors.orangeAccent,
-            ),
-            Container(
-              color: Colors.blue,
-            ),
+            ProfileScreen(),
+            NotesScreen(),
+            PersonalNotesScreen(),
+            CalendarScreen()
           ],
         ),
         bottomNavigationBar: tabBar(),

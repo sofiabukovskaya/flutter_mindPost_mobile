@@ -55,3 +55,26 @@ Widget button(BuildContext context, String label, Color color, Function onTapBut
                 fontWeight: FontWeight.w600))),
   );
 }
+
+Widget textField(TextEditingController controller, Icon icon, Color color, String label) {
+  return TextFormField(
+    controller: controller,
+    decoration: InputDecoration(
+      prefixIcon: icon,
+      filled: true,
+      labelText: label,
+      fillColor: color,
+      border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: BorderSide.none),
+      labelStyle: GoogleFonts.poppins(
+        textStyle: TextStyle(
+            color: Colors.black45,
+            fontSize: 18.0,
+            fontWeight: FontWeight.w600),
+      ),
+    ),
+    keyboardType: TextInputType.text,
+    cursorColor: color,
+  );
+}

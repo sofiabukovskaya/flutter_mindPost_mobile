@@ -13,7 +13,7 @@ import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_sign_up.dart'
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_welcome.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/text_fields/email_form.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/text_fields/password_form.dart';
-import 'package:flutter_mindpost/ui/pages/notes_page/notes_page.dart';
+
 import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
 import 'package:flutter_mindpost/utils/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';

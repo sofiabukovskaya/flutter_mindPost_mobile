@@ -9,11 +9,11 @@ class SplashScreen extends StatefulWidget {
   }
 }
 
- checkToken(BuildContext context) async {
+checkToken(BuildContext context) async {
   SharedPreferences sharedPreferences;
   sharedPreferences = await SharedPreferences.getInstance();
   String token = sharedPreferences.getString('token');
-  Navigator.pushNamed(context, '/home_page',arguments: token);
+  Navigator.pushNamed(context, '/home_page', arguments: token);
 }
 
 class SplashScreenState extends State<SplashScreen>
@@ -25,13 +25,13 @@ class SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 4));
+        AnimationController(vsync: this, duration: Duration(seconds: 3));
     animation = CurvedAnimation(
         parent: animationController, curve: Curves.fastOutSlowIn);
     animationController.forward();
     animationController.addStatusListener((status) {
-      if(status == AnimationStatus.completed) {
-       checkToken(context);
+      if (status == AnimationStatus.completed) {
+        checkToken(context);
       }
     });
   }
