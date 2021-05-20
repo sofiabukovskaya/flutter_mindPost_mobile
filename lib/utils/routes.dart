@@ -6,10 +6,6 @@ import 'package:flutter_mindpost/ui/pages/notes_page/notes_page.dart';
 import 'package:flutter_mindpost/ui/pages/registration_page/registartion_page.dart';
 import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
 import 'package:flutter_mindpost/ui/pages/splash_page/splash_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:async';
-
-SharedPreferences sharedPreferences;
 
 Route routes(RouteSettings routeSettings){
   if(routeSettings.name == '/') {

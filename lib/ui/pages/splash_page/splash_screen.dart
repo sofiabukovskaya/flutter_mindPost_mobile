@@ -1,9 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mindpost/ui/pages/login_page/login_page.dart';
-import 'package:flutter_mindpost/ui/pages/notes_page/notes_page.dart';
-import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,6 +7,13 @@ class SplashScreen extends StatefulWidget {
   State<StatefulWidget> createState() {
     return SplashScreenState();
   }
+}
+
+ checkToken(BuildContext context) async {
+  SharedPreferences sharedPreferences;
+  sharedPreferences = await SharedPreferences.getInstance();
+  String token = sharedPreferences.getString('token');
+  Navigator.pushNamed(context, '/home_page',arguments: token);
 }
 
 class SplashScreenState extends State<SplashScreen>
@@ -22,11 +25,15 @@ class SplashScreenState extends State<SplashScreen>
   void initState() {
     super.initState();
     animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 2));
+        AnimationController(vsync: this, duration: Duration(seconds: 4));
     animation = CurvedAnimation(
         parent: animationController, curve: Curves.fastOutSlowIn);
-
     animationController.forward();
+    animationController.addStatusListener((status) {
+      if(status == AnimationStatus.completed) {
+       checkToken(context);
+      }
+    });
   }
 
   @override
@@ -37,7 +44,6 @@ class SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
-    SharedPreferences sharedPreferences;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -53,30 +59,6 @@ class SplashScreenState extends State<SplashScreen>
                   width: 440.0,
                   height: 377.0,
                 ),
-              ),
-            ),
-            Padding(padding: EdgeInsets.only(top: 10.0)),
-            MaterialButton(
-              onPressed: () async {
-                sharedPreferences = await SharedPreferences.getInstance();
-                String token = sharedPreferences.getString('token');
-               // await Navigator.push(context, MaterialPageRoute(builder: (context) => token == null? LoginPage():NotesPage()));
-                await Navigator.pushNamed(context, '/home_page',arguments: token);
-              },
-              color: Color(0x99008B83),
-              elevation: 8.0,
-              height: 45.0,
-              minWidth: 282.0,
-              textColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10.0)),
-              child: Text(
-                'Get started',
-                style: GoogleFonts.poppins(
-                  textStyle: TextStyle(
-                    color: Colors.white, fontSize: 18.0, fontWeight: FontWeight.w600
-                  )
-                )
               ),
             ),
           ],
