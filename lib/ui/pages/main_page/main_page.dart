@@ -33,28 +33,6 @@ class MainPageState extends State<MainPage>
       initialIndex: 2,
       length: 4,
       child: Scaffold(
-        appBar: AppBar(
-          actions: [
-            IconButton(
-                icon: Icon(
-                  Icons.logout,
-                  color: Colors.black87,
-                ),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (_) =>
-                          alertDialog(context, firestoreRepository));
-                })
-          ],
-          backgroundColor: Colors.white38,
-          elevation: 0,
-          title: Text(
-            'Title',
-            style: TextStyle(color: Colors.black87),
-          ),
-          centerTitle: true,
-        ),
         body: TabBarView(
           children: [
             ProfileScreen(),
