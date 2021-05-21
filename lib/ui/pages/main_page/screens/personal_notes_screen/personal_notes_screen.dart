@@ -18,34 +18,34 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:  AppBar(
-    actions: [
-    IconButton(
-    icon: Icon(
-      Icons.logout,
-      color: Colors.black87,
-    ),
-    onPressed: () {
-    showDialog(
-    context: context,
-    builder: (_) =>
-    alertDialog(context, firestoreRepository));
-    }),  IconButton(
-          icon: Icon(
-            Icons.filter_alt_sharp,
-            color: Colors.black87,
-          ),
-          onPressed: () {
-          })
-    ],
-    backgroundColor: Colors.white38,
-    elevation: 0,
-    title: Text(
-    'Personal notes',
-    style: TextStyle(color: Colors.black87),
-    ),
-    centerTitle: true,
-    ),
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              icon: Icon(
+                Icons.logout,
+                color: Colors.black87,
+              ),
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (_) => alertDialog(context, firestoreRepository));
+              }),
+          IconButton(
+              icon: Icon(
+                Icons.filter_alt_sharp,
+                color: Colors.black87,
+              ),
+              onPressed: () {})
+        ],
+        backgroundColor: Colors.white38,
+        elevation: 0,
+        title: Text(
+          'Personal notes',
+          style: GoogleFonts.poppins(
+              fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black87),
+        ),
+        centerTitle: true,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -67,36 +67,54 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
                         child: Card(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(15.0)),
-                          child: Row(
+                          child: Stack(
                             children: [
-                              Center(
-                                child: Container(
-                                  height: 100,
-                                  width: 132,
-                                  child: Image.asset('assets/giraffe.png'),
-                                ),
+                              Positioned(
+                                  top: 20,
+                                  child: Padding(
+                                      padding: EdgeInsets.only(left: 10),
+                                      child: Container(
+                                        height: 100,
+                                        width: 132,
+                                        child:
+                                            Image.asset('assets/giraffe.png'),
+                                      ))),
+                              Positioned(
+                                top: 20,
+                                left: 150,
+                                child: Text('05/01/21',
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w400)),
                               ),
-                                  Padding(
-                                    padding: EdgeInsets.only(top: 10, left: 15),
-                                    child: Column(
-                                      children: [
-                                        Text('05/01/21',
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400)),
-                                        Text('Title',
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w600)),
-                                     Text('ddd ',
-                                            style: GoogleFonts.poppins(
-                                                fontSize: 18,
-                                                fontWeight: FontWeight.w400))
-                                      ],
-                                    ),
+                              Positioned(
+                                top: 46,
+                                left: 150,
+                                child: Text('Title',
+                                    style: GoogleFonts.poppins(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w600)),
+                              ),
+                              Positioned(
+                                top: 70,
+                                  left: 150,
+                                  child: Container(
+                                    height: 150,
+                                    width: 200,
+                                    child: Text('Description description ',
+                                        maxLines: 3,
+                                        style: GoogleFonts.poppins(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w400)))
                                   ),
+                              Positioned(
+                                  top: 60,
+                                  left: 300,
+                                  child: Icon(Icons.lock_outline, color: Colors.black38,)
+                              )
                             ],
                           ),
+
                         ));
                   }),
             ),
