@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/widgets/alert_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -45,7 +46,7 @@ class ProfileScreenState extends State<ProfileScreen> {
             children: [
               Center(
                 child: Container(
-                    height: 240,
+                    height: 250,
                     decoration: BoxDecoration(
                         gradient: LinearGradient(
                             begin: Alignment.topCenter,
@@ -56,10 +57,11 @@ class ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           Padding(padding: EdgeInsets.only(top: 45)),
                           CircleAvatar(
-                            radius: 60.0,
+                            radius: 70.0,
                             child: Image.asset('assets/user_photo.png'),
                             backgroundColor: Colors.transparent,
                           ),
+                          Padding(padding: EdgeInsets.only(top: 20)),
                           Text(
                             'Name user',
                             style: GoogleFonts.poppins(
@@ -68,7 +70,123 @@ class ProfileScreenState extends State<ProfileScreen> {
                         ],
                       ),
                     )),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: Container(
+                    width: 309,
+                    height: 298,
+                    child: Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(top: 30, left: 10),
+                              child: Text("Name: ",
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.black87, fontSize: 18)),
+                            ),
+                            Container(
+                              width: 150,
+                              margin:  EdgeInsets.only(top: 30, left: 10),
+                              decoration: boxDecoration(), //
+                              child: Text(
+                                "Sasha",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black87, fontSize: 18),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(top: 30, left: 10),
+                              child: Text("Surname: ",
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.black87, fontSize: 18)),
+                            ),
+                            Container(
+                              width: 150,
+                              margin:  EdgeInsets.only(top: 30, left: 10),
+                              decoration: boxDecoration(), //
+                              child: Text(
+                                "Taran",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black87, fontSize: 18),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(top: 30, left: 10),
+                              child: Text("Nickname: ",
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.black87, fontSize: 18)),
+                            ),
+                            Container(
+                              width: 150,
+                              margin:  EdgeInsets.only(top: 30, left: 10),
+                              decoration: boxDecoration(), //
+                              child: Text(
+                                "Hanna",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black87, fontSize: 18),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(top: 30, left: 10),
+                              child: Text("Date of birth: ",
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.black87, fontSize: 18)),
+                            ),
+                            Container(
+                              width: 150,
+                              margin:  EdgeInsets.only(top: 30, left: 10),
+                              decoration: boxDecoration(), //
+                              child: Text(
+                                "05.07.2000",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black87, fontSize: 18),
+                              ),
+                            )
+                          ],
+                        ),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
+                            Padding(
+                              padding: EdgeInsets.only(top: 28, left: 10),
+                              child: Text("Account: ",
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.black87, fontSize: 18)),
+                            ),
+                            Container(
+                              width: 150,
+                              margin:  EdgeInsets.only(top: 28, left: 10),
+                              decoration: boxDecoration(), //
+                              child: Text(
+                                "standart",
+                                style: GoogleFonts.poppins(
+                                    color: Colors.black87, fontSize: 18),
+                              ),
+                            )
+                          ],
+                        ),
+                      ],
+                    )),
               )
+
             ],
           ),
         ));

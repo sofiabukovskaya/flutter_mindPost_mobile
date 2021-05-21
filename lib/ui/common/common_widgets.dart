@@ -78,3 +78,14 @@ Widget textField(TextEditingController controller, Icon icon, Color color, Strin
     cursorColor: color,
   );
 }
+
+BoxDecoration boxDecoration() {
+  return BoxDecoration(
+    border: Border(
+      bottom: BorderSide(
+        color: Color(0x4D157C76),
+        width: 2.0,
+      ),
+    ),
+  );
+}
