@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/login_page.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/add_note_page.dart';
 
 import 'package:flutter_mindpost/ui/pages/registration_page/registartion_page.dart';
 import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
@@ -27,6 +28,10 @@ Route routes(RouteSettings routeSettings){
   } else if(routeSettings.name == '/signIn') {
     return ScaleRoute(
         page: LoginPage()
+    );
+  } else if(routeSettings.name == '/addNote') {
+    return ScaleRoute(
+      page: AddNotePage()
     );
   }
   return null;

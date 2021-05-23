@@ -19,6 +19,7 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         actions: [
           IconButton(
               icon: Icon(
@@ -45,6 +46,11 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
               fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black87),
         ),
         centerTitle: true,
+      ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add, color: Colors.white, size: 45.0,),
+        backgroundColor: Color(0xFF157C76),
+        onPressed: () {Navigator.pushNamed(context, '/addNote');},
       ),
       body: SingleChildScrollView(
         child: Column(
