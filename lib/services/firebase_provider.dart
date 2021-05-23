@@ -1,8 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase/firebase_io.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/src/widgets/editable_text.dart';
-import 'package:flutter_mindpost/data/models/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class FirebaseProvider {
@@ -36,5 +33,11 @@ Future signIn(String email, String password) async {
    await firebaseAuth.signOut();
    sharedPreferences.clear();
    sharedPreferences.commit();
+
  }
+
+ Future getUserData() async {
+   return FirebaseFirestore.instance.collection('users').doc((FirebaseAuth.instance.currentUser).uid).get();
+ }
+
 }

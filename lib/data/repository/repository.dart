@@ -5,4 +5,6 @@ abstract class Repository {
   Future signIn(String email, String password);
 
    logout();
+
+   Future getUserData();
 }

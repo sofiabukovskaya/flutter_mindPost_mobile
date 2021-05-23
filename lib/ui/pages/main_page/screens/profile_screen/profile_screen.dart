@@ -1,7 +1,8 @@
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/widgets/alert_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,6 +14,8 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class ProfileScreenState extends State<ProfileScreen> {
+ FirestoreRepository firestoreRepository = FirestoreRepository();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,54 +45,70 @@ class ProfileScreenState extends State<ProfileScreen> {
           ),
           centerTitle: true,
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Center(
-                child: Container(
-                    height: 250,
-                    decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                            begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter,
-                            colors: [Colors.white70, Color(0x33157C76)])),
-                    child: Center(
-                      child: Column(
-                        children: [
-                          Padding(padding: EdgeInsets.only(top: 45)),
-                          CircleAvatar(
-                            radius: 70.0,
-                            child: Image.asset('assets/user_photo.png'),
-                            backgroundColor: Colors.transparent,
-                          ),
-                          Padding(padding: EdgeInsets.only(top: 20)),
-                          Text(
-                            'Name user',
-                            style: GoogleFonts.poppins(
-                                color: Colors.black87, fontSize: 18),
-                          )
-                        ],
-                      ),
-                    )),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 20),
-                child: Container(
-                    width: 309,
-                    height: 298,
-                    child: Column(
-                      children: [
-                        titleList('Name: ', 'Sasha'),
-                        titleList('Surname: ', 'Taran'),
-                        titleList('Nickname: ', 'Hanna'),
-                        titleList('Date of birth: ', '05/07/2000'),
-                        titleList('Account: ', 'standart')
-                      ],
-                    )),
-              )
-            ],
-          ),
-        ));
+        body: FutureBuilder(
+          future: firestoreRepository.getUserData(),
+          builder: (context, snapshot) {
+            if(!snapshot.hasData) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if(snapshot.hasData) {
+              return SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Center(
+                      child: Container(
+                          height: 250,
+                          decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                  colors: [Colors.white70, Color(0x33157C76)])),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                Padding(padding: EdgeInsets.only(top: 45)),
+                                CircleAvatar(
+                                  radius: 70.0,
+                                  child: Image.asset('assets/user_photo.png'),
+                                  backgroundColor: Colors.transparent,
+                                ),
+                                Padding(padding: EdgeInsets.only(top: 20)),
+                                Text(
+                                  '${snapshot.data['name'].toString()}',
+                                  style: GoogleFonts.poppins(
+                                      color: Colors.black87, fontSize: 18),
+                                )
+                              ],
+                            ),
+                          )),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 20),
+                      child: Container(
+                          width: 309,
+                          height: 298,
+                          child: Column(
+                            children: [
+                              titleList('Name: ', '${snapshot.data['name'].toString()}'),
+                              titleList('Surname: ', '${snapshot.data['surname'].toString()}'),
+                              titleList('Nickname: ', '${snapshot.data['nickname'].toString()}'),
+                              titleList('Date of birth: ', '${snapshot.data['birthday'].toString()}'),
+                              titleList('Account: ', '${snapshot.data['account_type'].toString()}')
+                            ],
+                          )),
+                    )
+                  ],
+                ),
+              );
+            }
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
+        )
+
+        );
   }
 }
 Widget titleList(String labelText, String item) {

@@ -14,7 +14,10 @@ class PersonalNotesScreen extends StatefulWidget {
 
 class PersonalNotesScreenState extends State<PersonalNotesScreen> {
   TextEditingController searchController = TextEditingController();
-
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
