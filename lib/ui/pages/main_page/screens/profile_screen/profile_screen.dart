@@ -78,117 +78,39 @@ class ProfileScreenState extends State<ProfileScreen> {
                     height: 298,
                     child: Column(
                       children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(top: 30, left: 10),
-                              child: Text("Name: ",
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black87, fontSize: 18)),
-                            ),
-                            Container(
-                              width: 150,
-                              margin:  EdgeInsets.only(top: 30, left: 10),
-                              decoration: boxDecoration(), //
-                              child: Text(
-                                "Sasha",
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black87, fontSize: 18),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(top: 30, left: 10),
-                              child: Text("Surname: ",
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black87, fontSize: 18)),
-                            ),
-                            Container(
-                              width: 150,
-                              margin:  EdgeInsets.only(top: 30, left: 10),
-                              decoration: boxDecoration(), //
-                              child: Text(
-                                "Taran",
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black87, fontSize: 18),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(top: 30, left: 10),
-                              child: Text("Nickname: ",
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black87, fontSize: 18)),
-                            ),
-                            Container(
-                              width: 150,
-                              margin:  EdgeInsets.only(top: 30, left: 10),
-                              decoration: boxDecoration(), //
-                              child: Text(
-                                "Hanna",
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black87, fontSize: 18),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(top: 30, left: 10),
-                              child: Text("Date of birth: ",
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black87, fontSize: 18)),
-                            ),
-                            Container(
-                              width: 150,
-                              margin:  EdgeInsets.only(top: 30, left: 10),
-                              decoration: boxDecoration(), //
-                              child: Text(
-                                "05.07.2000",
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black87, fontSize: 18),
-                              ),
-                            )
-                          ],
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            Padding(
-                              padding: EdgeInsets.only(top: 28, left: 10),
-                              child: Text("Account: ",
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black87, fontSize: 18)),
-                            ),
-                            Container(
-                              width: 150,
-                              margin:  EdgeInsets.only(top: 28, left: 10),
-                              decoration: boxDecoration(), //
-                              child: Text(
-                                "standart",
-                                style: GoogleFonts.poppins(
-                                    color: Colors.black87, fontSize: 18),
-                              ),
-                            )
-                          ],
-                        ),
+                        titleList('Name: ', 'Sasha'),
+                        titleList('Surname: ', 'Taran'),
+                        titleList('Nickname: ', 'Hanna'),
+                        titleList('Date of birth: ', '05/07/2000'),
+                        titleList('Account: ', 'standart')
                       ],
                     )),
               )
-
             ],
           ),
         ));
   }
+}
+Widget titleList(String labelText, String item) {
+  return Row(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: <Widget>[
+      Padding(
+        padding: EdgeInsets.only(top: 28, left: 10),
+        child: Text(labelText,
+            style: GoogleFonts.poppins(
+                color: Colors.black87, fontSize: 18)),
+      ),
+      Container(
+        width: 150,
+        margin: EdgeInsets.only(top: 28, left: 10),
+        decoration: boxDecoration(), //
+        child: Text(
+          item,
+          style: GoogleFonts.poppins(
+              color: Colors.black87, fontSize: 18),
+        ),
+      )
+    ],
+  );
 }

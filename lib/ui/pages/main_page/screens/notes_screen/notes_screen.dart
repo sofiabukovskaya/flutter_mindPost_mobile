@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/widgets/alert_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -13,6 +14,7 @@ class NotesScreen extends StatefulWidget {
 }
 
 class NotesScreenState extends State<NotesScreen> {
+  TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,9 +46,17 @@ class NotesScreenState extends State<NotesScreen> {
         ),
         centerTitle: true,
       ),
-      body: Center(
-        child: Text('Notes  screen'),
-      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+                padding: EdgeInsets.only(top: 15, left: 10, right: 10),
+                child: textField(searchController, Icon(Icons.search),
+                    Color(0x1A008B83), 'Search by title')),
+
+          ],
+        ),
+      )
     );
   }
 }
