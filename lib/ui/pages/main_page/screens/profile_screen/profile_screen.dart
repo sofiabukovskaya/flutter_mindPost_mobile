@@ -50,7 +50,9 @@ class ProfileScreenState extends State<ProfileScreen> {
           builder: (context, snapshot) {
             if(!snapshot.hasData) {
               return Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                ),
               );
             } else if(snapshot.hasData) {
               return SingleChildScrollView(

@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AddNotePage extends StatefulWidget {
@@ -37,46 +38,54 @@ class AddNotePageState extends State<AddNotePage> {
       body: Column(children: [
         Center(
             child: Padding(
-          padding: EdgeInsets.only(top: 10, left: 85, right: 85),
-          child: TextField(
-            style: GoogleFonts.poppins(
-                fontSize: 20.0,
-                color: Color(0xFF00847c),
-                fontWeight: FontWeight.w600),
-            textAlign: TextAlign.center,
-            decoration: InputDecoration(
-              hintText: 'Title',
-              hintStyle: GoogleFonts.poppins(
-                  textStyle: TextStyle(
-                      color: Color(0x4D00847c),
-                      fontSize: 20.0,
-                      fontWeight: FontWeight.w600)),
-            ),
-          ),
-        )),
-        Container(
-            child: Padding(
-          padding: EdgeInsets.only(top: 20),
-          child: TextField(
-            autofocus: false,
-            maxLength: 500,
-            style: GoogleFonts.poppins(
-                fontSize: 18.0,
-                color: Colors.black54,
-                fontWeight: FontWeight.w300),
-            decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Write about your day thoughts, day, desires...',
-                hintStyle: GoogleFonts.poppins(
-                    textStyle: TextStyle(
-                        color: Color(0x4D00847c),
-                        fontSize: 20.0,
-                        fontWeight: FontWeight.w600)),
-                isDense: true,
-                contentPadding:
-                    EdgeInsets.only(left: 30, bottom: 30, right: 40)),
-          ),
-        )),
+              padding: EdgeInsets.only(top: 10, left: 85, right: 85, bottom: 15),
+              child: TextField(
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(500),
+                ],
+                style: GoogleFonts.poppins(
+                    fontSize: 20.0,
+                    color: Color(0xFF00847c),
+                    fontWeight: FontWeight.w600),
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  counterText: '',
+                  hintText: 'Title',
+                  hintStyle: GoogleFonts.poppins(
+                      textStyle: TextStyle(
+                          color: Color(0x4D00847c),
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w600)),
+                ),
+              ),
+            )),
+        SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: SizedBox(
+                width: 350,
+                height: 300,
+                child: TextField(
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 300,
+                  maxLength: 500,
+                  style: GoogleFonts.poppins(
+                      fontSize: 18.0,
+                      color: Colors.black54,
+                      fontWeight: FontWeight.w300),
+                  decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      hintText: 'Write about your day thoughts, day, desires...',
+                      hintStyle: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                              color: Color(0x4D00847c),
+                              fontSize: 20.0,
+                              fontWeight: FontWeight.w600)),
+                      isDense: true,
+                      contentPadding:
+                      EdgeInsets.symmetric(vertical: 25, horizontal: 10.0)),
+                ),
+            )
+        ),
       ]),
     );
   }
