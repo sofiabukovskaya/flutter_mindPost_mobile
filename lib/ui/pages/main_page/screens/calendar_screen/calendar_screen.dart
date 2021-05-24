@@ -17,6 +17,7 @@ class CalendarScreenState extends State<CalendarScreen> {
   CalendarFormat format = CalendarFormat.month;
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
+  TimeOfDay time = TimeOfDay.now();
 
   TextEditingController _eventController = TextEditingController();
 
@@ -25,7 +26,12 @@ class CalendarScreenState extends State<CalendarScreen> {
     selectedEvents = {};
     super.initState();
   }
-
+    Future selectTime()async {
+      final TimeOfDay pickedTime = await showTimePicker(context: context, initialTime: time);
+      setState(() {
+        time = pickedTime;
+      });
+    }
   List<Event> getEventsFromDay(DateTime date) {
     return selectedEvents[date] ?? [];
   }
@@ -40,6 +46,7 @@ class CalendarScreenState extends State<CalendarScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white38,
         elevation: 0,
       ),
@@ -76,7 +83,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                 calendarStyle: CalendarStyle(
                   isTodayHighlighted: true,
                   selectedDecoration: BoxDecoration(
-                    color: Colors.blue,
+                    color: Colors.teal[200],
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(5.0),
                   ),
@@ -109,11 +116,18 @@ class CalendarScreenState extends State<CalendarScreen> {
                 ),
               ),
               ...getEventsFromDay(selectedDay).map(
-                (Event event) => ListTile(
-                  title: Text(
-                    event.title,
+                (Event event) =>  ListTile(
+                  subtitle: Text(
+                    '${time.hour.toString()} : ${time.minute.toString()}',
+                      style: GoogleFonts.poppins(
+                      fontSize: 14, fontWeight: FontWeight.w400),
                   ),
-                ),
+                    title: Text(
+                      event.title,
+                      style: GoogleFonts.poppins(
+                          fontSize: 18, fontWeight: FontWeight.w400),
+                    ),
+                  ),
               ),
             ],
           ),
@@ -158,9 +172,8 @@ class CalendarScreenState extends State<CalendarScreen> {
                     }
                   }
                   Navigator.pop(context);
+                  selectTime();
                   _eventController.clear();
-                  setState(() {});
-                  return;
                 },
               ),
             ],
