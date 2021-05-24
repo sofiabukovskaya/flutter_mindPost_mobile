@@ -1,6 +1,8 @@
 import 'dart:io';
 import 'dart:ui';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
 import 'package:flutter/cupertino.dart';
@@ -18,12 +20,26 @@ class AddNotePage extends StatefulWidget {
 class AddNotePageState extends State<AddNotePage> {
   File _image;
   String _uploadedFileUrl;
+  bool switched = false;
+  Icon lockedIcon;
 
   Future<void> _pickImage(ImageSource source) async {
     File selected = await ImagePicker.pickImage(source: source);
     setState(() {
       _image = selected;
     });
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    lockedIcon = Icon(
+      Icons.lock_outline,
+      color: Colors.black54,
+      size: 30,
+    );
   }
 
   @override
@@ -99,7 +115,7 @@ class AddNotePageState extends State<AddNotePage> {
               ),
             )),
         Padding(
-          padding: EdgeInsets.only(top: 10, left: 120, right: 90),
+          padding: EdgeInsets.only(left: 120, right: 90),
           child: Row(
             children: [
               Text(
@@ -117,26 +133,108 @@ class AddNotePageState extends State<AddNotePage> {
             ],
           ),
         ),
-        _image == null ?
-          Padding(
-            padding: EdgeInsets.only(top: 10),
-            child: Container(
-              color: Colors.grey,
-              height: 130,
-              width: 180,
-              child: GestureDetector(
-                child: Image.asset(
-                  'assets/camera.png',
-                  color: Colors.white,
+        _image == null
+            ? Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: Container(
+                  color: Colors.grey,
+                  height: 130,
+                  width: 180,
+                  child: GestureDetector(
+                    child: Image.asset(
+                      'assets/camera.png',
+                      color: Colors.white,
+                    ),
+                  ),
                 ),
+              )
+            : GestureDetector(
+                onLongPress: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) => AlertDialog(
+                            title: Text('Delete picture'),
+                            content: Text('Do you wanna delete a picture?'),
+                            actions: [
+                              FlatButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    'No',
+                                    style: TextStyle(color: Colors.red),
+                                  )),
+                              FlatButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      _image = null;
+                                    });
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    'Yes',
+                                    style: TextStyle(color: Colors.black87),
+                                  ))
+                            ],
+                            elevation: 8.0,
+                          ));
+                },
+                child: Container(
+                    alignment: Alignment.center,
+                    child: Image.file(
+                      _image,
+                      height: 130,
+                      width: 180,
+                      fit: BoxFit.fill,
+                    ))),
+        Padding(
+          padding: EdgeInsets.only(top: 15, bottom: 10),
+          child: Text(
+            'Privacy setting',
+            style:
+                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w400),
+          ),
+        ),
+        Row(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: 10, left: 40),
+              child: lockedIcon,
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10, left: 10),
+              child: Text(
+                'Public note',
+                style: GoogleFonts.poppins(
+                    fontSize: 18, fontWeight: FontWeight.w300),
               ),
             ),
-          ) : Container(
-          alignment: Alignment.center,
-          child: Image.file(_image, height: 130, width: 180, fit: BoxFit.fill,)
+            Padding(
+                padding: EdgeInsets.only(left: 150, top: 12),
+                child: Transform.scale(
+                  scale: 0.8,
+                  child: CupertinoSwitch(
+                      value: switched,
+                      onChanged: (value) {
+                        setState(() {
+                          switched = value;
+                          switched == false
+                              ? lockedIcon = Icon(
+                                  Icons.lock_outline,
+                                  color: Colors.black54,
+                                  size: 30,
+                                )
+                              : lockedIcon = Icon(
+                                  Icons.lock_open_sharp,
+                                  color: Colors.black54,
+                                  size: 30,
+                                );
+                        });
+                      }),
+                ))
+          ],
         )
-      ]
-      ),
+      ]),
     );
   }
 }
