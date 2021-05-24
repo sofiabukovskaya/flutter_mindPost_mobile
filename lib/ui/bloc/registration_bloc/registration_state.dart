@@ -17,4 +17,4 @@ class RegistrationSuccessState extends RegistrationState {}
 
 class RegistrationFailureState extends RegistrationState{}
 class RegistrationOpenPageState extends RegistrationState{}
-
+class RegistrationInternetFailConnection extends RegistrationState{}
