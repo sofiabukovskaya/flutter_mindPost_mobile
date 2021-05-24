@@ -16,7 +16,7 @@ class FirebaseProvider {
   FirebaseFirestore.instance.collection('notes');
 
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  List<String> notesId = [ ];
+  List<String> notesId = [];
 
   Future<String> currentUserId() async {
     User user = firebaseAuth.currentUser;
@@ -64,6 +64,14 @@ class FirebaseProvider {
         (FirebaseAuth.instance.currentUser).uid).get();
   }
 
+   getPublicNotes()  {
+    return FirebaseFirestore.instance.collection('notes').where('public', isEqualTo: true).snapshots();
+    //     query) => query.docs.forEach((document) {
+    //   print(document.data().toString());
+    //   Map<String, dynamic> json = document.data();
+    // }));
+  }
+
   addDataNote(String title, String description, String uploadedFileUrl,
       bool switched, String dateformat) async {
     await currentUserId().then((String result) => userId = result);
@@ -80,7 +88,7 @@ class FirebaseProvider {
       'dislike': 0
     }).then((doc) =>
         collectionReference.doc(userId).update({
-        'notes': FieldValue.arrayUnion(notesId)
+          'notes': FieldValue.arrayUnion(notesId)
         }));
   }
 

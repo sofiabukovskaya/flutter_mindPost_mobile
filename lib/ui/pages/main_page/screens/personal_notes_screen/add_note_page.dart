@@ -72,8 +72,9 @@ class AddNotePageState extends State<AddNotePage> {
             color: Color(0xFF00847c),
             iconSize: 30.0,
             onPressed: () async {
-              await note.add(Note(titleNote.text.toString(), descriptionNote.text.toString(), uploadedFileUrl, switched,
-                   dateformat));
+              await Center(
+                child: CircularProgressIndicator(),
+              );
               await firestoreRepository.addDataNote(titleNote.text.toString(), descriptionNote.text.toString(), uploadedFileUrl, switched,
                   dateformat);
              await firestoreRepository.uploadImage(image, uploadedFileUrl);
@@ -85,7 +86,7 @@ class AddNotePageState extends State<AddNotePage> {
           children: [
         Center(
             child: Padding(
-          padding: EdgeInsets.only(top: 10, left: 85, right: 85, bottom: 15),
+          padding: EdgeInsets.only(top: 10, left: 85, right: 85),
           child: TextField(
             controller: titleNote,
             inputFormatters: [

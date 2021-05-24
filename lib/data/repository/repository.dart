@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_mindpost/data/models/note.dart';
 
 abstract class Repository {
@@ -16,5 +17,6 @@ abstract class Repository {
 
     Future uploadImage(File image, String uploadedFileUrl);
 
+  Stream<QuerySnapshot> getPublicNotes();
   // Future<String> getUserId();
 }
