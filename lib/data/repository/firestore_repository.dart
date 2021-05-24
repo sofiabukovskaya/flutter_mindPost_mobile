@@ -22,7 +22,7 @@ class FirestoreRepository implements Repository {
   Future getUserData() async => await firebaseProvider.getUserData();
 
   @override
-  addDataNote(List<Note> note) async => await firebaseProvider.addDataNote(note);
+  addDataNote(String title, String description, String uploadedFileUrl, bool switched, String dateformat) async => await firebaseProvider.addDataNote(title, description, uploadedFileUrl, switched, dateformat);
 
   @override
    Future uploadImage(File image, String uploadedFileUrl) async => await firebaseProvider.uploadImage(image, uploadedFileUrl);

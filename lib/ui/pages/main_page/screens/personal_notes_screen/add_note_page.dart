@@ -74,7 +74,8 @@ class AddNotePageState extends State<AddNotePage> {
             onPressed: () async {
               await note.add(Note(titleNote.text.toString(), descriptionNote.text.toString(), uploadedFileUrl, switched,
                    dateformat));
-              await firestoreRepository.addDataNote(note);
+              await firestoreRepository.addDataNote(titleNote.text.toString(), descriptionNote.text.toString(), uploadedFileUrl, switched,
+                  dateformat);
              await firestoreRepository.uploadImage(image, uploadedFileUrl);
             },
           )

@@ -12,7 +12,7 @@ abstract class Repository {
 
    Future getUserData();
 
-   addDataNote(List<Note> note);
+   addDataNote(String title, String description, String uploadedFileUrl, bool switched, String dateformat);
 
     Future uploadImage(File image, String uploadedFileUrl);
 
