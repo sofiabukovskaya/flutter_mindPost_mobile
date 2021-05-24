@@ -3,6 +3,8 @@ import 'dart:ui';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
 import 'package:flutter/cupertino.dart';
@@ -18,17 +20,20 @@ class AddNotePage extends StatefulWidget {
 }
 
 class AddNotePageState extends State<AddNotePage> {
-  File _image;
-  String _uploadedFileUrl;
+  FirestoreRepository firestoreRepository = FirestoreRepository();
+
+  File image;
+  String uploadedFileUrl;
   bool switched = false;
   Icon lockedIcon;
 
   Future<void> _pickImage(ImageSource source) async {
     File selected = await ImagePicker.pickImage(source: source);
     setState(() {
-      _image = selected;
+      image = selected;
     });
   }
+
 
   @override
   void initState() {
@@ -60,7 +65,9 @@ class AddNotePageState extends State<AddNotePage> {
             icon: Icon(Icons.check),
             color: Color(0xFF00847c),
             iconSize: 30.0,
-            onPressed: () {},
+            onPressed: () {
+             firestoreRepository.uploadImage(image, uploadedFileUrl);
+            },
           )
         ],
       ),
@@ -133,7 +140,7 @@ class AddNotePageState extends State<AddNotePage> {
             ],
           ),
         ),
-        _image == null
+        image == null
             ? Padding(
                 padding: EdgeInsets.only(top: 10),
                 child: Container(
@@ -167,7 +174,7 @@ class AddNotePageState extends State<AddNotePage> {
                               FlatButton(
                                   onPressed: () {
                                     setState(() {
-                                      _image = null;
+                                      image = null;
                                     });
                                     Navigator.pop(context);
                                   },
@@ -182,7 +189,7 @@ class AddNotePageState extends State<AddNotePage> {
                 child: Container(
                     alignment: Alignment.center,
                     child: Image.file(
-                      _image,
+                      image,
                       height: 130,
                       width: 180,
                       fit: BoxFit.fill,

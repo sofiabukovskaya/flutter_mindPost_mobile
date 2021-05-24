@@ -1,6 +1,12 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:path/path.dart' as Path;
 
 class FirebaseProvider {
   final CollectionReference collectionReference =
@@ -39,5 +45,18 @@ Future signIn(String email, String password) async {
  Future getUserData() async {
    return FirebaseFirestore.instance.collection('users').doc((FirebaseAuth.instance.currentUser).uid).get();
  }
+
+  addDataNote() {
+
+  }
+
+  Future uploadImage(File image, String uploadedFileUrl) async{
+   Reference storageReference = FirebaseStorage.instance.ref().child('notesPhoto/${Path.basename(image.path)}}');
+   UploadTask uploadTask = storageReference.putFile(image);
+   await uploadTask.whenComplete(() => print('Uploaded'));
+   storageReference.getDownloadURL().then((fileUrl) => {
+
+   });
+  }
 
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 abstract class Repository {
   void signUp(String name, String surname, String nickname, String email,
       String birthday, String phone, String password);
@@ -7,4 +9,8 @@ abstract class Repository {
    logout();
 
    Future getUserData();
+
+   addDataNote();
+
+    Future uploadImage(File image, String uploadedFileUrl);
 }
