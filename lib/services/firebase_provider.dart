@@ -57,16 +57,23 @@ Future signIn(String email, String password) async {
  }
 
   addDataNote(List<Note> note) async {
-      await collectionReferenceNotes.doc('ddddd').set({
-            'title': 'dfdfd',
-            'description': 'dfdfd',
-            'photoUrl' : 'dfdfd',
-            'public' : 'dfdfd',
-            'date_of_publish': 'dfdfd',
-            'userId': collectionReference.id.toString()
-      }).then((userId) => collectionReference.doc().update({
-        'notes': collectionReferenceNotes.id.toString()
-      }));
+      // await collectionReferenceNotes.doc('ddddd').set({
+      //       'title': 'dfdfd',
+      //       'description': 'dfdfd',
+      //       'photoUrl' : 'dfdfd',
+      //       'public' : 'dfdfd',
+      //       'date_of_publish': 'dfdfd',
+      //       'userId': collectionReference.id.toString()
+      // }).then((userId) => collectionReference.doc().update({
+      //   'notes': collectionReferenceNotes.id.toString()
+      // }));
+    await collectionReferenceNotes.add({
+            for(Note note in note) {
+              'title' : note.title,
+              'description' : note.description,
+
+            }
+    });
   }
 
   Future uploadImage(File image, String uploadedFileUrl) async{
