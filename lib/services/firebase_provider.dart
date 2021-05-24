@@ -16,7 +16,7 @@ class FirebaseProvider {
   FirebaseFirestore.instance.collection('notes');
 
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  List<String> notesId = [];
+  List<String> notesId = [ ];
 
   Future<String> currentUserId() async {
     User user = firebaseAuth.currentUser;
