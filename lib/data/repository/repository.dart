@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:flutter_mindpost/data/models/note.dart';
+
 abstract class Repository {
   void signUp(String name, String surname, String nickname, String email,
       String birthday, String phone, String password);
@@ -10,7 +12,9 @@ abstract class Repository {
 
    Future getUserData();
 
-   addDataNote();
+   addDataNote(List<Note> note);
 
     Future uploadImage(File image, String uploadedFileUrl);
+
+  // Future<String> getUserId();
 }

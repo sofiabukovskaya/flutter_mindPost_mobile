@@ -3,11 +3,13 @@ import 'dart:ui';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_mindpost/data/models/note.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
 import 'package:flutter/cupertino.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,15 +23,20 @@ class AddNotePage extends StatefulWidget {
 
 class AddNotePageState extends State<AddNotePage> {
   FirestoreRepository firestoreRepository = FirestoreRepository();
-
+  String dateformat = DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
+  List<Note> note = [];
+  final TextEditingController titleNote = TextEditingController();
+  final TextEditingController descriptionNote = TextEditingController();
   File image;
   String uploadedFileUrl;
+
   bool switched = false;
   Icon lockedIcon;
 
   Future<void> _pickImage(ImageSource source) async {
     File selected = await ImagePicker.pickImage(source: source);
     setState(() {
+
       image = selected;
     });
   }
@@ -39,7 +46,6 @@ class AddNotePageState extends State<AddNotePage> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
     lockedIcon = Icon(
       Icons.lock_outline,
       color: Colors.black54,
@@ -65,17 +71,22 @@ class AddNotePageState extends State<AddNotePage> {
             icon: Icon(Icons.check),
             color: Color(0xFF00847c),
             iconSize: 30.0,
-            onPressed: () {
-             firestoreRepository.uploadImage(image, uploadedFileUrl);
+            onPressed: () async {
+              await note.add(Note(titleNote.text.toString(), descriptionNote.text.toString(), uploadedFileUrl, switched,
+                   dateformat));
+              await firestoreRepository.addDataNote(note);
+             await firestoreRepository.uploadImage(image, uploadedFileUrl);
             },
           )
         ],
       ),
-      body: Column(children: [
+      body: Column(
+          children: [
         Center(
             child: Padding(
           padding: EdgeInsets.only(top: 10, left: 85, right: 85, bottom: 15),
           child: TextField(
+            controller: titleNote,
             inputFormatters: [
               LengthLimitingTextInputFormatter(500),
             ],
@@ -101,6 +112,7 @@ class AddNotePageState extends State<AddNotePage> {
               width: 350,
               height: 250,
               child: TextField(
+                controller: descriptionNote,
                 keyboardType: TextInputType.multiline,
                 maxLines: 250,
                 maxLength: 500,

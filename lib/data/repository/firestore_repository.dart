@@ -1,6 +1,7 @@
 
 import 'dart:io';
 
+import 'package:flutter_mindpost/data/models/note.dart';
 import 'package:flutter_mindpost/data/repository/repository.dart';
 import 'package:flutter_mindpost/services/firebase_provider.dart';
 
@@ -21,10 +22,13 @@ class FirestoreRepository implements Repository {
   Future getUserData() async => await firebaseProvider.getUserData();
 
   @override
-  addDataNote() async => await firebaseProvider.addDataNote();
+  addDataNote(List<Note> note) async => await firebaseProvider.addDataNote(note);
 
   @override
    Future uploadImage(File image, String uploadedFileUrl) async => await firebaseProvider.uploadImage(image, uploadedFileUrl);
+
+  // @override
+  // Future<String> getUserId() => firebaseProvider.currentUserId();
 
 
 }

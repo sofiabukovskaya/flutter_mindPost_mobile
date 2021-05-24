@@ -106,7 +106,8 @@ class RegistrationFormState extends State<RegistrationForm> {
                           Padding(
                             padding: EdgeInsets.only(top: 14.0),
                             child:
-                                passwordFormField(context, passwordController, passwordVisible, (){setState(() {
+                                passwordFormField(context, passwordController, passwordVisible, (){
+                                  setState(() {
                                   passwordVisible =!passwordVisible;
                                 });}),
                           ),
