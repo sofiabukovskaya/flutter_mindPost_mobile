@@ -57,7 +57,7 @@ Future signIn(String email, String password) async {
  }
 
   addDataNote(List<Note> note) async {
-      await collectionReferenceNotes.doc('ddddd').set());
+
   }
 
   delete(){
