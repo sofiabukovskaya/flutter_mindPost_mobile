@@ -10,3 +10,5 @@ class SignInEvent extends LoginEvent {
   SignInEvent(this.email, this.password);
 
 }
+
+class LogoutEvent extends LoginEvent {}
