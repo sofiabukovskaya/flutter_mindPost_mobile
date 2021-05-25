@@ -14,7 +14,6 @@ class App extends StatelessWidget {
      theme:  ThemeData(primaryColor: Colors.green),
      initialRoute: '/',
      onGenerateRoute: routes,
-     // home: SplashScreen(),
      supportedLocales: [
        Locale('en', 'US'),
        Locale('uk', ''),

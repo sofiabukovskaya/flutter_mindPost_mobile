@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mindpost/data/models/event.dart';
-import 'package:flutter_mindpost/services/calendar_service.dart';
+import 'file:///D:/Work%20InternShip/flutter_mindPost/flutter_mindpost/lib/services/api/calendar_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:table_calendar/table_calendar.dart';
 

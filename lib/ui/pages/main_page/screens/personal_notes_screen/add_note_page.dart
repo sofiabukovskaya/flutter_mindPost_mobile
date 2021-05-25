@@ -35,7 +35,6 @@ class AddNotePageState extends State<AddNotePage> {
   Future<void> _pickImage(ImageSource source) async {
     File selected = await ImagePicker.pickImage(source: source);
     setState(() {
-
       image = selected;
     });
   }
@@ -78,6 +77,14 @@ class AddNotePageState extends State<AddNotePage> {
                   dateformat);
              await firestoreRepository.uploadImage(image, uploadedFileUrl);
             },
+          ),
+          IconButton(
+            icon: Icon(Icons.scatter_plot),
+            color: Color(0xFF00847c),
+            iconSize: 30.0,
+            onPressed: () {
+              Navigator.pushNamed(context, '/scanImage');
+    }
           )
         ],
       ),
@@ -137,7 +144,7 @@ class AddNotePageState extends State<AddNotePage> {
                       ),
                     )),
                 Padding(
-                  padding: EdgeInsets.only(left: 120, right: 90),
+                  padding: EdgeInsets.only(left: 100, right: 90),
                   child: Row(
                     children: [
                       Text(
