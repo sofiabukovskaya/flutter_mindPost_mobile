@@ -18,7 +18,7 @@ class CalendarScreenState extends State<CalendarScreen> {
   DateTime selectedDay = DateTime.now();
   DateTime focusedDay = DateTime.now();
   TimeOfDay time = TimeOfDay.now();
-
+  String printTime;
   TextEditingController _eventController = TextEditingController();
 
   @override
@@ -41,6 +41,7 @@ class CalendarScreenState extends State<CalendarScreen> {
       });
       setState(() {
         time = pickedTime;
+        printTime = time.format(context);
       });
     }
   List<Event> getEventsFromDay(DateTime date) {
@@ -126,7 +127,7 @@ class CalendarScreenState extends State<CalendarScreen> {
               ...getEventsFromDay(selectedDay).map(
                 (Event event) =>  ListTile(
                   subtitle: Text(
-                    '${time.hour.toString()} : ${time.minute.toString()}',
+                    '$printTime',
                       style: GoogleFonts.poppins(
                       fontSize: 14, fontWeight: FontWeight.w400),
                   ),

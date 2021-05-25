@@ -21,3 +21,5 @@ class Submitted extends RegistrationEvent {
 
 class GoogleButtonIsPressed extends RegistrationEvent {}
 class FacebookButtonIsPressed extends RegistrationEvent {}
+
+class ButtonIsPressed extends RegistrationEvent {}
