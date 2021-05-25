@@ -6,6 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_mindpost/data/models/note.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_notes_screen.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as Path;
 import 'package:flutter/cupertino.dart';
@@ -70,12 +71,14 @@ class AddNotePageState extends State<AddNotePage> {
             color: Color(0xFF00847c),
             iconSize: 30.0,
             onPressed: () async {
+             await Navigator.pop(context);
               await Center(
                 child: CircularProgressIndicator(),
               );
               await firestoreRepository.addDataNote(titleNote.text.toString(), descriptionNote.text.toString(), uploadedFileUrl, switched,
                   dateformat);
              await firestoreRepository.uploadImage(image, uploadedFileUrl);
+
             },
           ),
           IconButton(

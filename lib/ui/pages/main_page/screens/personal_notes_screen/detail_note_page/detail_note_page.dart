@@ -1,6 +1,8 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_notes_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class DetailNotePage extends StatefulWidget {
@@ -18,10 +20,11 @@ class DetailNotePageState extends State<DetailNotePage> {
   TextEditingController controller_text = TextEditingController();
   TextEditingController controller_desc = TextEditingController();
   final CollectionReference collectionReferenceNotes =
-  FirebaseFirestore.instance.collection('notes');
+      FirebaseFirestore.instance.collection('notes');
 
-  String title ='';
+  String title = '';
   String description = '';
+
   @override
   void initState() {
     // TODO: implement initState
@@ -29,6 +32,7 @@ class DetailNotePageState extends State<DetailNotePage> {
     title = widget.snapshot.get('title').toString();
     description = widget.snapshot.get('description').toString();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,33 +81,77 @@ class DetailNotePageState extends State<DetailNotePage> {
                 color: Colors.teal[200],
                 child: Icon(Icons.edit),
                 onPressed: () {
-                  showDialog(context: context, builder: (context) {
-                    return AlertDialog(
-                      title: Text('Change info'),
-                      content: Form(
-                        child: Column(
-                          children: [
-                            TextFormField(
-                              controller: controller_text,
-                              keyboardType: TextInputType.name,
-                              decoration: InputDecoration(
-                                labelText: 'Title:',
-                                hintText: '$title',
+                  showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: Text('Change info'),
+                          content: Form(
+                              child: Column(
+                            children: [
+                              TextFormField(
+                                controller: controller_text,
+                                keyboardType: TextInputType.name,
+                                decoration: InputDecoration(
+                                  labelText: 'Title:',
+                                  hintText: '$title',
+                                ),
+                                onSaved: (String artistValue) {},
                               ),
-                              onSaved: (String artistValue) {},
-                            ),
-                            TextFormField(
-                              controller: controller_desc,
-                              keyboardType: TextInputType.name,
-                              decoration: InputDecoration(
-                                labelText: 'Description:',
-                                hintText: '$description',
+                              TextFormField(
+                                controller: controller_desc,
+                                keyboardType: TextInputType.name,
+                                decoration: InputDecoration(
+                                  labelText: 'Description:',
+                                  hintText: '$description',
+                                ),
+                                onSaved: (String artistValue) {},
                               ),
-                              onSaved: (String artistValue) {},
-                            ),
+                            ],
+                          )),
+                          actions: [
+                            FlatButton(
+                                child: Text('NO'),
+                                onPressed: () {
+                                  Navigator.of(context).pop(false);
+                                }),
+                            FlatButton(
+                                child: Text('YES'),
+                                onPressed: () {
+                                  setState(() {
+                                    title = controller_text.text;
+                                    description = controller_desc.text;
+                                  });
+                                  collectionReferenceNotes
+                                      .doc('${widget.snapshot.id}')
+                                      .update({
+                                    'title': controller_text.text.isNotEmpty
+                                        ? controller_text.text
+                                        : title,
+                                    'description': controller_desc.text == ''
+                                        ? controller_desc.text
+                                        : description
+                                  }).then((value) => Scaffold.of(context)
+                                          .showSnackBar(SnackBar(
+                                              content: Text(
+                                                  "Update ${widget.snapshot.get('title').toString()}"))));
+                                  Navigator.of(context).pop(true);
+                                }),
                           ],
-                        )
-                      ),
+                        );
+                      });
+                },
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 10),
+              child: FlatButton(
+                color: Colors.red[400],
+                child: Icon(Icons.delete),
+                onPressed: () {
+                  showDialog(context: context, builder: (context){
+                    return AlertDialog(
+                      title: Text('Delete a note'),
                       actions: [
                         FlatButton(
                             child: Text('NO'),
@@ -113,18 +161,12 @@ class DetailNotePageState extends State<DetailNotePage> {
                         FlatButton(
                             child: Text('YES'),
                             onPressed: () {
-                              setState(() {
-                                title = controller_text.text;
-                                description = controller_desc.text;
-                              });
-                           collectionReferenceNotes.doc('${widget.snapshot.id}').update({
-                             'title': controller_text.text.isNotEmpty? controller_text.text : title,
-                             'description' : controller_desc.text==''? controller_desc.text : description
-                           })  .then((value) =>
-                                  Scaffold.of(context).showSnackBar(SnackBar(
-                                      content:
-                                      Text("Update ${widget.snapshot.get('title').toString()}"))));
-                              Navigator.of(context).pop(true);
+                              collectionReferenceNotes
+                                  .doc('${widget.snapshot.id}').delete().then((value) => Scaffold.of(context)
+                                  .showSnackBar(SnackBar(
+                                  content: Text(
+                                      "Note delete"))) );
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=> PersonalNotesScreen()));
                             }),
                       ],
                     );
