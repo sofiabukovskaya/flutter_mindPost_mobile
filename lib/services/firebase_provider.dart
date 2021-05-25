@@ -66,13 +66,9 @@ class FirebaseProvider {
 
    getPublicNotes()  {
     return FirebaseFirestore.instance.collection('notes').where('public', isEqualTo: true).snapshots();
-    //     query) => query.docs.forEach((document) {
-    //   print(document.data().toString());
-    //   Map<String, dynamic> json = document.data();
-    // }));
   }
 
-  addDataNote(String title, String description, String uploadedFileUrl,
+  void addDataNote(String title, String description, String uploadedFileUrl,
       bool switched, String dateformat) async {
     await currentUserId().then((String result) => userId = result);
     DocumentReference documentReference = collectionReferenceNotes.doc();

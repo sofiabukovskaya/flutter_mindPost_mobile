@@ -17,6 +17,7 @@ abstract class Repository {
 
     Future uploadImage(File image, String uploadedFileUrl);
 
-  Stream<QuerySnapshot> getPublicNotes();
-  // Future<String> getUserId();
+    Stream<QuerySnapshot> getPublicNotes();
+
+
 }

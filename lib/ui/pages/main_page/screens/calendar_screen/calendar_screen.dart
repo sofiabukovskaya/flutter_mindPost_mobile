@@ -27,7 +27,18 @@ class CalendarScreenState extends State<CalendarScreen> {
     super.initState();
   }
     Future selectTime()async {
-      final TimeOfDay pickedTime = await showTimePicker(context: context, initialTime: time);
+      final TimeOfDay pickedTime = await showTimePicker(context: context, initialTime: time, builder: (context, Widget child){
+        return Theme(
+          data: ThemeData.light().copyWith(
+            primaryColor: Colors.teal,
+            accentColor: Colors.teal,
+            colorScheme: ColorScheme.light( primary:  Colors.teal),
+            buttonTheme: ButtonThemeData(
+              textTheme: ButtonTextTheme.primary
+            )
+          ), child: child,
+        );
+      });
       setState(() {
         time = pickedTime;
       });
@@ -66,8 +77,6 @@ class CalendarScreenState extends State<CalendarScreen> {
                 },
                 startingDayOfWeek: StartingDayOfWeek.sunday,
                 daysOfWeekVisible: true,
-
-                //Day Changed
                 onDaySelected: (DateTime selectDay, DateTime focusDay) {
                   setState(() {
                     selectedDay = selectDay;
@@ -79,7 +88,6 @@ class CalendarScreenState extends State<CalendarScreen> {
                   return isSameDay(selectedDay, date);
                 },
                 eventLoader: getEventsFromDay,
-                //To style the Calendar
                 calendarStyle: CalendarStyle(
                   isTodayHighlighted: true,
                   selectedDecoration: BoxDecoration(
