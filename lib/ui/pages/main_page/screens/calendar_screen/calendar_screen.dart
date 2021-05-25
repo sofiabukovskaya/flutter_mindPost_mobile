@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mindpost/data/models/event.dart';
+import 'package:flutter_mindpost/services/calendar_service.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -20,6 +21,8 @@ class CalendarScreenState extends State<CalendarScreen> {
   TimeOfDay time = TimeOfDay.now();
   String printTime;
   TextEditingController _eventController = TextEditingController();
+
+  CalendarService calendarService = CalendarService();
 
   @override
   void initState() {
@@ -153,8 +156,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                                             color: Colors.red[300],
                                           child: Icon(Icons.delete),),
                                           FlatButton(onPressed:() {
-                                            setState(() {
-                                            });
+                                            calendarService.insert(event.title, DateTime(time.hour, time.minute),  DateTime(time.hour, time.minute));
                                           },
                                             shape: RoundedRectangleBorder(
                                                 borderRadius: BorderRadius.circular(50)

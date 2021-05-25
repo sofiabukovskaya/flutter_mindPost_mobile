@@ -29,7 +29,6 @@ class AddNotePageState extends State<AddNotePage> {
   final TextEditingController descriptionNote = TextEditingController();
   File image;
   String uploadedFileUrl;
-
   bool switched = false;
   Icon lockedIcon;
 
