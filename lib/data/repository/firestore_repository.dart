@@ -1,6 +1,7 @@
 
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_mindpost/data/repository/repository.dart';
 import 'package:flutter_mindpost/services/firebase_provider.dart';
 
@@ -28,6 +29,9 @@ class FirestoreRepository implements Repository {
 
   @override
   getPublicNotes()  =>  firebaseProvider.getPublicNotes();
+
+  @override
+   getPrivateNotes() => firebaseProvider.getPrivateNotes();
 
 
 }

@@ -44,12 +44,17 @@ class FirebaseProvider {
           'notes': null
         }));
   }
-
+  getId() async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    userId = sharedPreferences.getString('token');
+    return userId;
+  }
   Future signIn(String email, String password) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     firebaseAuth.signInWithEmailAndPassword(email: email, password: password)
         .then((result) =>
         sharedPreferences.setString('token', result.user.uid));
+
   }
 
   Future logoutUser() async {
@@ -64,8 +69,13 @@ class FirebaseProvider {
         (FirebaseAuth.instance.currentUser).uid).get();
   }
 
-   getPublicNotes()  {
+   getPublicNotes() {
     return FirebaseFirestore.instance.collection('notes').where('public', isEqualTo: true).snapshots();
+  }
+  
+  getPrivateNotes() {
+    getId();
+    return FirebaseFirestore.instance.collection('notes').where('userId', isEqualTo: userId).snapshots();
   }
 
   void addDataNote(String title, String description, String uploadedFileUrl,

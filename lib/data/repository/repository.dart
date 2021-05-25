@@ -19,5 +19,5 @@ abstract class Repository {
 
     Stream<QuerySnapshot> getPublicNotes();
 
-
+  Stream<QuerySnapshot> getPrivateNotes();
 }

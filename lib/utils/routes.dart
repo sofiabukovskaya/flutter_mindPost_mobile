@@ -17,7 +17,7 @@ Route routes(RouteSettings routeSettings){
     });
   } else if(routeSettings.name == '/home_page') {
     var argument = routeSettings.arguments;
-    return MaterialPageRoute(builder: (context) => argument == null? LoginPage():MainPage());
+    return MaterialPageRoute(builder: (context) => argument == null ? LoginPage():MainPage());
   } else if(routeSettings.name== '/login') {
     return ScaleRoute(
       page: MainPage()

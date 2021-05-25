@@ -116,7 +116,7 @@ class NotesScreenState extends State<NotesScreen> {
                                             Padding(
                                                 padding: EdgeInsets.only(top: 10),
                                                 child: Center(
-                                                  child: Text('by nickname12 ',
+                                                  child: Text('${snapshot.data.docs[index]['user_nickname']}',
                                                       maxLines: 3,
                                                       style: GoogleFonts.poppins(
                                                           fontSize: 14,
