@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/widgets/alert_dialog.dart';
@@ -125,6 +126,24 @@ class NotesScreenState extends State<NotesScreen> {
                                                 ))
                                           ],
                                         ),
+                                        Row(
+                                          children: [
+                                            SizedBox(width: 20,),
+                                            Column(
+                                              children: [
+                                                Icon(Icons.favorite,),
+                                                Text('${snapshot.data.docs[index]['like']}')
+                                              ],
+                                            ),
+                                            SizedBox(width: 200,),
+                                            Column(
+                                              children: [
+                                                Icon(Icons.cancel_outlined, ),
+                                                Text('${snapshot.data.docs[index]['dislike']}')
+                                              ],
+                                            )
+                                          ],
+                                        )
                                       ],
                                     )));
                           }),
