@@ -22,29 +22,38 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
 
   @override
   Widget build(BuildContext context) => Expanded(
-    child: Column(
-      children: [
-        Expanded(child: buildImage()),
-        const SizedBox(height: 16),
-        ControlsWidget(
-          onClickedPickImage: pickImage,
-          onClickedScanText: scanText,
-          onClickedClear: clear,
+        child: Column(
+          children: [
+            const SizedBox(height: 60),
+           Container(
+             height: 300,
+            width: 300,
+            child: buildImage() ,
         ),
-        const SizedBox(height: 16),
-        TextAreaWidget(
-          text: text,
-          onClickedCopy: copyToClipboard,
+            const SizedBox(height: 60),
+            ControlsWidget(
+              onClickedPickImage: pickImage,
+              onClickedScanText: scanText,
+              onClickedClear: clear,
+            ),
+            const SizedBox(height: 30),
+            TextAreaWidget(
+              text: text,
+              onClickedCopy: copyToClipboard,
+            ),
+          ],
         ),
-      ],
-    ),
-  );
+      );
 
   Widget buildImage() => Container(
-    child: image != null
-        ? Image.file(image)
-        : Icon(Icons.photo, size: 80, color: Colors.black),
-  );
+        child: image != null
+            ? Container(
+                height: 150,
+                width: 150,
+                child: Image.file(image, fit: BoxFit.cover,),
+              )
+            : Icon(Icons.photo, size: 50, color: Colors.black26),
+      );
 
   Future pickImage() async {
     final file = await ImagePicker.pickImage(source: ImageSource.gallery);
@@ -52,7 +61,6 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   }
 
   Future scanText() async {
-
     final text = await FirebaseMLApi.recogniseText(image);
     print(text);
     setText(text);

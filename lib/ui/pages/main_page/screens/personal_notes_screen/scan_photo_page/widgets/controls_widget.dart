@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ControlsWidget extends StatelessWidget {
   final VoidCallback onClickedPickImage;
@@ -16,19 +17,40 @@ class ControlsWidget extends StatelessWidget {
   Widget build(BuildContext context) => Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      RaisedButton(
+      FlatButton(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
+        ),
+        color: Colors.teal[200],
         onPressed: onClickedPickImage,
-        child: Text('Pick Image'),
+        child: Text('Pick Image', style: GoogleFonts.poppins(
+          fontSize: 15,
+          fontWeight: FontWeight.w500
+        ),),
       ),
       const SizedBox(width: 12),
-      RaisedButton(
+      FlatButton(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
+        ),
+        color: Colors.teal[200],
         onPressed: onClickedScanText,
-        child: Text('Scan For Text'),
+        child: Text('Scan For Text', style: GoogleFonts.poppins(
+            fontSize: 15,
+            fontWeight: FontWeight.w500
+        )),
       ),
       const SizedBox(width: 12),
-      RaisedButton(
+      FlatButton(
         onPressed: onClickedClear,
-        child: Text('Clear'),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10)
+        ),
+        color: Colors.teal[200],
+        child: Text('Clear', style: GoogleFonts.poppins(
+            fontSize: 15,
+            fontWeight: FontWeight.w500
+        )),
       )
     ],
   );
