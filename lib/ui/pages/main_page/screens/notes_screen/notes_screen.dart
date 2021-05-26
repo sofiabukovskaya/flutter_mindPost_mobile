@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/note_detail.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/widgets/alert_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -104,15 +105,19 @@ class NotesScreenState extends State<NotesScreen> {
                                             Padding(
                                               padding: EdgeInsets.only(
                                                   top: 10, left: 40, right: 40),
-                                              child: Center(
-                                                child: Text(
-                                                    '${snapshot.data.docs[index]['description'].toString()}',
-                                                    textAlign: TextAlign.center,
-                                                    maxLines: 3,
-                                                    style: GoogleFonts.poppins(
-                                                        fontSize: 18,
-                                                        fontWeight: FontWeight.w400)),
-                                              ),
+                                              child: GestureDetector(
+                                                onTap: () => {navigateToDeatail(snapshot.data.docs[index])},
+                                                child:  Center(
+                                                  child: Text(
+                                                      '${snapshot.data.docs[index]['description'].toString()}',
+                                                      textAlign: TextAlign.center,
+                                                      maxLines: 3,
+                                                      style: GoogleFonts.poppins(
+                                                          fontSize: 18,
+                                                          fontWeight: FontWeight.w400)),
+                                                ),
+                                              )
+
                                             ),
                                             Padding(
                                                 padding: EdgeInsets.only(top: 10),
@@ -156,5 +161,9 @@ class NotesScreenState extends State<NotesScreen> {
           },
         )
         );
+  }
+
+  navigateToDeatail(QueryDocumentSnapshot doc) {
+    Navigator.push(context, MaterialPageRoute(builder: (context)=> NoteDetail(snapshot: doc)));
   }
 }

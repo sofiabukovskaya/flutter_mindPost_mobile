@@ -47,6 +47,7 @@ dependencies:
   firebase_ml_vision: ^0.9.7
   clipboard: ^0.1.2+8
   google_sign_in: ^5.0.4
+  flutter_facebook_login: ^1.1.1
 
 dev_dependencies:
   flutter_test:
