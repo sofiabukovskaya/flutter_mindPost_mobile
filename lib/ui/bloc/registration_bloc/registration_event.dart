@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 class RegistrationEvent {}
 
 class Submitted extends RegistrationEvent {
+  Submitted({@required this.email,  @required this.phone, @required this.name, @required  this.surname, @required  this.nickname, @required  this.birthday, @required  this.password, this.confirmPassword});
   final String name;
   final String surname;
   final String email;
@@ -12,7 +13,7 @@ class Submitted extends RegistrationEvent {
   final String password;
   final String confirmPassword;
 
-  Submitted({@required this.email,  @required this.phone, @required this.name, @required  this.surname, @required  this.nickname, @required  this.birthday, @required  this.password, this.confirmPassword});
+
   @override
   String toString() {
     return 'Submitted $name, $surname';

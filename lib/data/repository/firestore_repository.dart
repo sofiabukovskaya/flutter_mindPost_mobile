@@ -2,36 +2,40 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_mindpost/data/repository/repository.dart';
 import 'package:flutter_mindpost/services/firebase_provider.dart';
 
 class FirestoreRepository implements Repository {
-  final firebaseProvider = FirebaseProvider();
+  final FirebaseProvider firebaseProvider = FirebaseProvider();
 
-  signUp(String name, String surname, String nickname, String email,
+  @override
+  Future<UserCredential> signUp(String name, String surname, String nickname, String email,
           String birthday, String phone, String password) =>
       firebaseProvider.signUp(
           name, surname, nickname, email, birthday, phone, password);
 
-  Future signIn(String email, String password) async =>
+  @override
+   Future<bool> signIn(String email, String password) async =>
       await firebaseProvider.signIn(email, password);
 
-  logout() async => await firebaseProvider.logoutUser();
+  @override
+  Future<void> logout() async => await firebaseProvider.logoutUser();
 
   @override
-  Future getUserData() async => await firebaseProvider.getUserData();
+   Future<DocumentSnapshot<Map<String, dynamic>>> getUserData() async => await firebaseProvider.getUserData();
 
   @override
-  addDataNote(String title, String description, String uploadedFileUrl, bool switched, String dateformat) async => await firebaseProvider.addDataNote(title, description, uploadedFileUrl, switched, dateformat);
+  Future<void> addDataNote(String title, String description, String uploadedFileUrl, bool switched, String dateformat) async => await firebaseProvider.addDataNote(title, description, uploadedFileUrl, switched, dateformat);
 
   @override
-   Future uploadImage(File image, String uploadedFileUrl) async => await firebaseProvider.uploadImage(image, uploadedFileUrl);
+    Future<void> uploadImage(File image, String uploadedFileUrl) async => await firebaseProvider.uploadImage(image, uploadedFileUrl);
 
   @override
-  getPublicNotes()  =>  firebaseProvider.getPublicNotes();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getPublicNotes()  =>  firebaseProvider.getPublicNotes();
 
   @override
-   getPrivateNotes() => firebaseProvider.getPrivateNotes();
+   Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes() => firebaseProvider.getPrivateNotes();
 
 
 }

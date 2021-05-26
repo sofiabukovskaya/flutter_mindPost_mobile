@@ -10,12 +10,12 @@ Widget passwordFormField(BuildContext context,  bool passwordVisible, Function s
     decoration: InputDecoration(
       filled: true,
       labelText: AppLocalizations.of(context).translate('password_string'),
-      fillColor: Color(0x1A008B83),
+      fillColor:const Color(0x1A008B83),
       border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide.none),
       labelStyle: GoogleFonts.poppins(
-        textStyle: TextStyle(
+        textStyle: const TextStyle(
             color: Colors.black45,
             fontSize: 18.0,
             fontWeight: FontWeight.w600),
@@ -28,10 +28,10 @@ Widget passwordFormField(BuildContext context,  bool passwordVisible, Function s
           onPressed: () {
             setState();
           },
-          color: Color(0x99008B83),
+          color: const Color(0x99008B83),
         )
     ),
     keyboardType: TextInputType.text,
-    cursorColor: Color(0x99008B83),
+    cursorColor: const Color(0x99008B83),
   );
 }

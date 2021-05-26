@@ -1,9 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ScaleRoute extends PageRouteBuilder {
+class ScaleRoute extends PageRouteBuilder<dynamic> {
   final Widget page;
 
+  // ignore: sort_constructors_first
   ScaleRoute({this.page})
       : super(
           pageBuilder: (

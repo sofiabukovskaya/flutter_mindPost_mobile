@@ -6,6 +6,12 @@ import 'package:flutter_mindpost/services/api/firebase_ml_api.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/scan_photo_page/widgets/controls_widget.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/scan_photo_page/widgets/text_area_widget.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart' as Path;
+import 'package:path_provider/path_provider.dart' as Path;
+
+import 'dart:async';
+
+import 'package:path_provider/path_provider.dart';
 
 class TextRecognitionWidget extends StatefulWidget {
   const TextRecognitionWidget({
@@ -56,6 +62,7 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
       );
 
   Future pickImage() async {
+
     final file = await ImagePicker.pickImage(source: ImageSource.gallery);
     setImage(File(file.path));
   }

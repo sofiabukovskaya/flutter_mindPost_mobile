@@ -8,12 +8,12 @@ import 'package:google_fonts/google_fonts.dart';
 Widget labelForgotPassword(BuildContext context) {
   return GestureDetector(
       onTap: () async {
-        await Navigator.push(context, ScaleRoute(page: ForgotPasswordPage()));
+        await Navigator.push<dynamic>(context, ScaleRoute(page: ForgotPasswordPage()));
       },
       child: Text(
         AppLocalizations.of(context).translate('forgot_password_string'),
         style: GoogleFonts.poppins(
-            color: Color(0xFF004280),
+            color:const Color(0xFF004280),
             fontSize: 18.0,
             fontWeight: FontWeight.w600),
       )

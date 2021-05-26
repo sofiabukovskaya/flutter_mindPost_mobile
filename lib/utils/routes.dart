@@ -3,7 +3,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/login_page.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/note_detail.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/add_note_page.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/detail_note_page/detail_note_page.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/scan_photo_page/scan_photo_page.dart';
 
 import 'package:flutter_mindpost/ui/pages/registration_page/registartion_page.dart';
@@ -12,12 +14,12 @@ import 'package:flutter_mindpost/ui/pages/splash_page/splash_screen.dart';
 
 Route routes(RouteSettings routeSettings){
   if(routeSettings.name == '/') {
-    return MaterialPageRoute(builder: (context) {
+    return MaterialPageRoute<dynamic>(builder: (BuildContext context) {
       return SplashScreen();
     });
   } else if(routeSettings.name == '/home_page') {
-    var argument = routeSettings.arguments;
-    return MaterialPageRoute(builder: (context) => argument == null ? LoginPage():MainPage());
+    final Object argument = routeSettings.arguments;
+    return MaterialPageRoute<dynamic>(builder: (BuildContext context) => argument == null ? LoginPage():MainPage());
   } else if(routeSettings.name== '/login') {
     return ScaleRoute(
       page: MainPage()
@@ -38,6 +40,9 @@ Route routes(RouteSettings routeSettings){
     return ScaleRoute(
       page: ScanPhotoPage()
     );
+  } else if(routeSettings.name == '/detailPublicNote') {
+    final Object snapshot = routeSettings.arguments;
+    return ScaleRoute(page: NoteDetail(snapshot: snapshot));
   }
   return null;
 }

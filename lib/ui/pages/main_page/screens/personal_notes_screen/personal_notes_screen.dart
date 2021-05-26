@@ -22,7 +22,7 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
   FirestoreRepository firestoreRepository = FirestoreRepository();
   bool public;
   String token = '';
-  var fire;
+  dynamic fire;
 
   @override
   void initState() {
@@ -30,10 +30,10 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
     getId();
   }
 
-  getId() async {
+  Future<dynamic> getId() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     setState(() {
-      token = (prefs.getString('token') ?? '');
+      token = prefs.getString('token') ?? '';
       fire = FirebaseFirestore.instance
           .collection('notes')
           .where('userId', isEqualTo: token)
@@ -48,18 +48,18 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
           automaticallyImplyLeading: false,
           actions: [
             IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.logout,
                   color: Colors.black87,
                 ),
                 onPressed: () {
-                  showDialog(
+                  showDialog<dynamic>(
                       context: context,
                       builder: (_) =>
                           alertDialog(context, firestoreRepository));
                 }),
             IconButton(
-                icon: Icon(
+                icon: const Icon(
                   Icons.filter_alt_sharp,
                   color: Colors.black87,
                 ),
@@ -67,44 +67,38 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
           ],
           backgroundColor: Colors.white38,
           elevation: 0,
-          title: Text(
-            'Personal notes',
-            style: GoogleFonts.poppins(
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-                color: Colors.black87),
-          ),
+          title: titleAppBar('Personal notes'),
           centerTitle: true,
         ),
         floatingActionButton: FloatingActionButton(
-          child: Icon(
+          child: const Icon(
             Icons.add,
             color: Colors.white,
             size: 45.0,
           ),
-          backgroundColor: Color(0xFF157C76),
+          backgroundColor: const Color(0xFF157C76),
           onPressed: () {
             Navigator.pushNamed(context, '/addNote');
           },
         ),
-        body: StreamBuilder(
+        body: StreamBuilder<QuerySnapshot<Object>>(
           stream: fire,
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot<dynamic>> snapshot) {
             if (!snapshot.hasData) {
-              return Center(
+              return const Center(
                   child: Text('You have not notes, press plus button to add'));
             } else if (snapshot.hasData) {
               return SingleChildScrollView(
                 child: Column(
                   children: [
                     Padding(
-                        padding: EdgeInsets.only(top: 15, left: 10, right: 10),
-                        child: textField(searchController, Icon(Icons.search),
-                            Color(0x1A008B83), 'Search by title')),
+                        padding: const EdgeInsets.only(top: 15, left: 10, right: 10),
+                        child: textField(searchController, const Icon(Icons.search),
+                            const Color(0x1A008B83), 'Search by title')),
                     Padding(
-                      padding: EdgeInsets.only(top: 10, left: 20, right: 20),
+                      padding:const  EdgeInsets.only(top: 10, left: 20, right: 20),
                       child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemCount: snapshot.data.docs.length,
@@ -123,7 +117,7 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
                                           top: 20,
                                           child: Padding(
                                               padding:
-                                                  EdgeInsets.only(left: 10),
+                                              const EdgeInsets.only(left: 10),
                                               child: Container(
                                                 height: 100,
                                                 width: 132,
@@ -171,11 +165,11 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
                                           top: 50,
                                           left: 300,
                                           child: public == true
-                                              ? Icon(
+                                              ? const Icon(
                                                   Icons.lock_open,
                                                   color: Colors.black38,
                                                 )
-                                              : Icon(
+                                              : const Icon(
                                                   Icons.lock_outline,
                                                   color: Colors.black38,
                                                 ))
@@ -188,7 +182,7 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
                 ),
               );
             }
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
               ),
@@ -197,7 +191,7 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
         ));
   }
 
-  navigateToDeatail(QueryDocumentSnapshot doc) {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=> DetailNotePage(snapshot: doc)));
+  dynamic navigateToDeatail(QueryDocumentSnapshot<Object> doc) {
+    Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (BuildContext context)=> DetailNotePage(snapshot: doc)));
   }
 }

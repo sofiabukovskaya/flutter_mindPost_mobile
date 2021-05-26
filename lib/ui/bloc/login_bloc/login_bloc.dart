@@ -5,9 +5,9 @@ import 'package:flutter_mindpost/ui/bloc/login_bloc/login_event.dart';
 import 'package:flutter_mindpost/ui/bloc/login_bloc/login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
+  LoginBloc({ @required FirestoreRepository firestoreRepository}) : super(LoginEmptyState());
 
   final FirestoreRepository firestoreRepository = FirestoreRepository();
-  LoginBloc({ @required FirestoreRepository firestoreRepository}) : super(LoginEmptyState());
 
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
@@ -35,8 +35,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }  if(event is SignInEvent) {
       yield LoginLoadingState();
       try {
-        String email = event.email;
-        String password = event.password;
+        final String email = event.email;
+        final String password = event.password;
         await firestoreRepository.signIn(email, password);
         yield LoginSuccessfulState();
       } catch(e){

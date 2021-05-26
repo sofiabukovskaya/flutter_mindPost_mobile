@@ -59,10 +59,10 @@ class RegistrationFormState extends State<RegistrationForm> {
         bloc: _registrationBloc,
         builder: (BuildContext context, RegistrationState state) {
           if(state is RegistrationLoadingState) {
-            return Center(child:  CircularProgressIndicator());
+            return const Center(child:  CircularProgressIndicator());
           }
           if(state is RegistrationSuccessState) {
-           Navigator.push(context, ScaleRoute(page: MainPage()));
+           Navigator.push<dynamic>(context, ScaleRoute(page: MainPage()));
           }
           return Column(
             children: <Widget>[
@@ -70,7 +70,7 @@ class RegistrationFormState extends State<RegistrationForm> {
                 child: Container(
                   decoration: BoxDecoration(
                       border: Border.all(
-                        color: Color(0x33008B83),
+                        color: const Color(0x33008B83),
                       ),
                       borderRadius: BorderRadius.circular(10.0)),
                   height: 275.0,
@@ -82,29 +82,29 @@ class RegistrationFormState extends State<RegistrationForm> {
                         children: <Widget>[
                           nameFormField(context, nameController),
                           Padding(
-                            padding: EdgeInsets.only(top: 14.0),
+                            padding: const EdgeInsets.only(top: 14.0),
                             child: surnameFormField(context, surnameController),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 14.0),
+                            padding: const EdgeInsets.only(top: 14.0),
                             child:
                                 nicknameFormField(context, nicknameController),
                           ),
                           Padding(
-                              padding: EdgeInsets.only(top: 14.0),
+                              padding: const EdgeInsets.only(top: 14.0),
                               child: emailFormField(context, emailController)),
                           Padding(
-                            padding: EdgeInsets.only(top: 14.0),
+                            padding: const EdgeInsets.only(top: 14.0),
                             child: dateOfBirthForm(
                                 context, dateOfBirthdayController),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 14.0),
+                            padding: const EdgeInsets.only(top: 14.0),
                             child: phoneNumberFormField(
                                 context, phoneNumberController),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 14.0),
+                            padding: const EdgeInsets.only(top: 14.0),
                             child:
                                 passwordFormField(context, passwordController, passwordVisible, (){
                                   setState(() {
@@ -112,7 +112,7 @@ class RegistrationFormState extends State<RegistrationForm> {
                                 });}),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 14.0),
+                            padding: const EdgeInsets.only(top: 14.0),
                             child: confirmPasswordFormField(
                                 context, confirmPasswordController),
                           ),
@@ -121,7 +121,7 @@ class RegistrationFormState extends State<RegistrationForm> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20.0, left: 25.0),
+                padding: const EdgeInsets.only(top: 20.0, left: 25.0),
                 child: CheckboxListTile(
                   activeColor: Colors.white,
                   checkColor: Colors.green,
@@ -133,7 +133,7 @@ class RegistrationFormState extends State<RegistrationForm> {
                         fontSize: 18.0,
                         fontWeight: FontWeight.w600),
                   ),
-                  onChanged: (newValue) {
+                  onChanged: (bool newValue) {
                     setState(() {
                       isChecked = newValue;
                     });
@@ -142,23 +142,23 @@ class RegistrationFormState extends State<RegistrationForm> {
                 ),
               ),
               Padding(
-                  padding: EdgeInsets.only(top: 12, left: 38, right: 48),
+                  padding: const EdgeInsets.only(top: 12, left: 38, right: 48),
                   child: Container(
                       child: Image.asset('assets/Or.png',
                           height: 23.0, width: 282.0))),
               Padding(
-                  padding: EdgeInsets.only(top: 10, left: 53, right: 53),
+                  padding: const EdgeInsets.only(top: 10, left: 53, right: 53),
                   child: buttonsFacebookGoogle(
                       onTappedFacebookButton: () {},
                       onTappedGoogleButton: () {})),
               Padding(
-                  padding: EdgeInsets.only(top: 15, left: 38, right: 40),
+                  padding: const EdgeInsets.only(top: 15, left: 38, right: 40),
                   child: button(
                       context,
                       AppLocalizations.of(context).translate('sign_up_string'),
-                      Color(0x80008B83), ()  {
+                      const Color(0x80008B83), ()  {
                         if(isChecked == false) {
-                          final snackBar = SnackBar(content: Text('Please, select a checkbox'),
+                          final snackBar = SnackBar(content: const Text('Please, select a checkbox'),
                           action: SnackBarAction(
                             label: 'Ok',
                             onPressed: (){},
@@ -170,7 +170,7 @@ class RegistrationFormState extends State<RegistrationForm> {
                         }
                   })),
               Padding(
-                  padding: EdgeInsets.only(top: 15, left: 38, right: 40),
+                  padding:const  EdgeInsets.only(top: 15, left: 38, right: 40),
                   child: labelSignIn(context)),
             ],
           );

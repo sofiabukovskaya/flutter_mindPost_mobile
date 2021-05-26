@@ -7,17 +7,18 @@ abstract class Repository {
   void signUp(String name, String surname, String nickname, String email,
       String birthday, String phone, String password);
 
-  Future signIn(String email, String password);
+  Future<void> signIn(String email, String password);
 
-   logout();
+  Future<void> logout();
 
-   Future getUserData();
+  Future<DocumentSnapshot<Map<String, dynamic>>> getUserData();
 
-   addDataNote(String title, String description, String uploadedFileUrl, bool switched, String dateformat);
+  Future<void> addDataNote(String title, String description,
+      String uploadedFileUrl, bool switched, String dateformat);
 
-    Future uploadImage(File image, String uploadedFileUrl);
+  Future<void> uploadImage(File image, String uploadedFileUrl);
 
-    Stream<QuerySnapshot> getPublicNotes();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getPublicNotes();
 
-  Stream<QuerySnapshot> getPrivateNotes();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes();
 }

@@ -27,17 +27,17 @@ class ForgotPasswordState extends State<ForgotPasswordPage> {
           onTap: () {
             Navigator.pop(context);
           },
-          child: Icon(Icons.arrow_back, color: Colors.black87, ),
+          child: const Icon(Icons.arrow_back, color: Colors.black87, ),
         )
       ),
       body: SingleChildScrollView(
         child: Column (
           crossAxisAlignment:  CrossAxisAlignment.center,
           children: <Widget>[
-            Padding(padding: EdgeInsets.only(top: 225, left: 100, right: 100), child: labelTextResetPassword(context),),
-            Padding(padding:  EdgeInsets.only(top: 35, left: 38, right: 39), child: emailFormResetPassword(context),),
-            Padding(padding:  EdgeInsets.only(top: 40, left: 38, right: 39), child: button(context, AppLocalizations.of(context).translate('reset_password_string'),
-                Color(0x80008B83), (){}),),
+            Padding(padding: const EdgeInsets.only(top: 225, left: 100, right: 100), child: labelTextResetPassword(context),),
+            Padding(padding:  const EdgeInsets.only(top: 35, left: 38, right: 39), child: emailFormResetPassword(context),),
+            Padding(padding:  const EdgeInsets.only(top: 40, left: 38, right: 39), child: button(context, AppLocalizations.of(context).translate('reset_password_string'),
+                const Color(0x80008B83), (){}),),
           ],
         ),
       ),

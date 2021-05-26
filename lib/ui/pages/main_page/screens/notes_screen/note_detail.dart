@@ -24,11 +24,10 @@ class NoteDetailState extends State<NoteDetail>{
   String description = '';
   int like;
   int dislike;
-  bool clicked_like = false;
-  bool clicked_dislike = false;
+  bool clickedLike = false;
+  bool clickedDislike = false;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     title = widget.snapshot.get('title').toString();
     description = widget.snapshot.get('description').toString();
@@ -84,14 +83,15 @@ class NoteDetailState extends State<NoteDetail>{
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: 10, left: 150),
-                      child: IconButton(icon: Icon(Icons.favorite), onPressed: clicked_like ? null :() {
+                      child: IconButton(icon: Icon(Icons.favorite), onPressed: clickedLike ? null :() {
                         setState(() {
                           like++;
                           collectionReferenceNotes
                               .doc('${widget.snapshot.id}').update({
                             'like' : like
                           });
-                          clicked_like = true;
+                          clickedLike = true;
+                          clickedDislike = true;
                           _showToast(context);
                         });
                       },),
@@ -104,14 +104,15 @@ class NoteDetailState extends State<NoteDetail>{
                   children: [
                     Padding(
                       padding: EdgeInsets.only(top: 10, right: 10),
-                      child: IconButton(icon: Icon(Icons.cancel_outlined), onPressed: clicked_dislike ? null :() {
+                      child: IconButton(icon: Icon(Icons.cancel_outlined), onPressed: clickedDislike ? null :() {
                         setState(() {
                           dislike++;
                           collectionReferenceNotes
                               .doc('${widget.snapshot.id}').update({
                             'dislike' : dislike
                           });
-                          clicked_dislike = true;
+                          clickedDislike = true;
+                          clickedLike = true;
                           _showToastDislike(context);
                         });
                       },),

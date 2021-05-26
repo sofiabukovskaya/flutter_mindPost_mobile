@@ -2,7 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mindpost/data/models/event.dart';
-import 'file:///D:/Work%20InternShip/flutter_mindPost/flutter_mindpost/lib/services/api/calendar_service.dart';
+import 'package:flutter_mindpost/services/api/calendar_service.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/calendar_screen/widgets/alert_dialog.dart';
+
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -20,7 +23,7 @@ class CalendarScreenState extends State<CalendarScreen> {
   DateTime focusedDay = DateTime.now();
   TimeOfDay time = TimeOfDay.now();
   String printTime;
-  TextEditingController _eventController = TextEditingController();
+  final TextEditingController _eventController = TextEditingController();
 
   CalendarService calendarService = CalendarService();
 
@@ -32,18 +35,19 @@ class CalendarScreenState extends State<CalendarScreen> {
 
   Future selectTime() async {
     final TimeOfDay pickedTime = await showTimePicker(
-        context: context, initialTime: time, builder: (context, Widget child) {
-      return Theme(
-        data: ThemeData.light().copyWith(
-            primaryColor: Colors.teal,
-            accentColor: Colors.teal,
-            colorScheme: ColorScheme.light(primary: Colors.teal),
-            buttonTheme: ButtonThemeData(
-                textTheme: ButtonTextTheme.primary
-            )
-        ), child: child,
-      );
-    });
+        context: context,
+        initialTime: time,
+        builder: (context, Widget child) {
+          return Theme(
+            data: ThemeData.light().copyWith(
+                primaryColor: Colors.teal,
+                accentColor: Colors.teal,
+                colorScheme: const ColorScheme.light(primary: Colors.teal),
+                buttonTheme:
+                    const ButtonThemeData(textTheme: ButtonTextTheme.primary)),
+            child: child,
+          );
+        });
     setState(() {
       time = pickedTime;
       printTime = time.format(context);
@@ -71,8 +75,8 @@ class CalendarScreenState extends State<CalendarScreen> {
       body: ListView(
         children: [
           Column(
-            children: [
-              TableCalendar(
+            children: <Widget>[
+              TableCalendar<Event>(
                 focusedDay: selectedDay,
                 firstDay: DateTime(1990),
                 lastDay: DateTime(2050),
@@ -102,7 +106,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                     shape: BoxShape.rectangle,
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  selectedTextStyle: TextStyle(color: Colors.white),
+                  selectedTextStyle: const TextStyle(color: Colors.white),
                   todayDecoration: BoxDecoration(
                     color: Colors.purpleAccent,
                     shape: BoxShape.rectangle,
@@ -122,121 +126,94 @@ class CalendarScreenState extends State<CalendarScreen> {
                   titleCentered: true,
                   formatButtonShowsNext: false,
                   formatButtonDecoration: BoxDecoration(
-                    color: Color(0xFF00847c),
+                    color: const Color(0xFF00847c),
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  formatButtonTextStyle: TextStyle(
+                  formatButtonTextStyle: const TextStyle(
                     color: Colors.white,
                   ),
                 ),
               ),
-              ...getEventsFromDay(selectedDay).map(
-                      (Event event) =>
-                      ListTile(
-                        onLongPress: () {
-                          showDialog(
-                              context: context,
-                              builder: (_) =>
-                                  AlertDialog(
-                                    title: Text('You can delete or share to Google calendar your event', style:  GoogleFonts.poppins(
-                                        fontSize: 18, fontWeight: FontWeight.w500)),
-                                    actions: [
-                                      Row(
-                                        children: [
-                                          FlatButton(onPressed:() {
-                                            setState(() {
-                                              selectedEvents.remove(selectedDay);
-                                              printTime = '';
-                                              Navigator.pop(context);
-                                            });
-                                          },
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(50)
-                                            ),
-                                            color: Colors.red[300],
-                                          child: Icon(Icons.delete),),
-                                          FlatButton(onPressed:() {
-                                            calendarService.insert(event.title, DateTime(time.hour, time.minute),  DateTime(time.hour, time.minute));
-                                          },
-                                            shape: RoundedRectangleBorder(
-                                                borderRadius: BorderRadius.circular(50)
-                                            ),
-                                            color: Colors.green[100],
-                                            child: Icon(Icons.share),)
-                                        ],
-                                      )
-                                    ],
-                                  ));
-
-                        },
-                        subtitle: Text(
-                          '$printTime',
-                          style: GoogleFonts.poppins(
-                              fontSize: 14, fontWeight: FontWeight.w400),
-                        ),
-                        title: Text(
-                          event.title,
-                          style: GoogleFonts.poppins(
-                              fontSize: 18, fontWeight: FontWeight.w400),
-                        ),
-                      )
+              ...getEventsFromDay(selectedDay).map((Event event) =>
+                  ListTile(
+                    onLongPress: () {
+                      showDialog<dynamic>(
+                          context: context,
+                          builder: (_) =>
+                              alertDialog(() {
+                                setState(() {
+                                  selectedEvents.remove(selectedDay);
+                                  printTime = '';
+                                  Navigator.pop(context);
+                                });
+                              }, calendarService, event, time ));
+                    },
+                    subtitle: Text(
+                      '$printTime',
+                      style: GoogleFonts.poppins(
+                          fontSize: 14, fontWeight: FontWeight.w400),
+                    ),
+                    title: Text(
+                      event.title,
+                      style: GoogleFonts.poppins(
+                          fontSize: 18, fontWeight: FontWeight.w400),
+                    ),
+                  )
               ),
             ],
           ),
         ],
       ),
       floatingActionButton: FloatingActionButton.extended(
-        backgroundColor: Color(0xFF00847c),
-        onPressed: () =>
-            showDialog(
-              context: context,
-              builder: (context) =>
-                  AlertDialog(
-                    title: Text(
-                      "🤩 Event 🤩 ",
-                      style: GoogleFonts.poppins(
-                          fontSize: 22, fontWeight: FontWeight.w500),
-                    ),
-                    content: TextFormField(
-                      controller: _eventController,
-                    ),
-                    actions: [
-                      TextButton(
-                        child: Text(
-                          "Cancel",
-                          style: GoogleFonts.poppins(
-                              fontSize: 18, color: Colors.red),
-                        ),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                      TextButton(
-                        child: Text("Ok",
-                            style: GoogleFonts.poppins(
-                                fontSize: 18, color: Colors.blueGrey)),
-                        onPressed: () {
-                          if (_eventController.text.isEmpty) {} else {
-                            if (selectedEvents[selectedDay] != null) {
-                              selectedEvents[selectedDay].add(
-                                Event(title: _eventController.text),
-                              );
-                            } else {
-                              selectedEvents[selectedDay] = [
-                                Event(title: _eventController.text)
-                              ];
-                            }
-                          }
-                          Navigator.pop(context);
-                          selectTime();
-                          _eventController.clear();
-                        },
-                      ),
-                    ],
-                  ),
+        backgroundColor: const Color(0xFF00847c),
+        onPressed: () => showDialog<dynamic>(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: Text(
+              '🤩 Event 🤩 ',
+              style: GoogleFonts.poppins(
+                  fontSize: 22, fontWeight: FontWeight.w500),
             ),
-        label: Text("Add Event",
+            content: TextFormField(
+              controller: _eventController,
+            ),
+            actions: [
+              TextButton(
+                child: Text(
+                  'Cancel',
+                  style: GoogleFonts.poppins(fontSize: 18, color: Colors.red),
+                ),
+                onPressed: () => Navigator.pop(context),
+              ),
+              TextButton(
+                child: Text('Ok',
+                    style: GoogleFonts.poppins(
+                        fontSize: 18, color: Colors.blueGrey)),
+                onPressed: () {
+                  if (_eventController.text.isEmpty) {
+                  } else {
+                    if (selectedEvents[selectedDay] != null) {
+                      selectedEvents[selectedDay].add(
+                        Event(title: _eventController.text),
+                      );
+                    } else {
+                      selectedEvents[selectedDay] = [
+                        Event(title: _eventController.text)
+                      ];
+                    }
+                  }
+                  Navigator.pop(context);
+                  selectTime();
+                  _eventController.clear();
+                },
+              ),
+            ],
+          ),
+        ),
+        label: Text('Add Event',
             style:
-            GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500)),
-        icon: Icon(Icons.add),
+                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500)),
+        icon: const Icon(Icons.add),
       ),
     );
   }

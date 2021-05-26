@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'dart:ui';
+import 'dart:async';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
@@ -34,7 +34,7 @@ class AddNotePageState extends State<AddNotePage> {
   Icon lockedIcon;
 
   Future<void> _pickImage(ImageSource source) async {
-    File selected = await ImagePicker.pickImage(source: source);
+    final File selected = await ImagePicker.pickImage(source: source);
     setState(() {
       image = selected;
     });
@@ -43,9 +43,8 @@ class AddNotePageState extends State<AddNotePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
-    lockedIcon = Icon(
+    lockedIcon = const Icon(
       Icons.lock_outline,
       color: Colors.black54,
       size: 30,
@@ -56,7 +55,7 @@ class AddNotePageState extends State<AddNotePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         title: Text(
           'Add note',
           style: GoogleFonts.poppins(
@@ -65,25 +64,24 @@ class AddNotePageState extends State<AddNotePage> {
         centerTitle: true,
         backgroundColor: Colors.white38,
         elevation: 0,
-        actions: [
+        actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.check),
-            color: Color(0xFF00847c),
+            icon: const Icon(Icons.check),
+            color: const Color(0xFF00847c),
             iconSize: 30.0,
             onPressed: () async {
-             await Navigator.pop(context);
-              await Center(
+             Navigator.pop(context);
+              const Center(
                 child: CircularProgressIndicator(),
               );
               await firestoreRepository.addDataNote(titleNote.text.toString(), descriptionNote.text.toString(), uploadedFileUrl, switched,
                   dateformat);
              await firestoreRepository.uploadImage(image, uploadedFileUrl);
-
             },
           ),
           IconButton(
-            icon: Icon(Icons.scatter_plot),
-            color: Color(0xFF00847c),
+            icon: const Icon(Icons.scatter_plot),
+            color: const Color(0xFF00847c),
             iconSize: 30.0,
             onPressed: () {
               Navigator.pushNamed(context, '/scanImage');
@@ -97,7 +95,7 @@ class AddNotePageState extends State<AddNotePage> {
               children: [
                 Center(
                     child: Padding(
-                      padding: EdgeInsets.only(top: 10, left: 85, right: 85, bottom: 15),
+                      padding: const EdgeInsets.only(top: 10, left: 85, right: 85, bottom: 15),
                       child: TextField(
                         controller: titleNote,
                         inputFormatters: [
@@ -105,14 +103,14 @@ class AddNotePageState extends State<AddNotePage> {
                         ],
                         style: GoogleFonts.poppins(
                             fontSize: 20.0,
-                            color: Color(0xFF00847c),
+                            color: const Color(0xFF00847c),
                             fontWeight: FontWeight.w600),
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           counterText: '',
                           hintText: 'Title',
                           hintStyle: GoogleFonts.poppins(
-                              textStyle: TextStyle(
+                              textStyle: const TextStyle(
                                   color: Color(0x4D00847c),
                                   fontSize: 20.0,
                                   fontWeight: FontWeight.w600)),
@@ -134,20 +132,20 @@ class AddNotePageState extends State<AddNotePage> {
                             color: Colors.black54,
                             fontWeight: FontWeight.w300),
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(),
+                            border: const OutlineInputBorder(),
                             hintText: 'Write about your day thoughts, day, desires...',
                             hintStyle: GoogleFonts.poppins(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                     color: Color(0x4D00847c),
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.w600)),
                             isDense: true,
                             contentPadding:
-                            EdgeInsets.symmetric(vertical: 10, horizontal: 10.0)),
+                            const  EdgeInsets.symmetric(vertical: 10, horizontal: 10.0)),
                       ),
                     )),
                 Padding(
-                  padding: EdgeInsets.only(left: 100, right: 90),
+                  padding: const EdgeInsets.only(left: 100, right: 90),
                   child: Row(
                     children: [
                       Text(
@@ -156,7 +154,7 @@ class AddNotePageState extends State<AddNotePage> {
                             fontSize: 18.0, fontWeight: FontWeight.w400),
                       ),
                       IconButton(
-                          icon: Icon(
+                          icon:const Icon(
                             Icons.photo,
                             color: Color(0x9900847c),
                             size: 33,
@@ -167,7 +165,7 @@ class AddNotePageState extends State<AddNotePage> {
                 ),
                 image == null
                     ? Padding(
-                  padding: EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(top: 10),
                   child: Container(
                     color: Colors.grey,
                     height: 130,
@@ -182,17 +180,17 @@ class AddNotePageState extends State<AddNotePage> {
                 )
                     : GestureDetector(
                     onLongPress: () {
-                      showDialog(
+                      showDialog<dynamic>(
                           context: context,
                           builder: (_) => AlertDialog(
-                            title: Text('Delete picture'),
-                            content: Text('Do you wanna delete a picture?'),
-                            actions: [
+                            title: const Text('Delete picture'),
+                            content: const Text('Do you wanna delete a picture?'),
+                            actions: <Widget>[
                               FlatButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'No',
                                     style: TextStyle(color: Colors.red),
                                   )),
@@ -203,7 +201,7 @@ class AddNotePageState extends State<AddNotePage> {
                                     });
                                     Navigator.pop(context);
                                   },
-                                  child: Text(
+                                  child: const Text(
                                     'Yes',
                                     style: TextStyle(color: Colors.black87),
                                   ))
@@ -220,7 +218,7 @@ class AddNotePageState extends State<AddNotePage> {
                           fit: BoxFit.fill,
                         ))),
                 Padding(
-                  padding: EdgeInsets.only(top: 15, bottom: 10),
+                  padding: const EdgeInsets.only(top: 15, bottom: 10),
                   child: Text(
                     'Privacy setting',
                     style:
@@ -230,11 +228,11 @@ class AddNotePageState extends State<AddNotePage> {
                 Row(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 10, left: 40),
+                      padding: const EdgeInsets.only(top: 10, left: 40),
                       child: lockedIcon,
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 10, left: 10),
+                      padding: const EdgeInsets.only(top: 10, left: 10),
                       child: Text(
                         'Public note',
                         style: GoogleFonts.poppins(
@@ -242,21 +240,21 @@ class AddNotePageState extends State<AddNotePage> {
                       ),
                     ),
                     Padding(
-                        padding: EdgeInsets.only(left: 150, top: 12),
+                        padding: const EdgeInsets.only(left: 150, top: 12),
                         child: Transform.scale(
                           scale: 0.8,
                           child: CupertinoSwitch(
                               value: switched,
-                              onChanged: (value) {
+                              onChanged: (bool value) {
                                 setState(() {
                                   switched = value;
                                   switched == false
-                                      ? lockedIcon = Icon(
+                                      ? lockedIcon = const Icon(
                                     Icons.lock_outline,
                                     color: Colors.black54,
                                     size: 30,
                                   )
-                                      : lockedIcon = Icon(
+                                      : lockedIcon = const Icon(
                                     Icons.lock_open_sharp,
                                     color: Colors.black54,
                                     size: 30,

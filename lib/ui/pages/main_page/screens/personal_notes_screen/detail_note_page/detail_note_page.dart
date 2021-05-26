@@ -6,9 +6,8 @@ import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_scree
 import 'package:google_fonts/google_fonts.dart';
 
 class DetailNotePage extends StatefulWidget {
-  final QueryDocumentSnapshot snapshot;
-
   const DetailNotePage({Key key, this.snapshot}) : super(key: key);
+  final QueryDocumentSnapshot<dynamic> snapshot;
 
   @override
   State<StatefulWidget> createState() {
@@ -17,9 +16,9 @@ class DetailNotePage extends StatefulWidget {
 }
 
 class DetailNotePageState extends State<DetailNotePage> {
-  TextEditingController controller_text = TextEditingController();
-  TextEditingController controller_desc = TextEditingController();
-  final CollectionReference collectionReferenceNotes =
+  TextEditingController controllerTextTitle = TextEditingController();
+  TextEditingController controllerTextDescription = TextEditingController();
+  final CollectionReference<dynamic> collectionReferenceNotes =
       FirebaseFirestore.instance.collection('notes');
 
   String title = '';
@@ -27,7 +26,6 @@ class DetailNotePageState extends State<DetailNotePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     title = widget.snapshot.get('title').toString();
     description = widget.snapshot.get('description').toString();
@@ -37,18 +35,18 @@ class DetailNotePageState extends State<DetailNotePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white38,
         elevation: 0,
       ),
       body: Container(
         child: Column(
-          children: [
-            SizedBox(
+          children: <Widget>[
+            const SizedBox(
               height: 30,
             ),
             Padding(
-              padding: EdgeInsets.only(top: 30, left: 20),
+              padding: const EdgeInsets.only(top: 30, left: 20),
               child: ListTile(
                 title: Text(
                   '$title',
@@ -65,7 +63,7 @@ class DetailNotePageState extends State<DetailNotePage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 30, left: 20),
+              padding: const EdgeInsets.only(top: 30, left: 20),
               child: ListTile(
                 leading: Text(
                   '$description',
@@ -76,21 +74,21 @@ class DetailNotePageState extends State<DetailNotePage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 10),
               child: FlatButton(
                 color: Colors.teal[200],
-                child: Icon(Icons.edit),
+                child: const Icon(Icons.edit),
                 onPressed: () {
-                  showDialog(
+                  showDialog<dynamic>(
                       context: context,
-                      builder: (context) {
+                      builder: (BuildContext context) {
                         return AlertDialog(
-                          title: Text('Change info'),
+                          title: const Text('Change info'),
                           content: Form(
                               child: Column(
                             children: [
                               TextFormField(
-                                controller: controller_text,
+                                controller: controllerTextTitle,
                                 keyboardType: TextInputType.name,
                                 decoration: InputDecoration(
                                   labelText: 'Title:',
@@ -99,7 +97,7 @@ class DetailNotePageState extends State<DetailNotePage> {
                                 onSaved: (String artistValue) {},
                               ),
                               TextFormField(
-                                controller: controller_desc,
+                                controller: controllerTextDescription,
                                 keyboardType: TextInputType.name,
                                 decoration: InputDecoration(
                                   labelText: 'Description:',
@@ -111,27 +109,27 @@ class DetailNotePageState extends State<DetailNotePage> {
                           )),
                           actions: [
                             FlatButton(
-                                child: Text('NO'),
+                                child: const Text('NO'),
                                 onPressed: () {
                                   Navigator.of(context).pop(false);
                                 }),
                             FlatButton(
-                                child: Text('YES'),
+                                child: const Text('YES'),
                                 onPressed: () {
                                   setState(() {
-                                    title = controller_text.text;
-                                    description = controller_desc.text;
+                                    title = controllerTextTitle.text;
+                                    description = controllerTextDescription.text;
                                   });
                                   collectionReferenceNotes
                                       .doc('${widget.snapshot.id}')
                                       .update({
-                                    'title': controller_text.text.isNotEmpty
-                                        ? controller_text.text
+                                    'title': controllerTextTitle.text.isNotEmpty
+                                        ? controllerTextTitle.text
                                         : title,
-                                    'description': controller_desc.text == ''
-                                        ? controller_desc.text
+                                    'description': controllerTextDescription.text == ''
+                                        ? controllerTextDescription.text
                                         : description
-                                  }).then((value) => Scaffold.of(context)
+                                  }).then((dynamic value) => Scaffold.of(context)
                                           .showSnackBar(SnackBar(
                                               content: Text(
                                                   "Update ${widget.snapshot.get('title').toString()}"))));
@@ -144,29 +142,29 @@ class DetailNotePageState extends State<DetailNotePage> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(top: 10),
+              padding: const EdgeInsets.only(top: 10),
               child: FlatButton(
                 color: Colors.red[400],
-                child: Icon(Icons.delete),
+                child: const Icon(Icons.delete),
                 onPressed: () {
-                  showDialog(context: context, builder: (context){
+                  showDialog<dynamic>(context: context, builder: (BuildContext context){
                     return AlertDialog(
-                      title: Text('Delete a note'),
+                      title:const Text('Delete a note'),
                       actions: [
                         FlatButton(
-                            child: Text('NO'),
+                            child: const Text('NO'),
                             onPressed: () {
                               Navigator.of(context).pop(false);
                             }),
                         FlatButton(
-                            child: Text('YES'),
+                            child: const Text('YES'),
                             onPressed: () {
                               collectionReferenceNotes
-                                  .doc('${widget.snapshot.id}').delete().then((value) => Scaffold.of(context)
-                                  .showSnackBar(SnackBar(
+                                  .doc('${widget.snapshot.id}').delete().then((dynamic value) => Scaffold.of(context)
+                                  .showSnackBar(const SnackBar(
                                   content: Text(
-                                      "Note delete"))) );
-                              Navigator.push(context, MaterialPageRoute(builder: (context)=> PersonalNotesScreen()));
+                                      'Note delete'))) );
+                              Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (BuildContext context)=> PersonalNotesScreen()));
                             }),
                       ],
                     );

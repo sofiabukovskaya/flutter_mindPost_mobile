@@ -1,4 +1,5 @@
 
+// ignore: avoid_classes_with_only_static_members
 class Validators {
   static final RegExp _emailRegExp = RegExp(
     r'^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$',
@@ -10,14 +11,15 @@ class Validators {
     r'^\+?([0-9]{2})\)?[-. ]?([0-9]{4})[-. ]?([0-9]{4})$/',
   );
 
-  static isValidEmail(String email) {
+  static bool isValidEmail(String email) {
     return _emailRegExp.hasMatch(email);
   }
 
-  static isValidPassword(String password) {
+  static bool isValidPassword(String password) {
     return _passwordRegExp.hasMatch(password);
   }
-  static isValidPhoneNumber(String phone) {
+
+  static bool isValidPhoneNumber(String phone) {
     return _phoneNumberRegExp.hasMatch(phone);
   }
 }

@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 class AppLocalizations {
   final Locale locale;
+  // ignore: sort_constructors_first
   AppLocalizations(this.locale);
   
   static AppLocalizations of(BuildContext context) {
@@ -18,7 +19,7 @@ class AppLocalizations {
   Future<bool> load() async{
     String jsonString = await rootBundle.loadString('lang/${locale.languageCode}.json');
     Map<String, dynamic> jsonMap = jsonDecode(jsonString);
-    _localizedStrings = jsonMap.map((key, value) {
+    _localizedStrings = jsonMap.map((String key, dynamic value) {
       return MapEntry(key, value.toString());
     });
     return true;

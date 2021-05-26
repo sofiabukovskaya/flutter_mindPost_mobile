@@ -8,12 +8,12 @@ class FirebaseMLApi {
     if (imageFile == null) {
       return 'No selected image';
     } else {
-      final visionImage = FirebaseVisionImage.fromFile(imageFile);
-      final textRecognizer = FirebaseVision.instance.textRecognizer();
+      final FirebaseVisionImage visionImage = FirebaseVisionImage.fromFile(imageFile);
+      final TextRecognizer textRecognizer = FirebaseVision.instance.textRecognizer();
       try {
-        final visionText = await textRecognizer.processImage(visionImage);
+        final VisionText visionText = await textRecognizer.processImage(visionImage);
         await textRecognizer.close();
-        final text = extractText(visionText);
+        final dynamic text = extractText(visionText);
         return text.isEmpty ? 'No text found in the image' : text;
       } catch (error) {
         return error.toString();
@@ -21,9 +21,8 @@ class FirebaseMLApi {
     }
   }
 
-  static extractText(VisionText visionText) {
+  static String extractText(VisionText visionText) {
     String text = '';
-
     for (TextBlock block in visionText.blocks) {
       for (TextLine line in block.lines) {
         for (TextElement word in line.elements) {
@@ -32,7 +31,6 @@ class FirebaseMLApi {
         text = text + '\n';
       }
     }
-
     return text;
   }
 }

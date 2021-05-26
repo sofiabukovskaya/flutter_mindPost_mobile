@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/list_item/notes_list_item.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/note_detail.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/widgets/icon_buttons.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/widgets/search_textField.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/widgets/alert_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -26,144 +29,61 @@ class NotesScreenState extends State<NotesScreen> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          actions: [
-            IconButton(
-                icon: Icon(
-                  Icons.logout,
-                  color: Colors.black87,
-                ),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (_) =>
-                          alertDialog(context, firestoreRepository));
-                }),
-            IconButton(
-                icon: Icon(
-                  Icons.filter_alt_sharp,
-                  color: Colors.black87,
-                ),
-                onPressed: () {})
+          actions: <Widget>[
+            iconButtons(() {
+              showDialog<dynamic>(
+                  context: context,
+                  builder: (_) => alertDialog(context, firestoreRepository));
+            })
           ],
           backgroundColor: Colors.white38,
           elevation: 0,
-          title: Text(
-            'Notes feed',
-            style: GoogleFonts.poppins(
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-                color: Colors.black87),
-          ),
+          title: titleAppBar('Notes feed'),
           centerTitle: true,
         ),
-        body: StreamBuilder(
+        body: StreamBuilder<QuerySnapshot<Object>>(
           stream: firestoreRepository.getPublicNotes(),
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot) {
-            if(!snapshot.hasData) {
-              return Center(
+          builder: (BuildContext context,
+              AsyncSnapshot<QuerySnapshot<dynamic>> snapshot) {
+            if (!snapshot.hasData) {
+              return const Center(
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
                 ),
               );
-            } else if(snapshot.hasData) {
+            } else if (snapshot.hasData) {
               return SingleChildScrollView(
                 child: Column(
-                  children: [
+                  children: <Widget>[
+                   textFieldSearch(searchController),
                     Padding(
-                        padding: EdgeInsets.only(top: 15, left: 10, right: 10),
-                        child: textField(searchController, Icon(Icons.search),
-                            Color(0x1A008B83), 'Search by title')),
-                    Padding(
-                      padding: EdgeInsets.only(top: 15, left: 50, right: 50),
+                      padding:
+                          const EdgeInsets.only(top: 15, left: 50, right: 50),
                       child: ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
+                          physics: const NeverScrollableScrollPhysics(),
                           scrollDirection: Axis.vertical,
                           shrinkWrap: true,
                           itemCount: snapshot.data.docs.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Container(
                                 height: 229,
-                                child: Card(
-                                    elevation: 0,
-                                    color: Color(0x99d3edfa),
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(15.0)),
-                                    child: ListView(
-                                      physics: NeverScrollableScrollPhysics(),
-                                      children: [
-                                        Column(
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 20, left: 30, right: 30),
-                                              child: Text('${snapshot.data.docs[index]['title']}',
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.poppins(
-                                                      fontSize: 20,
-                                                      fontWeight: FontWeight.w600)),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsets.only(
-                                                  top: 10, left: 40, right: 40),
-                                              child: GestureDetector(
-                                                onTap: () => {navigateToDeatail(snapshot.data.docs[index])},
-                                                child:  Center(
-                                                  child: Text(
-                                                      '${snapshot.data.docs[index]['description'].toString()}',
-                                                      textAlign: TextAlign.center,
-                                                      maxLines: 3,
-                                                      style: GoogleFonts.poppins(
-                                                          fontSize: 18,
-                                                          fontWeight: FontWeight.w400)),
-                                                ),
-                                              )
-
-                                            ),
-                                            Padding(
-                                                padding: EdgeInsets.only(top: 10),
-                                                child: Center(
-                                                  child: Text('${snapshot.data.docs[index]['user_nickname']}',
-                                                      maxLines: 3,
-                                                      style: GoogleFonts.poppins(
-                                                          fontSize: 14,
-                                                          fontWeight:
-                                                          FontWeight.w400)),
-                                                ))
-                                          ],
-                                        ),
-                                        Row(
-                                          children: [
-                                            SizedBox(width: 20,),
-                                            Column(
-                                              children: [
-                                                Icon(Icons.favorite,),
-                                                Text('${snapshot.data.docs[index]['like'].toString()}')
-                                              ],
-                                            ),
-                                            SizedBox(width: 200,),
-                                            Column(
-                                              children: [
-                                                Icon(Icons.cancel_outlined, ),
-                                                Text('${snapshot.data.docs[index]['dislike'].toString()}')
-                                              ],
-                                            )
-                                          ],
-                                        )
-                                      ],
-                                    )));
+                                child: notesListItem(snapshot.data.docs[index], context),
+                            );
                           }),
                     ),
                   ],
                 ),
               );
             }
-            return CircularProgressIndicator();
+            return const CircularProgressIndicator();
           },
-        )
-        );
+        ));
   }
 
-  navigateToDeatail(QueryDocumentSnapshot doc) {
-    Navigator.push(context, MaterialPageRoute(builder: (context)=> NoteDetail(snapshot: doc)));
+  dynamic navigateToDetail(QueryDocumentSnapshot<Object> doc) {
+    Navigator.push<dynamic>(
+        context,
+        MaterialPageRoute<dynamic>(
+            builder: (BuildContext context) => NoteDetail(snapshot: doc)));
   }
 }

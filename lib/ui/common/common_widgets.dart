@@ -30,7 +30,7 @@ Widget buttonsFacebookGoogle({@required Function onTappedFacebookButton, @requir
             child: Image.asset('assets/Google_icon.png'),
           ),
         ),
-        color: Color(0x1A008B83),
+        color: const Color(0x1A008B83),
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0)),
       )
@@ -49,7 +49,7 @@ Widget button(BuildContext context, String label, Color color, Function onTapBut
     RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
     child: Text(label,
         style: GoogleFonts.poppins(
-            textStyle: TextStyle(
+            textStyle: const TextStyle(
                 color: Colors.white,
                 fontSize: 18.0,
                 fontWeight: FontWeight.w600))),
@@ -68,7 +68,7 @@ Widget textField(TextEditingController controller, Icon icon, Color color, Strin
           borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide.none),
       labelStyle: GoogleFonts.poppins(
-        textStyle: TextStyle(
+        textStyle: const TextStyle(
             color: Colors.black45,
             fontSize: 18.0,
             fontWeight: FontWeight.w600),
@@ -80,12 +80,30 @@ Widget textField(TextEditingController controller, Icon icon, Color color, Strin
 }
 
 BoxDecoration boxDecoration() {
-  return BoxDecoration(
+  return const BoxDecoration(
     border: Border(
       bottom: BorderSide(
         color: Color(0x4D157C76),
         width: 2.0,
       ),
     ),
+  );
+}
+
+Widget titleAppBar(String title) {
+  return Text(
+    title,
+    style: GoogleFonts.poppins(
+        fontSize: 20,
+        fontWeight: FontWeight.w500,
+        color: Colors.black87),
+  );
+}
+
+TextStyle textStyle(double size, FontWeight fontWeight, Color color) {
+  return GoogleFonts.poppins(
+    fontSize:  size,
+    fontWeight: fontWeight,
+    color: color
   );
 }

@@ -1,8 +1,13 @@
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/widgets/iconButton_logout.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/widgets/list_title.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/widgets/user_avatar.dart';
+
 import 'package:flutter_mindpost/ui/pages/main_page/widgets/alert_dialog.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,35 +26,24 @@ class ProfileScreenState extends State<ProfileScreen> {
     return Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
-          actions: [
-            IconButton(
-                icon: Icon(
-                  Icons.logout,
-                  color: Colors.black87,
-                ),
-                onPressed: () {
-                  showDialog(
-                      context: context,
-                      builder: (_) =>
-                          alertDialog(context, firestoreRepository));
-                })
+          actions: <Widget>[
+            iconButtonLogout(() {
+              showDialog<dynamic>(
+                  context: context,
+                  builder: (_) =>
+                      alertDialog(context, firestoreRepository));
+            })
           ],
           backgroundColor: Colors.white38,
           elevation: 0,
-          title: Text(
-            'Profile',
-            style: GoogleFonts.poppins(
-                fontSize: 20,
-                fontWeight: FontWeight.w500,
-                color: Colors.black87),
-          ),
+          title: titleAppBar('Profile'),
           centerTitle: true,
         ),
-        body: FutureBuilder(
+        body: FutureBuilder<dynamic>(
           future: firestoreRepository.getUserData(),
-          builder: (context, snapshot) {
+          builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if(!snapshot.hasData) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(
                   valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
                 ),
@@ -57,41 +51,15 @@ class ProfileScreenState extends State<ProfileScreen> {
             } else if(snapshot.hasData) {
               return SingleChildScrollView(
                 child: Column(
-                  children: [
-                    Center(
-                      child: Container(
-                          height: 250,
-                          decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [Colors.white70, Color(0x33157C76)])),
-                          child: Center(
-                            child: Column(
-                              children: [
-                                Padding(padding: EdgeInsets.only(top: 45)),
-                                CircleAvatar(
-                                  radius: 70.0,
-                                  child: Image.asset('assets/user_photo.png'),
-                                  backgroundColor: Colors.transparent,
-                                ),
-                                Padding(padding: EdgeInsets.only(top: 20)),
-                                Text(
-                                  '${snapshot.data['name'].toString()}',
-                                  style: GoogleFonts.poppins(
-                                      color: Colors.black87, fontSize: 18),
-                                )
-                              ],
-                            ),
-                          )),
-                    ),
+                  children: <Widget>[
+                    userAvatar(snapshot.data['name']),
                     Padding(
-                      padding: EdgeInsets.only(top: 20),
+                      padding: const EdgeInsets.only(top: 20),
                       child: Container(
                           width: 309,
                           height: 298,
                           child: Column(
-                            children: [
+                            children: <Widget>[
                               titleList('Name: ', '${snapshot.data['name'].toString()}'),
                               titleList('Surname: ', '${snapshot.data['surname'].toString()}'),
                               titleList('Nickname: ', '${snapshot.data['nickname'].toString()}'),
@@ -104,35 +72,11 @@ class ProfileScreenState extends State<ProfileScreen> {
                 ),
               );
             }
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           },
         )
-
         );
   }
-}
-Widget titleList(String labelText, String item) {
-  return Row(
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: <Widget>[
-      Padding(
-        padding: EdgeInsets.only(top: 28, left: 10),
-        child: Text(labelText,
-            style: GoogleFonts.poppins(
-                color: Colors.black87, fontSize: 18)),
-      ),
-      Container(
-        width: 150,
-        margin: EdgeInsets.only(top: 28, left: 10),
-        decoration: boxDecoration(), //
-        child: Text(
-          item,
-          style: GoogleFonts.poppins(
-              color: Colors.black87, fontSize: 18),
-        ),
-      )
-    ],
-  );
 }
