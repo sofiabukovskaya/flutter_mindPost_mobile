@@ -1,3 +1,5 @@
+
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -89,6 +91,7 @@ class NoteDetailState extends State<NoteDetail>{
                               .doc('${widget.snapshot.id}').update({
                             'like' : like
                           });
+                          clicked_like = true;
                           _showToast(context);
                         });
                       },),
@@ -108,6 +111,7 @@ class NoteDetailState extends State<NoteDetail>{
                               .doc('${widget.snapshot.id}').update({
                             'dislike' : dislike
                           });
+                          clicked_dislike = true;
                           _showToastDislike(context);
                         });
                       },),

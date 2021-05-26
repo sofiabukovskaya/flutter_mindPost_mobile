@@ -137,14 +137,14 @@ class NotesScreenState extends State<NotesScreen> {
                                             Column(
                                               children: [
                                                 Icon(Icons.favorite,),
-                                                Text('${snapshot.data.docs[index]['like']}')
+                                                Text('${snapshot.data.docs[index]['like'].toString()}')
                                               ],
                                             ),
                                             SizedBox(width: 200,),
                                             Column(
                                               children: [
                                                 Icon(Icons.cancel_outlined, ),
-                                                Text('${snapshot.data.docs[index]['dislike']}')
+                                                Text('${snapshot.data.docs[index]['dislike'].toString()}')
                                               ],
                                             )
                                           ],

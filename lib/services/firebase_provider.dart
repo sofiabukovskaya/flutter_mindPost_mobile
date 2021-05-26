@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'dart:ui';
+
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -81,6 +81,7 @@ class FirebaseProvider {
   void addDataNote(String title, String description, String uploadedFileUrl,
       bool switched, String dateformat) async {
     await currentUserId().then((String result) => userId = result);
+
     DocumentReference documentReference = collectionReferenceNotes.doc();
     notesId.add(documentReference.id);
     await collectionReferenceNotes.add({
@@ -91,7 +92,8 @@ class FirebaseProvider {
       'publish': dateformat,
       'userId': userId,
       'like': 0,
-      'dislike': 0
+      'dislike': 0,
+      'user_nickname': 'sonya543'
     }).then((doc) =>
         collectionReference.doc(userId).update({
           'notes': FieldValue.arrayUnion(notesId)
