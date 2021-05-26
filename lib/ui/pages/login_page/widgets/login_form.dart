@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +18,13 @@ import 'package:flutter_mindpost/ui/pages/login_page/widgets/text_fields/passwor
 import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
 import 'package:flutter_mindpost/utils/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginForm extends StatefulWidget {
   LoginForm({@required FirestoreRepository firestoreRepository});
+
+
+
 
   @override
   State<StatefulWidget> createState() {
@@ -33,10 +38,38 @@ class LoginFormState extends State<LoginForm> {
   final TextEditingController passwordController = TextEditingController();
   bool passwordVisible = true;
   LoginBloc loginBloc;
+  final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
   @override
   void initState() {
     loginBloc = BlocProvider.of<LoginBloc>(context);
+  }
+
+  Future<void> signInWithGoogle() async {
+
+    final googleSignIn = GoogleSignIn();
+    final googleUser = await googleSignIn.signIn();
+    if (googleUser != null) {
+      final googleAuth = await googleUser.authentication;
+      if (googleAuth.idToken != null) {
+        final userCredential = await firebaseAuth.signInWithCredential(
+          GoogleAuthProvider.credential(
+              idToken: googleAuth.idToken, accessToken: googleAuth.accessToken),
+        );
+        return userCredential.user;
+      }
+    } else {
+      throw FirebaseAuthException(
+        message: "Sign in aborded by user",
+        code: "ERROR_ABORDER_BY_USER",
+      );
+    }
+  }
+
+  Future<void> signOut() async {
+    final googleSignIn = GoogleSignIn();
+    await googleSignIn.signOut();
+    await firebaseAuth.signOut();
   }
 
   @override
@@ -116,7 +149,10 @@ class LoginFormState extends State<LoginForm> {
                     padding: EdgeInsets.only(top: 15, left: 53, right: 53),
                     child: buttonsFacebookGoogle(
                         onTappedFacebookButton: () {},
-                        onTappedGoogleButton: () {})),
+                        onTappedGoogleButton: () {
+                          signInWithGoogle();
+
+                        })),
                 Padding(
                     padding: EdgeInsets.only(top: 36, left: 38, right: 40),
                     child: button(
