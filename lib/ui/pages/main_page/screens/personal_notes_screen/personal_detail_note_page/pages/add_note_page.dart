@@ -5,6 +5,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mindpost/data/models/note.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
+import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_notes_screen.dart';
 import 'package:image_picker/image_picker.dart';
@@ -58,8 +59,7 @@ class AddNotePageState extends State<AddNotePage> {
         iconTheme: const IconThemeData(color: Colors.black),
         title: Text(
           'Add note',
-          style: GoogleFonts.poppins(
-              fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black87),
+          style: textStyle(20.0, FontWeight.w500, Colors.black87),
         ),
         centerTitle: true,
         backgroundColor: Colors.white38,
@@ -71,9 +71,7 @@ class AddNotePageState extends State<AddNotePage> {
             iconSize: 30.0,
             onPressed: () async {
              Navigator.pop(context);
-              const Center(
-                child: CircularProgressIndicator(),
-              );
+             circularProgress();
               await firestoreRepository.addDataNote(titleNote.text.toString(), descriptionNote.text.toString(), uploadedFileUrl, switched,
                   dateformat);
              await firestoreRepository.uploadImage(image, uploadedFileUrl);
@@ -101,19 +99,13 @@ class AddNotePageState extends State<AddNotePage> {
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(500),
                         ],
-                        style: GoogleFonts.poppins(
-                            fontSize: 20.0,
-                            color: const Color(0xFF00847c),
-                            fontWeight: FontWeight.w600),
+                        style: textStyle(20.0, FontWeight.w600, const Color(0xFF00847c)),
                         textAlign: TextAlign.center,
                         decoration: InputDecoration(
                           counterText: '',
                           hintText: 'Title',
-                          hintStyle: GoogleFonts.poppins(
-                              textStyle: const TextStyle(
-                                  color: Color(0x4D00847c),
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.w600)),
+                          hintStyle: textStyle(
+                              20.0, FontWeight.w600, const Color(0x4D00847c)),
                         ),
                       ),
                     )),
@@ -127,10 +119,8 @@ class AddNotePageState extends State<AddNotePage> {
                         keyboardType: TextInputType.multiline,
                         maxLines: 250,
                         maxLength: 500,
-                        style: GoogleFonts.poppins(
-                            fontSize: 18.0,
-                            color: Colors.black54,
-                            fontWeight: FontWeight.w300),
+                        style: textStyle(
+                            18.0, FontWeight.w400, Colors.black54),
                         decoration: InputDecoration(
                             border: const OutlineInputBorder(),
                             hintText: 'Write about your day thoughts, day, desires...',

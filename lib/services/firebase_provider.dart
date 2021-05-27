@@ -44,6 +44,7 @@ class FirebaseProvider {
           'notes': null
         }));
   }
+
   Future<String> getId() async{
     final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     userId = sharedPreferences.getString('token');
@@ -54,7 +55,6 @@ class FirebaseProvider {
     return firebaseAuth.signInWithEmailAndPassword(email: email, password: password)
         .then((UserCredential result) =>
         sharedPreferences.setString('token', result.user.uid));
-
   }
 
   Future<void> logoutUser() async {
@@ -74,7 +74,7 @@ class FirebaseProvider {
   }
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes() {
-    getId();
+    getId().then((String id) => userId = id);
     return FirebaseFirestore.instance.collection('notes').where('userId', isEqualTo: userId).snapshots();
   }
 
@@ -106,5 +106,19 @@ class FirebaseProvider {
     final UploadTask uploadTask = storageReference.putFile(image);
     await uploadTask.whenComplete(() => print('Uploaded'));
 
+  }
+
+  Future<void> updateLikeCount(String id, int like) async {
+    await collectionReferenceNotes
+        .doc(id).update({
+      'like' : like
+    });
+  }
+
+  Future<void> updateDislikeCount(String id, int dislike) async {
+    await collectionReferenceNotes
+        .doc(id).update({
+      'dislike' : dislike
+    });
   }
 }

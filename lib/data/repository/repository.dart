@@ -21,4 +21,8 @@ abstract class Repository {
   Stream<QuerySnapshot<Map<String, dynamic>>> getPublicNotes();
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes();
+
+  Future<void> updateLikeCount(String id, int like);
+
+  Future<void> updateDislikeCount(String id, int dislike);
 }

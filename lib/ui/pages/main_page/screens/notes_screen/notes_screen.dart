@@ -4,14 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/list_item/notes_list_item.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/note_detail.dart';
+
 import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/widgets/icon_buttons.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/widgets/notes_list_item.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/widgets/search_textField.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/widgets/alert_dialog.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import '../../main_page.dart';
 
 class NotesScreen extends StatefulWidget {
   @override
@@ -46,11 +43,7 @@ class NotesScreenState extends State<NotesScreen> {
           builder: (BuildContext context,
               AsyncSnapshot<QuerySnapshot<dynamic>> snapshot) {
             if (!snapshot.hasData) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-                ),
-              );
+              return circularProgress();
             } else if (snapshot.hasData) {
               return SingleChildScrollView(
                 child: Column(
@@ -78,12 +71,5 @@ class NotesScreenState extends State<NotesScreen> {
             return const CircularProgressIndicator();
           },
         ));
-  }
-
-  dynamic navigateToDetail(QueryDocumentSnapshot<Object> doc) {
-    Navigator.push<dynamic>(
-        context,
-        MaterialPageRoute<dynamic>(
-            builder: (BuildContext context) => NoteDetail(snapshot: doc)));
   }
 }

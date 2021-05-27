@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/utils/app_localizations.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -14,12 +15,7 @@ Widget passwordFormField(BuildContext context,  bool passwordVisible, Function s
       border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide.none),
-      labelStyle: GoogleFonts.poppins(
-        textStyle: const TextStyle(
-            color: Colors.black45,
-            fontSize: 18.0,
-            fontWeight: FontWeight.w600),
-      ),
+      labelStyle: textStyle(18.0, FontWeight.w600, Colors.black45),
         suffixIcon: IconButton(
           icon: Icon(
               passwordVisible ? Icons.visibility_off

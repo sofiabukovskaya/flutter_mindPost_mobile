@@ -48,11 +48,8 @@ Widget button(BuildContext context, String label, Color color, Function onTapBut
     shape:
     RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
     child: Text(label,
-        style: GoogleFonts.poppins(
-            textStyle: const TextStyle(
-                color: Colors.white,
-                fontSize: 18.0,
-                fontWeight: FontWeight.w600))),
+        style: textStyle(
+            18.0, FontWeight.w600, Colors.black87)),
   );
 }
 
@@ -67,12 +64,8 @@ Widget textField(TextEditingController controller, Icon icon, Color color, Strin
       border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide.none),
-      labelStyle: GoogleFonts.poppins(
-        textStyle: const TextStyle(
-            color: Colors.black45,
-            fontSize: 18.0,
-            fontWeight: FontWeight.w600),
-      ),
+      labelStyle: textStyle(
+          18.0, FontWeight.w600, Colors.black87),
     ),
     keyboardType: TextInputType.text,
     cursorColor: color,
@@ -93,10 +86,8 @@ BoxDecoration boxDecoration() {
 Widget titleAppBar(String title) {
   return Text(
     title,
-    style: GoogleFonts.poppins(
-        fontSize: 20,
-        fontWeight: FontWeight.w500,
-        color: Colors.black87),
+    style: textStyle(
+        20.0, FontWeight.w500, Colors.black87),
   );
 }
 
@@ -105,5 +96,13 @@ TextStyle textStyle(double size, FontWeight fontWeight, Color color) {
     fontSize:  size,
     fontWeight: fontWeight,
     color: color
+  );
+}
+
+Center circularProgress () {
+  return  const Center(
+    child:CircularProgressIndicator(
+      valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+    ),
   );
 }

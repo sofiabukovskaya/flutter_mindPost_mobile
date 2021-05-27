@@ -15,9 +15,9 @@ class App extends StatelessWidget {
      initialRoute: '/',
      onGenerateRoute: routes,
      supportedLocales: [
-       Locale('en', 'US'),
-       Locale('uk', ''),
-       Locale('ru', 'RU')
+       const Locale('en', 'US'),
+       const Locale('uk', ''),
+       const  Locale('ru', 'RU')
      ],
      localizationsDelegates: [
        AppLocalizations.delegate,
@@ -25,8 +25,8 @@ class App extends StatelessWidget {
        GlobalWidgetsLocalizations.delegate,
        GlobalMaterialLocalizations.delegate
      ],
-     localeResolutionCallback: (locale, supportedLocales) {
-       for(var supportedLocale in supportedLocales) {
+     localeResolutionCallback: (Locale locale, Iterable<Locale> supportedLocales) {
+       for(Locale supportedLocale in supportedLocales) {
          if(supportedLocale.languageCode == locale.languageCode && supportedLocale.countryCode == locale.countryCode) {
            return supportedLocale;
          }

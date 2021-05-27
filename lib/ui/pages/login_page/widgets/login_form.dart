@@ -77,8 +77,7 @@ class LoginFormState extends State<LoginForm> {
       bloc: loginBloc,
       builder: (BuildContext context, LoginState state) {
         if (state is LoginSuccessfulState) {
-          WidgetsBinding.instance.addPostFrameCallback((timeStamp) async{
-           // Navigator.push(context, ScaleRoute(page: NotesPage()));
+          WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) async{
             Navigator.pushNamed(context, '/login');
           });
         } else if (state is LoginLoadingState) {
@@ -92,7 +91,7 @@ class LoginFormState extends State<LoginForm> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        const CircularProgressIndicator(),
+                        circularProgress(),
                         const Text('Loading'),
                       ],
                     ),

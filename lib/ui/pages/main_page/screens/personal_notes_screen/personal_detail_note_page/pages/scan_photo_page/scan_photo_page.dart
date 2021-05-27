@@ -1,7 +1,8 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/scan_photo_page/widgets/text_recognition_widget.dart';
+import 'package:flutter_mindpost/ui/common/common_widgets.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/pages/scan_photo_page/widgets/text_recognition_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ScanPhotoPage extends StatefulWidget {
@@ -18,17 +19,15 @@ class ScanPhotoPageState extends State<ScanPhotoPage> {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: Colors.white38,
-        iconTheme: IconThemeData(color: Colors.black54, size: 30.0),
-        title: Text('Text recognition with ML',maxLines: 2, textAlign: TextAlign.center, style:  GoogleFonts.poppins(
-          color: Colors.black87, fontSize: 18, fontWeight: FontWeight.w600
-        ),),
+        iconTheme: const IconThemeData(color: Colors.black54, size: 30.0),
+        title: Text('Text recognition with ML',maxLines: 2, textAlign: TextAlign.center, style:  textStyle(18.0, FontWeight.w500, Colors.black87),),
         centerTitle: true,
       ),
       body: Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-              TextRecognitionWidget()
+              const TextRecognitionWidget()
           ],
         ),
       )

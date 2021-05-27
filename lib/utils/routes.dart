@@ -3,14 +3,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/login_page.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/note_detail.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/add_note_page.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/detail_note_page/detail_note_page.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/scan_photo_page/scan_photo_page.dart';
-
+import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/note_detail_screen/note_detail_screen.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/pages/add_note_page.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/pages/scan_photo_page/scan_photo_page.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/personal_detail_note_page.dart';
 import 'package:flutter_mindpost/ui/pages/registration_page/registartion_page.dart';
 import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
 import 'package:flutter_mindpost/ui/pages/splash_page/splash_screen.dart';
+
+
 
 Route routes(RouteSettings routeSettings){
   if(routeSettings.name == '/') {
@@ -42,7 +43,10 @@ Route routes(RouteSettings routeSettings){
     );
   } else if(routeSettings.name == '/detailPublicNote') {
     final Object snapshot = routeSettings.arguments;
-    return ScaleRoute(page: NoteDetail(snapshot: snapshot));
+    return ScaleRoute(page: NoteDetailScreen(snapshot: snapshot,));
+  } else if(routeSettings.name == '/detailPrivateNote'){
+    final Object snapshot = routeSettings.arguments;
+    return ScaleRoute(page: PersonalDetailNotePage(snapshot: snapshot,));
   }
   return null;
 }

@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/list_item/widgets/like_dislike_icons.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/list_item/widgets/text_list.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/widgets/list_item/widgets/text_list.dart';
+
+import 'list_item/widgets/like_dislike_icons.dart';
+
 
 Widget notesListItem(QueryDocumentSnapshot<Object> snapshot, BuildContext context) {
   return Card(

@@ -59,7 +59,7 @@ class RegistrationFormState extends State<RegistrationForm> {
         bloc: _registrationBloc,
         builder: (BuildContext context, RegistrationState state) {
           if(state is RegistrationLoadingState) {
-            return const Center(child:  CircularProgressIndicator());
+            circularProgress();
           }
           if(state is RegistrationSuccessState) {
            Navigator.push<dynamic>(context, ScaleRoute(page: MainPage()));

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mindpost/data/models/event.dart';
 import 'package:flutter_mindpost/services/api/calendar_service.dart';
+import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/calendar_screen/widgets/alert_dialog.dart';
 
 
@@ -150,13 +151,11 @@ class CalendarScreenState extends State<CalendarScreen> {
                     },
                     subtitle: Text(
                       '$printTime',
-                      style: GoogleFonts.poppins(
-                          fontSize: 14, fontWeight: FontWeight.w400),
+                      style: textStyle(14.0, FontWeight.w400, Colors.black87),
                     ),
                     title: Text(
                       event.title,
-                      style: GoogleFonts.poppins(
-                          fontSize: 18, fontWeight: FontWeight.w400),
+                      style: textStyle(18.0, FontWeight.w400, Colors.black87)
                     ),
                   )
               ),
@@ -168,11 +167,10 @@ class CalendarScreenState extends State<CalendarScreen> {
         backgroundColor: const Color(0xFF00847c),
         onPressed: () => showDialog<dynamic>(
           context: context,
-          builder: (context) => AlertDialog(
+          builder: (BuildContext context) => AlertDialog(
             title: Text(
               '🤩 Event 🤩 ',
-              style: GoogleFonts.poppins(
-                  fontSize: 22, fontWeight: FontWeight.w500),
+              style: textStyle(22.0, FontWeight.w500, Colors.black45),
             ),
             content: TextFormField(
               controller: _eventController,
@@ -181,14 +179,14 @@ class CalendarScreenState extends State<CalendarScreen> {
               TextButton(
                 child: Text(
                   'Cancel',
-                  style: GoogleFonts.poppins(fontSize: 18, color: Colors.red),
+                  style: textStyle(18.0, FontWeight.w600, Colors.red),
                 ),
                 onPressed: () => Navigator.pop(context),
               ),
               TextButton(
                 child: Text('Ok',
-                    style: GoogleFonts.poppins(
-                        fontSize: 18, color: Colors.blueGrey)),
+                    style: textStyle(
+                        18.0, FontWeight.w400, Colors.blueGrey)),
                 onPressed: () {
                   if (_eventController.text.isEmpty) {
                   } else {
@@ -212,7 +210,8 @@ class CalendarScreenState extends State<CalendarScreen> {
         ),
         label: Text('Add Event',
             style:
-                GoogleFonts.poppins(fontSize: 18, fontWeight: FontWeight.w500)),
+            textStyle(
+                18.0, FontWeight.w500, Colors.black87)),
         icon: const Icon(Icons.add),
       ),
     );

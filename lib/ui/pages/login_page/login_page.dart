@@ -21,17 +21,17 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LoginBloc>(
-      create: (context) => LoginBloc(firestoreRepository: firestoreRepository),
+      create: (BuildContext context) => LoginBloc(firestoreRepository: firestoreRepository),
       child: Scaffold(
         body: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Padding(
-                  padding: EdgeInsets.only(top: 150, left: 120, right: 120),
+                  padding: const EdgeInsets.only(top: 150, left: 120, right: 120),
                   child: labelText(context)),
               Padding(
-                padding: EdgeInsets.only(top: 30),
+                padding: const EdgeInsets.only(top: 30),
                 child: LoginForm(firestoreRepository: firestoreRepository),
               )
             ],

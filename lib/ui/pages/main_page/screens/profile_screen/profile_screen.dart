@@ -43,11 +43,7 @@ class ProfileScreenState extends State<ProfileScreen> {
           future: firestoreRepository.getUserData(),
           builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
             if(!snapshot.hasData) {
-              return const Center(
-                child: CircularProgressIndicator(
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-                ),
-              );
+              return circularProgress();
             } else if(snapshot.hasData) {
               return SingleChildScrollView(
                 child: Column(
@@ -72,9 +68,7 @@ class ProfileScreenState extends State<ProfileScreen> {
                 ),
               );
             }
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
+            return circularProgress();
           },
         )
         );

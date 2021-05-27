@@ -29,7 +29,7 @@ class CalendarService{
       event.end = end;
       try {
         calendar.events.insert(event, calendarId).then((Event value) {
-          print('ADDEDDD ${value.status}');
+          print('Added ${value.status}');
           if (value.status == 'confirmed') {
             print('Event added in google calendar');
           } else {
@@ -45,7 +45,6 @@ class CalendarService{
   Future<void> prompt(String url) async {
     print('Please go to the following URL and grant access:');
     print('  => $url');
-    print('');
     if (await canLaunch(url)) {
       await launch(url);
     } else {

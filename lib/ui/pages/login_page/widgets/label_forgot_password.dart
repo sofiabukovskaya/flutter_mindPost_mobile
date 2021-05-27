@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 
 import 'package:flutter_mindpost/ui/pages/forgot_password_page/forgot_password_page.dart';
 import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
@@ -12,10 +13,8 @@ Widget labelForgotPassword(BuildContext context) {
       },
       child: Text(
         AppLocalizations.of(context).translate('forgot_password_string'),
-        style: GoogleFonts.poppins(
-            color:const Color(0xFF004280),
-            fontSize: 18.0,
-            fontWeight: FontWeight.w600),
+        style: textStyle(
+            18.0, FontWeight.w600, const Color(0xFF004280))
       )
   );
 }

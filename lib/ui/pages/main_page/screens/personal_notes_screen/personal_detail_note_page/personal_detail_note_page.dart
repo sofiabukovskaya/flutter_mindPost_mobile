@@ -1,21 +1,20 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_notes_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class DetailNotePage extends StatefulWidget {
-  const DetailNotePage({Key key, this.snapshot}) : super(key: key);
+class PersonalDetailNotePage extends StatefulWidget {
+  const PersonalDetailNotePage({Key key, this.snapshot}) : super(key: key);
   final QueryDocumentSnapshot<dynamic> snapshot;
 
   @override
   State<StatefulWidget> createState() {
-    return DetailNotePageState();
+    return PersonalDetailNotePageState();
   }
 }
 
-class DetailNotePageState extends State<DetailNotePage> {
+class PersonalDetailNotePageState extends State<PersonalDetailNotePage> {
   TextEditingController controllerTextTitle = TextEditingController();
   TextEditingController controllerTextDescription = TextEditingController();
   final CollectionReference<dynamic> collectionReferenceNotes =
@@ -85,27 +84,31 @@ class DetailNotePageState extends State<DetailNotePage> {
                         return AlertDialog(
                           title: const Text('Change info'),
                           content: Form(
-                              child: Column(
-                            children: [
-                              TextFormField(
-                                controller: controllerTextTitle,
-                                keyboardType: TextInputType.name,
-                                decoration: InputDecoration(
-                                  labelText: 'Title:',
-                                  hintText: '$title',
+                              child: Container(
+                            height: 150,
+                            width: 150,
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  controller: controllerTextTitle,
+                                  keyboardType: TextInputType.name,
+                                  decoration: InputDecoration(
+                                    labelText: 'Title:',
+                                    hintText: '$title',
+                                  ),
+                                  onSaved: (String artistValue) {},
                                 ),
-                                onSaved: (String artistValue) {},
-                              ),
-                              TextFormField(
-                                controller: controllerTextDescription,
-                                keyboardType: TextInputType.name,
-                                decoration: InputDecoration(
-                                  labelText: 'Description:',
-                                  hintText: '$description',
+                                TextFormField(
+                                  controller: controllerTextDescription,
+                                  keyboardType: TextInputType.name,
+                                  decoration: InputDecoration(
+                                    labelText: 'Description:',
+                                    hintText: '$description',
+                                  ),
+                                  onSaved: (String artistValue) {},
                                 ),
-                                onSaved: (String artistValue) {},
-                              ),
-                            ],
+                              ],
+                            ),
                           )),
                           actions: [
                             FlatButton(
@@ -118,7 +121,8 @@ class DetailNotePageState extends State<DetailNotePage> {
                                 onPressed: () {
                                   setState(() {
                                     title = controllerTextTitle.text;
-                                    description = controllerTextDescription.text;
+                                    description =
+                                        controllerTextDescription.text;
                                   });
                                   collectionReferenceNotes
                                       .doc('${widget.snapshot.id}')
@@ -126,10 +130,12 @@ class DetailNotePageState extends State<DetailNotePage> {
                                     'title': controllerTextTitle.text.isNotEmpty
                                         ? controllerTextTitle.text
                                         : title,
-                                    'description': controllerTextDescription.text == ''
-                                        ? controllerTextDescription.text
-                                        : description
-                                  }).then((dynamic value) => Scaffold.of(context)
+                                    'description':
+                                        controllerTextDescription.text == ''
+                                            ? controllerTextDescription.text
+                                            : description
+                                  }).then((dynamic value) => Scaffold.of(
+                                              context)
                                           .showSnackBar(SnackBar(
                                               content: Text(
                                                   "Update ${widget.snapshot.get('title').toString()}"))));
@@ -147,28 +153,37 @@ class DetailNotePageState extends State<DetailNotePage> {
                 color: Colors.red[400],
                 child: const Icon(Icons.delete),
                 onPressed: () {
-                  showDialog<dynamic>(context: context, builder: (BuildContext context){
-                    return AlertDialog(
-                      title:const Text('Delete a note'),
-                      actions: [
-                        FlatButton(
-                            child: const Text('NO'),
-                            onPressed: () {
-                              Navigator.of(context).pop(false);
-                            }),
-                        FlatButton(
-                            child: const Text('YES'),
-                            onPressed: () {
-                              collectionReferenceNotes
-                                  .doc('${widget.snapshot.id}').delete().then((dynamic value) => Scaffold.of(context)
-                                  .showSnackBar(const SnackBar(
-                                  content: Text(
-                                      'Note delete'))) );
-                              Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (BuildContext context)=> PersonalNotesScreen()));
-                            }),
-                      ],
-                    );
-                  });
+                  showDialog<dynamic>(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Delete a note'),
+                          actions: [
+                            FlatButton(
+                                child: const Text('NO'),
+                                onPressed: () {
+                                  Navigator.of(context).pop(false);
+                                }),
+                            FlatButton(
+                                child: const Text('YES'),
+                                onPressed: () {
+                                  collectionReferenceNotes
+                                      .doc('${widget.snapshot.id}')
+                                      .delete()
+                                      .then((dynamic value) =>
+                                          Scaffold.of(context).showSnackBar(
+                                              const SnackBar(
+                                                  content:
+                                                      Text('Note delete'))));
+                                  Navigator.push<dynamic>(
+                                      context,
+                                      MaterialPageRoute<dynamic>(
+                                          builder: (BuildContext context) =>
+                                              PersonalNotesScreen()));
+                                }),
+                          ],
+                        );
+                      });
                 },
               ),
             )

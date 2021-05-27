@@ -37,5 +37,10 @@ class FirestoreRepository implements Repository {
   @override
    Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes() => firebaseProvider.getPrivateNotes();
 
+  @override
+  Future<void> updateDislikeCount(String id, int dislike) async => firebaseProvider.updateDislikeCount(id, dislike);
+
+  @override
+  Future<void> updateLikeCount(String id, int like) async => await firebaseProvider.updateLikeCount(id, like);
 
 }
