@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/login_page.dart';
 
-Widget alertDialog(BuildContext context, FirestoreRepository firestoreRepository) {
+Widget alertDialog(BuildContext context) {
   return  AlertDialog(
     title: const Text('Logout'),
     content: const Text('Do you wanna logout?'),
@@ -17,7 +18,7 @@ Widget alertDialog(BuildContext context, FirestoreRepository firestoreRepository
           )),
       FlatButton(
           onPressed: () {
-            firestoreRepository.logout().then((dynamic ff) async {   //потом эту херню заменить на норм блок, это для теста
+            FirestoreRepositoryImpl().logout().then((dynamic ff) async {   //потом эту херню заменить на норм блок, это для теста
               Navigator.push<dynamic>(
                   context,
                   MaterialPageRoute<dynamic>(

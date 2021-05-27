@@ -1,14 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/ui/bloc/login_bloc/login_event.dart';
 import 'package:flutter_mindpost/ui/bloc/login_bloc/login_state.dart';
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc({ @required FirestoreRepository firestoreRepository}) : super(LoginEmptyState());
-
-  final FirestoreRepository firestoreRepository = FirestoreRepository();
-
+  LoginBloc() : super(LoginEmptyState());
   @override
   Stream<LoginState> mapEventToState(LoginEvent event) async* {
     if(event is ForgotPasswordEvent) {
@@ -20,6 +18,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     }  if(event is LoginGoogleEvent) {
       yield LoginLoadingState();
+      await FirestoreRepositoryImpl().signInWithGoogle();
       try {
         yield LoginSuccessfulState();
       } catch(e) {
@@ -37,7 +36,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       try {
         final String email = event.email;
         final String password = event.password;
-        await firestoreRepository.signIn(email, password);
+        await FirestoreRepositoryImpl().signIn(email, password);
         yield LoginSuccessfulState();
       } catch(e){
         yield LoginInvalidState();

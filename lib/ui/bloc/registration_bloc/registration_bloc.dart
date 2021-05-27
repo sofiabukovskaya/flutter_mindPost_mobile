@@ -1,16 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_event.dart';
 import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_state.dart';
 import 'dart:async';
 
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
-  RegistrationBloc({@required FirestoreRepository firestoreRepository}) : super(RegistrationEmptyState());
-  final FirestoreRepository firestoreRepository = FirestoreRepository();
-
-
-
+  RegistrationBloc() : super(RegistrationEmptyState());
   @override
   Stream<RegistrationState> mapEventToState(RegistrationEvent event) async* {
     if (event is Submitted) {
@@ -23,7 +20,7 @@ class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
       final String phone = event.phone;
       RegistrationLoadingState();
       try {
-        firestoreRepository.signUp(name, surname, nickname, email, birthday, phone, password);
+        FirestoreRepositoryImpl().signUp(name, surname, nickname, email, birthday, phone, password);
         yield RegistrationSuccessState();
       } catch (e) {
           yield RegistrationFailureState();

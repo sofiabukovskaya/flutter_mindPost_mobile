@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_bloc.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 
@@ -20,23 +20,22 @@ class RegistrationPage extends StatefulWidget {
 }
 
 class RegistrationPageState extends State<RegistrationPage> {
-  FirestoreRepository firestoreRepository = FirestoreRepository();
-  RegistrationBloc registrationBloc;
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<RegistrationBloc>(create: (context) => RegistrationBloc(firestoreRepository: firestoreRepository),
+    return BlocProvider<RegistrationBloc>(create: (BuildContext context) => RegistrationBloc(),
     child: Scaffold(
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
+          children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(top: 75.0),
+              padding: const EdgeInsets.only(top: 75.0),
               child: labelWelcomeText(context),
             ),
             Padding(
-                padding: EdgeInsets.only(top: 30.0),
-                child: RegistrationForm(firestoreRepository:  firestoreRepository,)),
+                padding: const EdgeInsets.only(top: 30.0),
+                child: RegistrationForm()),
           ],
         ),
       ),

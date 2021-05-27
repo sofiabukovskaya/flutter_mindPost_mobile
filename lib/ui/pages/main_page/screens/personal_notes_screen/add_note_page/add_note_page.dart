@@ -4,12 +4,9 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mindpost/data/models/note.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_notes_screen.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as Path;
 import 'package:flutter/cupertino.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +21,7 @@ class AddNotePage extends StatefulWidget {
 }
 
 class AddNotePageState extends State<AddNotePage> {
-  FirestoreRepository firestoreRepository = FirestoreRepository();
+  FirestoreRepositoryImpl firestoreRepository = FirestoreRepositoryImpl();
   String dateformat = DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
   List<Note> note = [];
   final TextEditingController titleNote = TextEditingController();

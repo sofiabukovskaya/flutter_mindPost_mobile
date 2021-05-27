@@ -2,14 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/bloc/note_detail_bloc/note_detail_bloc.dart';
 import 'package:flutter_mindpost/ui/bloc/note_detail_bloc/note_detail_event.dart';
 import 'package:flutter_mindpost/ui/bloc/note_detail_bloc/note_detail_state.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 
 class NoteDetail extends StatefulWidget {
-  NoteDetail({Key key, this.snapshot}) : super(key: key);
+  const NoteDetail({Key key, this.snapshot}) : super(key: key);
   final QueryDocumentSnapshot<Object> snapshot;
 
   @override

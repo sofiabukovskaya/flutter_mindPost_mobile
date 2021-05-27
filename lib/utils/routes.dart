@@ -4,8 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/login_page.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/note_detail_screen/note_detail_screen.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/pages/add_note_page.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/pages/scan_photo_page/scan_photo_page.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/add_note_page/scan_photo_page/scan_photo_page.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_notes_screen.dart';
+import '../ui/pages/main_page/screens/personal_notes_screen/add_note_page/add_note_page.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/personal_detail_note_page.dart';
 import 'package:flutter_mindpost/ui/pages/registration_page/registartion_page.dart';
 import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
@@ -47,6 +48,8 @@ Route routes(RouteSettings routeSettings){
   } else if(routeSettings.name == '/detailPrivateNote'){
     final Object snapshot = routeSettings.arguments;
     return ScaleRoute(page: PersonalDetailNotePage(snapshot: snapshot,));
+  } else if(routeSettings.name == '/goBackAfterDeleteNote'){
+    return ScaleRoute(page: PersonalNotesScreen());
   }
   return null;
 }

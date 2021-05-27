@@ -211,7 +211,7 @@ class CalendarScreenState extends State<CalendarScreen> {
         label: Text('Add Event',
             style:
             textStyle(
-                18.0, FontWeight.w500, Colors.black87)),
+                18.0, FontWeight.w500, Colors.white)),
         icon: const Icon(Icons.add),
       ),
     );

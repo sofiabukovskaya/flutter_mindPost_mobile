@@ -8,18 +8,18 @@ Widget passwordFormField(BuildContext context, TextEditingController passwordCon
     autovalidateMode: AutovalidateMode.always,
     obscureText: passwordVisible,
     validator: (String input) {
-      return !Validators.isValidPassword(input) ? 'Invalid password, please write with numbers'+ '\n'+' and less not less 6 symbols' : null;
+      return !Validators.isValidPassword(input) ? 'Invalid password, please write with numbers''\n'' and less not less 6 symbols' : null;
     },
     controller: passwordController,
     decoration: InputDecoration(
       filled: true,
       labelText: 'Password',
-      fillColor: Color(0x1A008B83),
+      fillColor: const Color(0x1A008B83),
       border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide.none),
       labelStyle: GoogleFonts.poppins(
-        textStyle: TextStyle(
+        textStyle: const TextStyle(
             color: Colors.black45,
             fontSize: 18.0,
             fontWeight: FontWeight.w600),

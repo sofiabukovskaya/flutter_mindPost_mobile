@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/widgets/icon_buttons.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/widgets/search_textField.dart';
@@ -20,7 +21,7 @@ class PersonalNotesScreen extends StatefulWidget {
 
 class PersonalNotesScreenState extends State<PersonalNotesScreen> {
   TextEditingController searchController = TextEditingController();
-  FirestoreRepository firestoreRepository = FirestoreRepository();
+  FirestoreRepositoryImpl firestoreRepository = FirestoreRepositoryImpl();
   bool public;
 
   @override
@@ -37,7 +38,7 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
             iconButtons(() {
               showDialog<dynamic>(
                   context: context,
-                  builder: (_) => alertDialog(context, firestoreRepository));
+                  builder: (_) => alertDialog(context));
             })
           ],
           backgroundColor: Colors.white38,
@@ -47,7 +48,7 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
         ),
         floatingActionButton: floatingActionButton(context),
         body: StreamBuilder<QuerySnapshot<Object>>(
-          stream: firestoreRepository.getPrivateNotes(),
+          stream: FirestoreRepositoryImpl().getPrivateNotes(),
           builder: (BuildContext context, AsyncSnapshot<QuerySnapshot<dynamic>> snapshot) {
             if (!snapshot.hasData) {
               circularProgress();

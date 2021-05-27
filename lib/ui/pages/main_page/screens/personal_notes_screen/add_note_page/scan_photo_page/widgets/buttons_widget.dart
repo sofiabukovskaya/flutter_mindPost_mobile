@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class ControlsWidget extends StatelessWidget {
+class ButtonsWidget extends StatelessWidget {
   final VoidCallback onClickedPickImage;
   final VoidCallback onClickedScanText;
   final VoidCallback onClickedClear;
 
-  const ControlsWidget({
+  const ButtonsWidget({
     @required this.onClickedPickImage,
     @required this.onClickedScanText,
     @required this.onClickedClear,

@@ -1,13 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/services/checkInternet_service.dart';
 import 'package:flutter_mindpost/ui/bloc/note_detail_bloc/note_detail_event.dart';
 import 'package:flutter_mindpost/ui/bloc/note_detail_bloc/note_detail_state.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
 
 class NoteDetailBlock extends Bloc<NoteDetailEvent, NoteDetailState> {
-  NoteDetailBlock({@required FirestoreRepository firestoreRepository})
+  NoteDetailBlock()
       : super(EmptyState());
 
   @override
@@ -17,7 +18,7 @@ class NoteDetailBlock extends Bloc<NoteDetailEvent, NoteDetailState> {
       try {
         final String noteId = event.noteId;
         final int dislike = event.dislike;
-        await firestoreRepository.updateDislikeCount(noteId, dislike);
+        await FirestoreRepositoryImpl().updateDislikeCount(noteId, dislike);
         yield DislikingIsSuccessfulState();
       } catch (_) {
         yield NoInternetConnectionState();
@@ -27,6 +28,9 @@ class NoteDetailBlock extends Bloc<NoteDetailEvent, NoteDetailState> {
       yield LoadingState();
       try {
         yield LikingIsSuccessfulState();
+        final String noteId = event.noteId;
+        final int like = event.like;
+        await FirestoreRepositoryImpl().updateLikeCount(noteId, like);
       } catch (_) {
         yield NoInternetConnectionState();
       }

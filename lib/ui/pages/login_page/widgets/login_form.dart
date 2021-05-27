@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/bloc/login_bloc/login_bloc.dart';
 import 'package:flutter_mindpost/ui/bloc/login_bloc/login_event.dart';
 import 'package:flutter_mindpost/ui/bloc/login_bloc/login_state.dart';
@@ -22,7 +22,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({@required FirestoreRepository firestoreRepository});
+  const LoginForm({@required FirestoreRepositoryImpl firestoreRepository});
 
   @override
   State<StatefulWidget> createState() {
@@ -31,7 +31,7 @@ class LoginForm extends StatefulWidget {
 }
 
 class LoginFormState extends State<LoginForm> {
-  FirestoreRepository firestoreRepository = FirestoreRepository();
+
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   bool passwordVisible = true;
@@ -44,32 +44,32 @@ class LoginFormState extends State<LoginForm> {
     loginBloc = BlocProvider.of<LoginBloc>(context);
   }
 
-  Future<void> signInWithGoogle() async {
-
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount googleUser = await googleSignIn.signIn();
-    if (googleUser != null) {
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      if (googleAuth.idToken != null) {
-        final UserCredential userCredential = await firebaseAuth.signInWithCredential(
-          GoogleAuthProvider.credential(
-              idToken: googleAuth.idToken, accessToken: googleAuth.accessToken),
-        );
-        return userCredential.user;
-      }
-    } else {
-      throw FirebaseAuthException(
-        message: 'Sign in aborded by user',
-        code: 'ERROR_ABORDER_BY_USER',
-      );
-    }
-  }
-
-  Future<void> signOut() async {
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    await googleSignIn.signOut();
-    await firebaseAuth.signOut();
-  }
+  // Future<void> signInWithGoogle() async {
+  //
+  //   final GoogleSignIn googleSignIn = GoogleSignIn();
+  //   final GoogleSignInAccount googleUser = await googleSignIn.signIn();
+  //   if (googleUser != null) {
+  //     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+  //     if (googleAuth.idToken != null) {
+  //       final UserCredential userCredential = await firebaseAuth.signInWithCredential(
+  //         GoogleAuthProvider.credential(
+  //             idToken: googleAuth.idToken, accessToken: googleAuth.accessToken),
+  //       );
+  //       return userCredential.user;
+  //     }
+  //   } else {
+  //     throw FirebaseAuthException(
+  //       message: 'Sign in aborded by user',
+  //       code: 'ERROR_ABORDER_BY_USER',
+  //     );
+  //   }
+  // }
+  //
+  // Future<void> signOut() async {
+  //   final GoogleSignIn googleSignIn = GoogleSignIn();
+  //   await googleSignIn.signOut();
+  //   await firebaseAuth.signOut();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -109,9 +109,9 @@ class LoginFormState extends State<LoginForm> {
               return Dialog(
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    const Text('Invalid data!'),
-                    const Text("Invalid email or password"),
+                  children: const <Widget>[
+                     Text('Invalid data!'),
+                     Text('Invalid email or password'),
                   ],
                 ),
               );
@@ -148,8 +148,7 @@ class LoginFormState extends State<LoginForm> {
                     child: buttonsFacebookGoogle(
                         onTappedFacebookButton: () {},
                         onTappedGoogleButton: () {
-                          signInWithGoogle().then<dynamic>((value) => Navigator.push<dynamic>(context, MaterialPageRoute<dynamic>(builder: (context)=> MainPage())));
-
+                          loginBloc.add(LoginGoogleEvent());
                         })),
                 Padding(
                     padding:const  EdgeInsets.only(top: 36, left: 38, right: 40),

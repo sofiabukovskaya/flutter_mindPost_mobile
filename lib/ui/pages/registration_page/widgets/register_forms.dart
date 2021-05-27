@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_bloc.dart';
 import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_event.dart';
 import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_state.dart';
@@ -23,7 +23,6 @@ import 'label_sign_in.dart';
 
 class RegistrationForm extends StatefulWidget {
 
-  RegistrationForm({@required FirestoreRepository firestoreRepository});
 
   @override
   State<StatefulWidget> createState() {
@@ -55,7 +54,7 @@ class RegistrationFormState extends State<RegistrationForm> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder(
+    return BlocBuilder<RegistrationBloc, RegistrationState>(
         bloc: _registrationBloc,
         builder: (BuildContext context, RegistrationState state) {
           if(state is RegistrationLoadingState) {
@@ -158,7 +157,7 @@ class RegistrationFormState extends State<RegistrationForm> {
                       AppLocalizations.of(context).translate('sign_up_string'),
                       const Color(0x80008B83), ()  {
                         if(isChecked == false) {
-                          final snackBar = SnackBar(content: const Text('Please, select a checkbox'),
+                          final SnackBar snackBar = SnackBar(content: const Text('Please, select a checkbox'),
                           action: SnackBarAction(
                             label: 'Ok',
                             onPressed: (){},

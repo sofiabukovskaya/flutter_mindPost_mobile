@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 
 import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/widgets/icon_buttons.dart';
@@ -19,7 +20,6 @@ class NotesScreen extends StatefulWidget {
 
 class NotesScreenState extends State<NotesScreen> {
   TextEditingController searchController = TextEditingController();
-  FirestoreRepository firestoreRepository = FirestoreRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class NotesScreenState extends State<NotesScreen> {
             iconButtons(() {
               showDialog<dynamic>(
                   context: context,
-                  builder: (_) => alertDialog(context, firestoreRepository));
+                  builder: (_) => alertDialog(context));
             })
           ],
           backgroundColor: Colors.white38,
@@ -39,7 +39,7 @@ class NotesScreenState extends State<NotesScreen> {
           centerTitle: true,
         ),
         body: StreamBuilder<QuerySnapshot<Object>>(
-          stream: firestoreRepository.getPublicNotes(),
+          stream: FirestoreRepositoryImpl().getPublicNotes(),
           builder: (BuildContext context,
               AsyncSnapshot<QuerySnapshot<dynamic>> snapshot) {
             if (!snapshot.hasData) {

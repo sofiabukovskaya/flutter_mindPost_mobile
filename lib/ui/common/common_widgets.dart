@@ -65,7 +65,7 @@ Widget textField(TextEditingController controller, Icon icon, Color color, Strin
           borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide.none),
       labelStyle: textStyle(
-          18.0, FontWeight.w600, Colors.black87),
+          18.0, FontWeight.w400, Colors.black87),
     ),
     keyboardType: TextInputType.text,
     cursorColor: color,

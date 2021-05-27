@@ -1,18 +1,13 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/services/api/firebase_ml_api.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/pages/scan_photo_page/widgets/controls_widget.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/pages/scan_photo_page/widgets/text_area_widget.dart';
-
+import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/add_note_page/scan_photo_page/widgets/text_area_widget.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as Path;
-import 'package:path_provider/path_provider.dart' as Path;
 
-import 'dart:async';
-
-import 'package:path_provider/path_provider.dart';
+import 'buttons_widget.dart';
 
 class TextRecognitionWidget extends StatefulWidget {
   const TextRecognitionWidget({
@@ -26,11 +21,10 @@ class TextRecognitionWidget extends StatefulWidget {
 class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   String text = '';
   File image;
-
   @override
   Widget build(BuildContext context) => Expanded(
         child: Column(
-          children: [
+          children: <Widget>[
             const SizedBox(height: 60),
            Container(
              height: 300,
@@ -38,7 +32,7 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
             child: buildImage() ,
         ),
             const SizedBox(height: 60),
-            ControlsWidget(
+            ButtonsWidget(
               onClickedPickImage: pickImage,
               onClickedScanText: scanText,
               onClickedClear: clear,
@@ -62,14 +56,13 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
             : const Icon(Icons.photo, size: 50, color: Colors.black26),
       );
 
-  Future pickImage() async {
-
-    final file = await ImagePicker.pickImage(source: ImageSource.gallery);
+  Future<void>pickImage() async {
+    final File file = await ImagePicker.pickImage(source: ImageSource.gallery);
     setImage(File(file.path));
   }
 
-  Future scanText() async {
-    final text = await FirebaseMLApi.recogniseText(image);
+  Future<void> scanText() async {
+    final String text = await FirebaseMLApi.recogniseText(image);
     print(text);
     setText(text);
   }

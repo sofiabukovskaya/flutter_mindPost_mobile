@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
+import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/login_page.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/calendar_screen/calendar_screen.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/notes_screen.dart';
@@ -9,8 +9,6 @@ import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/profi
 import 'package:flutter_mindpost/ui/pages/main_page/widgets/alert_dialog.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/widgets/tab_bar.dart';
 
-FirestoreRepository firestoreRepository =
-    FirestoreRepository(); //и эту херню убрать
 
 class MainPage extends StatefulWidget {
   @override
@@ -34,7 +32,7 @@ class MainPageState extends State<MainPage>
       length: 4,
       child: Scaffold(
         body: TabBarView(
-          children: [
+          children: <Widget>[
             ProfileScreen(),
             NotesScreen(),
             PersonalNotesScreen(),
