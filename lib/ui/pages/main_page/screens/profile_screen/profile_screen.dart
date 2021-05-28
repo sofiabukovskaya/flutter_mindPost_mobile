@@ -1,16 +1,12 @@
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/widgets/iconButton_logout.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/widgets/list_title.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/widgets/user_avatar.dart';
-
 import 'package:flutter_mindpost/ui/pages/main_page/widgets/alert_dialog.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override

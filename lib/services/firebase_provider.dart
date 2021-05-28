@@ -3,11 +3,9 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:flutter_mindpost/data/models/note.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-// ignore: library_prefixes
-import 'package:path/path.dart' as Path;
+import 'package:path/path.dart' as path;
 
 class FirebaseProvider {
   final CollectionReference<dynamic> collectionReference =
@@ -17,7 +15,7 @@ class FirebaseProvider {
       FirebaseFirestore.instance.collection('notes');
 
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  List<String> notesId = [];
+  List<String> notesId = <String>[];
 
   Future<String> currentUserId() async {
     final User user = firebaseAuth.currentUser;
@@ -32,7 +30,7 @@ class FirebaseProvider {
     return await firebaseAuth
         .createUserWithEmailAndPassword(email: email, password: password)
         .then<dynamic>((UserCredential result) =>
-            collectionReference.doc(result.user.uid).set({
+            collectionReference.doc(result.user.uid).set(<String, dynamic>{
               'id': result.user.uid,
               'name': name,
               'surname': surname,
@@ -66,7 +64,6 @@ class FirebaseProvider {
         await SharedPreferences.getInstance();
     await firebaseAuth.signOut();
     sharedPreferences.clear();
-    sharedPreferences.commit();
   }
 
   Future<DocumentSnapshot<Map<String, dynamic>>> getUserData() async {
@@ -98,7 +95,7 @@ class FirebaseProvider {
     final DocumentReference<dynamic> documentReference =
         collectionReferenceNotes.doc();
     notesId.add(documentReference.id);
-    await collectionReferenceNotes.add({
+    await collectionReferenceNotes.add(<String, dynamic>{
       'title': title,
       'description': description,
       'photoUrl': uploadedFileUrl,
@@ -110,31 +107,27 @@ class FirebaseProvider {
       'user_nickname': 'sonya543'
     }).then((DocumentReference<dynamic> doc) => collectionReference
         .doc(userId)
-        .update({'notes': FieldValue.arrayUnion(notesId)}));
+        .update(<String, dynamic>{'notes': FieldValue.arrayUnion(notesId)}));
   }
 
   Future<void> uploadImage(File image, String uploadedFileUrl) async {
     final Reference storageReference = FirebaseStorage.instance
         .ref()
-        .child('notesPhoto/${Path.basename(image.path)}}');
+        .child('notesPhoto/${path.basename(image.path)}}');
     final UploadTask uploadTask = storageReference.putFile(image);
     await uploadTask.whenComplete(() => print('Uploaded'));
   }
 
-  Future<void> updateLikeCount(String id, int like) async {
-    await collectionReferenceNotes.doc(id).update({'like': like});
-  }
+  Future<void> updateLikeCount(String id, int like) async => await collectionReferenceNotes.doc(id).update(<String, dynamic>{'like': like});
 
-  Future<void> updateDislikeCount(String id, int dislike) async {
-    await collectionReferenceNotes.doc(id).update({'dislike': dislike});
-  }
+
+  Future<void> updateDislikeCount(String id, int dislike) async => await collectionReferenceNotes.doc(id).update(<String, dynamic>{'dislike': dislike});
 
   Future<void> updateNote(
       String noteId, String title, String description) async {
-    await collectionReferenceNotes.doc(noteId).update({
-      'title': title,
-      'description': description
-    });
+    await collectionReferenceNotes
+        .doc(noteId)
+        .update(<String, dynamic>{'title': title, 'description': description});
   }
 
   Future<void> deleteNote(String noteId) async {
@@ -150,9 +143,11 @@ class FirebaseProvider {
     final GoogleSignIn googleSignIn = GoogleSignIn();
     final GoogleSignInAccount googleUser = await googleSignIn.signIn();
     if (googleUser != null) {
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth =
+          await googleUser.authentication;
       if (googleAuth.idToken != null) {
-        final UserCredential userCredential = await firebaseAuth.signInWithCredential(
+        final UserCredential userCredential =
+            await firebaseAuth.signInWithCredential(
           GoogleAuthProvider.credential(
               idToken: googleAuth.idToken, accessToken: googleAuth.accessToken),
         );

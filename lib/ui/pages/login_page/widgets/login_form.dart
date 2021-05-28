@@ -1,29 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/bloc/login_bloc/login_bloc.dart';
 import 'package:flutter_mindpost/ui/bloc/login_bloc/login_event.dart';
 import 'package:flutter_mindpost/ui/bloc/login_bloc/login_state.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
-
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_forgot_password.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_sign_up.dart';
-import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_welcome.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/text_fields/email_form.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/text_fields/password_form.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
-
-import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
 import 'package:flutter_mindpost/utils/app_localizations.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class LoginForm extends StatefulWidget {
-  const LoginForm({@required FirestoreRepositoryImpl firestoreRepository});
-
   @override
   State<StatefulWidget> createState() {
     return LoginFormState();
@@ -44,33 +33,6 @@ class LoginFormState extends State<LoginForm> {
     loginBloc = BlocProvider.of<LoginBloc>(context);
   }
 
-  // Future<void> signInWithGoogle() async {
-  //
-  //   final GoogleSignIn googleSignIn = GoogleSignIn();
-  //   final GoogleSignInAccount googleUser = await googleSignIn.signIn();
-  //   if (googleUser != null) {
-  //     final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-  //     if (googleAuth.idToken != null) {
-  //       final UserCredential userCredential = await firebaseAuth.signInWithCredential(
-  //         GoogleAuthProvider.credential(
-  //             idToken: googleAuth.idToken, accessToken: googleAuth.accessToken),
-  //       );
-  //       return userCredential.user;
-  //     }
-  //   } else {
-  //     throw FirebaseAuthException(
-  //       message: 'Sign in aborded by user',
-  //       code: 'ERROR_ABORDER_BY_USER',
-  //     );
-  //   }
-  // }
-  //
-  // Future<void> signOut() async {
-  //   final GoogleSignIn googleSignIn = GoogleSignIn();
-  //   await googleSignIn.signOut();
-  //   await firebaseAuth.signOut();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
@@ -81,7 +43,7 @@ class LoginFormState extends State<LoginForm> {
             Navigator.pushNamed(context, '/login');
           });
         } else if (state is LoginLoadingState) {
-          Future.delayed(const Duration(seconds: 3), () {
+          Future<dynamic>.delayed(const Duration(seconds: 3), () {
             setState(() {
               showDialog<dynamic>(
                 context: context,

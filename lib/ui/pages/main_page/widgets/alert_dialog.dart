@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/login_page.dart';
 
@@ -8,7 +7,7 @@ Widget alertDialog(BuildContext context) {
     title: const Text('Logout'),
     content: const Text('Do you wanna logout?'),
     actions: <Widget>[
-      FlatButton(
+      TextButton(
           onPressed: () {
             Navigator.pop(context);
           },
@@ -16,7 +15,7 @@ Widget alertDialog(BuildContext context) {
             'No',
             style: TextStyle(color: Colors.red),
           )),
-      FlatButton(
+      TextButton(
           onPressed: () {
             FirestoreRepositoryImpl().logout().then((dynamic ff) async {   //потом эту херню заменить на норм блок, это для теста
               Navigator.push<dynamic>(

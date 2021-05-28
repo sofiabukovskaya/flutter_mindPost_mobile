@@ -1,16 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/widgets/buttons/deleteNote_button.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/widgets/description_text.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/widgets/title_datePublich_text.dart';
-
-import '../personal_notes_screen.dart';
 import 'widgets/buttons/updateNote_button.dart';
 
 class PersonalDetail extends StatefulWidget {
@@ -70,8 +64,7 @@ class PersonalDetailState extends State<PersonalDetail> {
 
   void deleteNote() {
     FirestoreRepositoryImpl().deleteNote(widget.snapshot.id).then((dynamic value) =>
-        Scaffold.of(context)
-            .showSnackBar(const SnackBar(content: Text('Note delete'))));
+       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Note delete'))));
     Navigator.pushNamed(context, '/goBackAfterDeleteNote');
   }
 
@@ -83,7 +76,7 @@ class PersonalDetailState extends State<PersonalDetail> {
     FirestoreRepositoryImpl()
         .updateNote(widget.snapshot.id, controllerTextTitle.text,
             controllerTextDescription.text)
-        .then((dynamic value) => Scaffold.of(context).showSnackBar(SnackBar(
+        .then((dynamic value) => ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content:
                 Text("Update ${widget.snapshot.get('title').toString()}"))));
     Navigator.of(context).pop(true);

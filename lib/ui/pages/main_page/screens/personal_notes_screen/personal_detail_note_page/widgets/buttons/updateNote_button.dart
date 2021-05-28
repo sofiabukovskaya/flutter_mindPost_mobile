@@ -24,8 +24,10 @@ class UpdateNoteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
-      child: FlatButton(
-        color: Colors.teal[200],
+      child: TextButton(
+        style: TextButton.styleFrom(
+          primary: Colors.teal[200]
+        ),
         child: const Icon(Icons.edit),
         onPressed: () {
           showDialog<dynamic>(
@@ -38,7 +40,7 @@ class UpdateNoteButton extends StatelessWidget {
                     height: 150,
                     width: 150,
                     child: Column(
-                      children: [
+                      children: <Widget>[
                         TextFormField(
                           controller: controllerTextTitle,
                           keyboardType: TextInputType.name,
@@ -60,13 +62,13 @@ class UpdateNoteButton extends StatelessWidget {
                       ],
                     ),
                   )),
-                  actions: [
-                    FlatButton(
+                  actions: <TextButton>[
+                    TextButton(
                         child: const Text('NO'),
                         onPressed: () {
                           Navigator.of(context).pop(false);
                         }),
-                    FlatButton(
+                    TextButton(
                         child: const Text('YES'),
                         onPressed: onClickedYesButton),
                   ],

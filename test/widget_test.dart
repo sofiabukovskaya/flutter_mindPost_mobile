@@ -9,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:flutter_mindpost/main.dart';
-
 void main() {
   setUpAll(() {
     TestWidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +16,7 @@ void main() {
     const MethodChannel channel =
     MethodChannel('plugins.flutter.io/path_provider');
     channel.setMockMethodCallHandler((MethodCall methodCall) async {
-      return ".";
+      return '.';
     });
   });
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/utils/app_localizations.dart';
 
-import 'package:google_fonts/google_fonts.dart';
-
 Widget passwordFormField(BuildContext context,  bool passwordVisible, Function setState, TextEditingController passwordController) {
   return TextFormField(
     obscureText: passwordVisible,

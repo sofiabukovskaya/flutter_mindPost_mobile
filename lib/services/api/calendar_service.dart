@@ -1,11 +1,10 @@
-import 'package:flutter/material.dart';
 import 'package:googleapis_auth/auth_io.dart';
 import 'package:googleapis/calendar/v3.dart' hide Colors;
 import 'package:url_launcher/url_launcher.dart';
 
 
 class CalendarService{
-  static const List<String> _scopes = [CalendarApi.calendarScope];
+  static const List<String> _scopes = <String>[CalendarApi.calendarScope];
 
  void insert(String title, DateTime startTime, DateTime endTime) {
     final ClientId _clientID = ClientId('107038544527-grpikigfukfr7hne8bd7gt2ilq88ajqn.apps.googleusercontent.com', '');

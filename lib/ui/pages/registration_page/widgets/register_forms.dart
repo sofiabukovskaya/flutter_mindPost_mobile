@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_bloc.dart';
 import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_event.dart';
 import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_state.dart';

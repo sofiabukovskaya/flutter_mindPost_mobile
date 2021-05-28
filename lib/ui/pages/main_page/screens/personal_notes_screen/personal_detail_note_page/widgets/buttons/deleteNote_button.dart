@@ -11,8 +11,10 @@ class DeleteNoteButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
-      child: FlatButton(
-        color: Colors.red[400],
+      child: TextButton(
+        style: TextButton.styleFrom(
+          primary: Colors.red[400]
+        ),
         child: const Icon(Icons.delete),
         onPressed: () {
           showDialog<dynamic>(
@@ -20,13 +22,13 @@ class DeleteNoteButton extends StatelessWidget {
               builder: (BuildContext context) {
                 return AlertDialog(
                   title: const Text('Delete a note'),
-                  actions: [
-                    FlatButton(
+                  actions: <TextButton>[
+                    TextButton(
                         child: const Text('NO'),
                         onPressed: () {
                           Navigator.of(context).pop(false);
                         }),
-                    FlatButton(
+                    TextButton(
                         child: const Text('YES'),
                         onPressed: onClickedYesButton,)
                   ],

@@ -9,7 +9,7 @@ class SplashScreen extends StatefulWidget {
   }
 }
 
-Future checkToken(BuildContext context) async {
+Future<void> checkToken(BuildContext context) async {
   SharedPreferences sharedPreferences;
   sharedPreferences = await SharedPreferences.getInstance();
   final String token = sharedPreferences.getString('token');
@@ -53,7 +53,7 @@ class SplashScreenState extends State<SplashScreen>
             ScaleTransition(
               scale: animation,
               child: Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(8.0),
                 child: Image.asset(
                   'assets/Icon.png',
                   width: 440.0,

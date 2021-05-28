@@ -17,11 +17,9 @@ class AppLocalizations {
   Map<String, String> _localizedStrings;
 
   Future<bool> load() async{
-    String jsonString = await rootBundle.loadString('lang/${locale.languageCode}.json');
-    Map<String, dynamic> jsonMap = jsonDecode(jsonString);
-    _localizedStrings = jsonMap.map((String key, dynamic value) {
-      return MapEntry(key, value.toString());
-    });
+    final String jsonString = await rootBundle.loadString('lang/${locale.languageCode}.json');
+    final Map<String, dynamic> jsonMap = jsonDecode(jsonString);
+    _localizedStrings = jsonMap.map((String key, dynamic value) => MapEntry<dynamic, String>(key, value.toString()));
     return true;
   }
 
@@ -33,13 +31,11 @@ class AppLocalizations {
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
   @override
-  bool isSupported(Locale locale) {
-    return ['en', 'ru', 'ua'].contains(locale.languageCode);
-  }
+  bool isSupported(Locale locale) => <String>['en', 'ru', 'ua'].contains(locale.languageCode);
 
   @override
   Future<AppLocalizations> load(Locale locale) async{
-    AppLocalizations localizations = AppLocalizations(locale);
+    final AppLocalizations localizations = AppLocalizations(locale);
     await localizations.load();
     return localizations;
   }

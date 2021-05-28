@@ -1,10 +1,9 @@
+import 'dart:async';
+
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_event.dart';
 import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_state.dart';
-import 'dart:async';
 
 class RegistrationBloc extends Bloc<RegistrationEvent, RegistrationState> {
   RegistrationBloc() : super(RegistrationEmptyState());

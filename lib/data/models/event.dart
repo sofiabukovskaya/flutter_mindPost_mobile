@@ -2,8 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Event {
-  final String title;
   Event({@required this.title});
+  final String title;
 
-  String toString() => this.title;
+
+  @override
+  String toString() => title;
 }

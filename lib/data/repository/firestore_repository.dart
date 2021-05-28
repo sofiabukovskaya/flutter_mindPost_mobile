@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_mindpost/data/models/note.dart';
 
 abstract class FirestoreRepository {
   void signUp(String name, String surname, String nickname, String email,

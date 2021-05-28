@@ -13,7 +13,7 @@ class TextAreaWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Row(
-    children: [
+    children: <Widget>[
       Expanded(
         child: Container(
           height: 100,

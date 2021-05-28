@@ -1,17 +1,17 @@
-import 'dart:io';
 import 'dart:async';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_mindpost/data/models/note.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class AddNotePage extends StatefulWidget {
   @override
@@ -22,8 +22,8 @@ class AddNotePage extends StatefulWidget {
 
 class AddNotePageState extends State<AddNotePage> {
   FirestoreRepositoryImpl firestoreRepository = FirestoreRepositoryImpl();
-  String dateformat = DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
-  List<Note> note = [];
+  String dateFormat = DateFormat('yyyy-MM-dd – kk:mm').format(DateTime.now());
+  List<Note> note = <Note>[];
   final TextEditingController titleNote = TextEditingController();
   final TextEditingController descriptionNote = TextEditingController();
   File image;
@@ -70,7 +70,7 @@ class AddNotePageState extends State<AddNotePage> {
              Navigator.pop(context);
              circularProgress();
               await firestoreRepository.addDataNote(titleNote.text.toString(), descriptionNote.text.toString(), uploadedFileUrl, switched,
-                  dateformat);
+                  dateFormat);
              await firestoreRepository.uploadImage(image, uploadedFileUrl);
             },
           ),
@@ -85,15 +85,15 @@ class AddNotePageState extends State<AddNotePage> {
         ],
       ),
       body: ListView(
-        children: [
+        children: <Widget>[
           Column(
-              children: [
+              children: <Widget>[
                 Center(
                     child: Padding(
                       padding: const EdgeInsets.only(top: 10, left: 85, right: 85, bottom: 15),
                       child: TextField(
                         controller: titleNote,
-                        inputFormatters: [
+                        inputFormatters: <LengthLimitingTextInputFormatter>[
                           LengthLimitingTextInputFormatter(500),
                         ],
                         style: textStyle(20.0, FontWeight.w600, const Color(0xFF00847c)),
@@ -134,7 +134,7 @@ class AddNotePageState extends State<AddNotePage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 100, right: 90),
                   child: Row(
-                    children: [
+                    children: <Widget>[
                       Text(
                         'Attach a picture',
                         style: GoogleFonts.poppins(
@@ -173,7 +173,7 @@ class AddNotePageState extends State<AddNotePage> {
                             title: const Text('Delete picture'),
                             content: const Text('Do you wanna delete a picture?'),
                             actions: <Widget>[
-                              FlatButton(
+                              TextButton(
                                   onPressed: () {
                                     Navigator.pop(context);
                                   },
@@ -181,7 +181,7 @@ class AddNotePageState extends State<AddNotePage> {
                                     'No',
                                     style: TextStyle(color: Colors.red),
                                   )),
-                              FlatButton(
+                              TextButton(
                                   onPressed: () {
                                     setState(() {
                                       image = null;
@@ -213,7 +213,7 @@ class AddNotePageState extends State<AddNotePage> {
                   ),
                 ),
                 Row(
-                  children: [
+                  children: <Widget>[
                     Padding(
                       padding: const EdgeInsets.only(top: 10, left: 40),
                       child: lockedIcon,

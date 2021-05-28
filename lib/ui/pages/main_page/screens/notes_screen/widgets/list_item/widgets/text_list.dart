@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 Widget textList(QueryDocumentSnapshot<Object> snapshot, BuildContext context) {
   return Column(
@@ -17,7 +16,7 @@ Widget textList(QueryDocumentSnapshot<Object> snapshot, BuildContext context) {
       Padding(
           padding: const EdgeInsets.only(top: 10, left: 40, right: 40),
           child: GestureDetector(
-            onTap: () => {
+            onTap: () => <Future<Object>>{
               Navigator.pushNamed(context, '/detailPublicNote',
                   arguments: snapshot)
             },

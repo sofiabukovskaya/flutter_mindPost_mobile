@@ -5,9 +5,6 @@ import 'package:flutter_mindpost/data/models/event.dart';
 import 'package:flutter_mindpost/services/api/calendar_service.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/calendar_screen/widgets/alert_dialog.dart';
-
-
-import 'package:google_fonts/google_fonts.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalendarScreen extends StatefulWidget {
@@ -30,15 +27,15 @@ class CalendarScreenState extends State<CalendarScreen> {
 
   @override
   void initState() {
-    selectedEvents = {};
+    selectedEvents = <DateTime, List<Event>>{};
     super.initState();
   }
 
-  Future selectTime() async {
+  Future<void> selectTime() async {
     final TimeOfDay pickedTime = await showTimePicker(
         context: context,
         initialTime: time,
-        builder: (context, Widget child) {
+        builder: (BuildContext context, Widget child) {
           return Theme(
             data: ThemeData.light().copyWith(
                 primaryColor: Colors.teal,
@@ -56,7 +53,7 @@ class CalendarScreenState extends State<CalendarScreen> {
   }
 
   List<Event> getEventsFromDay(DateTime date) {
-    return selectedEvents[date] ?? [];
+    return selectedEvents[date] ?? <Event>[];
   }
 
   @override
@@ -74,7 +71,7 @@ class CalendarScreenState extends State<CalendarScreen> {
         elevation: 0,
       ),
       body: ListView(
-        children: [
+        children: <Widget>[
           Column(
             children: <Widget>[
               TableCalendar<Event>(
@@ -175,7 +172,7 @@ class CalendarScreenState extends State<CalendarScreen> {
             content: TextFormField(
               controller: _eventController,
             ),
-            actions: [
+            actions: <Widget>[
               TextButton(
                 child: Text(
                   'Cancel',
@@ -195,7 +192,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                         Event(title: _eventController.text),
                       );
                     } else {
-                      selectedEvents[selectedDay] = [
+                      selectedEvents[selectedDay] = <Event>[
                         Event(title: _eventController.text)
                       ];
                     }

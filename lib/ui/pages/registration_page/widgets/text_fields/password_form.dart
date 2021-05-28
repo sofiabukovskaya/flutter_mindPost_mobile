@@ -32,10 +32,10 @@ Widget passwordFormField(BuildContext context, TextEditingController passwordCon
         onPressed: () {
           setState();
         },
-        color: Color(0x99008B83),
+        color: const Color(0x99008B83),
       )
     ),
     keyboardType: TextInputType.text,
-    cursorColor: Color(0x99008B83),
+    cursorColor: const Color(0x99008B83),
   );
 }

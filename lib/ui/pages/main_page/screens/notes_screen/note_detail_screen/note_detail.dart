@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/bloc/note_detail_bloc/note_detail_bloc.dart';
 import 'package:flutter_mindpost/ui/bloc/note_detail_bloc/note_detail_event.dart';
 import 'package:flutter_mindpost/ui/bloc/note_detail_bloc/note_detail_state.dart';
@@ -91,7 +90,7 @@ class NoteDetailScreenState extends State<NoteDetail> {
                     ),
                   ),
                   Row(
-                    children: [
+                    children: <Widget>[
                       Column(
                         children: <Widget>[
                           Padding(
@@ -119,7 +118,7 @@ class NoteDetailScreenState extends State<NoteDetail> {
                         ],
                       ),
                       Column(
-                        children: [
+                        children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.only(top: 10, right: 10),
                             child: IconButton(
@@ -149,8 +148,7 @@ class NoteDetailScreenState extends State<NoteDetail> {
                 ],
               ),
             );
-            return Container();
-          },
+          }
         ));
   }
 

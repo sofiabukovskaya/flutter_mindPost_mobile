@@ -1,7 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/ui/bloc/login_bloc/login_event.dart';
 import 'package:flutter_mindpost/ui/bloc/login_bloc/login_state.dart';
 

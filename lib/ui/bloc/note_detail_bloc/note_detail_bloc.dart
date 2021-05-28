@@ -1,11 +1,9 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
-import 'package:flutter_mindpost/services/checkInternet_service.dart';
+import 'package:flutter_mindpost/services/check_Internet_service.dart';
 import 'package:flutter_mindpost/ui/bloc/note_detail_bloc/note_detail_event.dart';
 import 'package:flutter_mindpost/ui/bloc/note_detail_bloc/note_detail_state.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
+
 
 class NoteDetailBlock extends Bloc<NoteDetailEvent, NoteDetailState> {
   NoteDetailBlock()

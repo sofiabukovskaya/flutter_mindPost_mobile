@@ -9,7 +9,7 @@ Widget userAvatar(String  snapshot) {
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Colors.white70, Color(0x33157C76)])),
+                colors: <Color>[Colors.white70, Color(0x33157C76)])),
         child: Center(
           child: Column(
             children: <Widget>[

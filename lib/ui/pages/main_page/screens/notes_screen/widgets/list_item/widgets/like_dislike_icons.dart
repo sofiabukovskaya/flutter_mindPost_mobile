@@ -9,7 +9,7 @@ Widget likeDislikeIcons(QueryDocumentSnapshot<Object> snapshot) {
         width: 20,
       ),
       Column(
-        children: [
+        children: <Widget>[
           const Icon(
             Icons.favorite,
           ),
@@ -20,7 +20,7 @@ Widget likeDislikeIcons(QueryDocumentSnapshot<Object> snapshot) {
         width: 200,
       ),
       Column(
-        children: [
+        children: <Widget>[
           const Icon(
             Icons.cancel_outlined,
           ),

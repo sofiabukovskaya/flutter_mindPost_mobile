@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/bloc/note_detail_bloc/note_detail_bloc.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/note_detail_screen/note_detail.dart';
 

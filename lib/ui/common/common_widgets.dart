@@ -2,58 +2,76 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-Widget buttonsFacebookGoogle({@required Function onTappedFacebookButton, @required Function onTappedGoogleButton}){
+Widget buttonsFacebookGoogle(
+    {@required Function onTappedFacebookButton,
+    @required Function onTappedGoogleButton}) {
   return Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    children: [
-      FlatButton(
-        onPressed: () {
-          onTappedFacebookButton();
-        },
+    children: <Widget>[
+      Container(
         height: 50,
-        minWidth: 120,
-        child: Center(
-          child: Container(
-            child: Image.asset('assets/Facebook_icon.png'),
+        width: 120,
+        child: TextButton(
+          onPressed: () {
+            onTappedFacebookButton();
+          },
+          child: Center(
+            child: Container(
+              child: Image.asset('assets/Facebook_icon.png'),
+            ),
+          ),
+          style: TextButton.styleFrom(
+            primary: const Color(0x1A008B83),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0)),
           ),
         ),
-        color: Color(0x1A008B83),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0)),
       ),
-      FlatButton(
-        onPressed: () {onTappedGoogleButton();},
+      Container(
         height: 50,
-        minWidth: 120,
-        child: Center(
-          child: Container(
-            child: Image.asset('assets/Google_icon.png'),
+        width: 120,
+        child: TextButton(
+          onPressed: () {
+            onTappedGoogleButton();
+          },
+          child: Center(
+            child: Container(
+              child: Image.asset('assets/Google_icon.png'),
+            ),
+          ),
+          style: TextButton.styleFrom(
+            primary: const Color(0x1A008B83),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0)),
           ),
         ),
-        color: const Color(0x1A008B83),
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0)),
       )
     ],
   );
 }
 
-Widget button(BuildContext context, String label, Color color, Function onTapButton) {
-  return FlatButton(
-    onPressed: () {onTapButton();},
-    color: color,
+Widget button(
+    BuildContext context, String label, Color color, Function onTapButton) {
+  return Container(
     height: 45.0,
-    minWidth: 282.0,
-    textColor: Colors.white,
-    shape:
-    RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-    child: Text(label,
-        style: textStyle(
-            18.0, FontWeight.w600, Colors.black87)),
+    width: 282.0,
+    child: TextButton(
+      onPressed: () {
+        onTapButton();
+      },
+      style: TextButton.styleFrom(
+        primary: color,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      ),
+      child:
+          Text(label, style: textStyle(18.0, FontWeight.w600, Colors.black87)),
+    ),
   );
 }
 
-Widget textField(TextEditingController controller, Icon icon, Color color, String label) {
+Widget textField(
+    TextEditingController controller, Icon icon, Color color, String label) {
   return TextFormField(
     controller: controller,
     decoration: InputDecoration(
@@ -64,8 +82,7 @@ Widget textField(TextEditingController controller, Icon icon, Color color, Strin
       border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide.none),
-      labelStyle: textStyle(
-          18.0, FontWeight.w400, Colors.black87),
+      labelStyle: textStyle(18.0, FontWeight.w400, Colors.black87),
     ),
     keyboardType: TextInputType.text,
     cursorColor: color,
@@ -86,22 +103,18 @@ BoxDecoration boxDecoration() {
 Widget titleAppBar(String title) {
   return Text(
     title,
-    style: textStyle(
-        20.0, FontWeight.w500, Colors.black87),
+    style: textStyle(20.0, FontWeight.w500, Colors.black87),
   );
 }
 
 TextStyle textStyle(double size, FontWeight fontWeight, Color color) {
   return GoogleFonts.poppins(
-    fontSize:  size,
-    fontWeight: fontWeight,
-    color: color
-  );
+      fontSize: size, fontWeight: fontWeight, color: color);
 }
 
-Center circularProgress () {
-  return  const Center(
-    child:CircularProgressIndicator(
+Center circularProgress() {
+  return const Center(
+    child: CircularProgressIndicator(
       valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
     ),
   );
