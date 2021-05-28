@@ -7,7 +7,7 @@ import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 
 Widget titleAndDatePublishText(String title, QueryDocumentSnapshot<dynamic> snapshot) {
   return  Padding(
-    padding: const EdgeInsets.only(top: 30, left: 20),
+    padding: const EdgeInsets.only(top: 30),
     child: ListTile(
       title: Text(
         '$title',

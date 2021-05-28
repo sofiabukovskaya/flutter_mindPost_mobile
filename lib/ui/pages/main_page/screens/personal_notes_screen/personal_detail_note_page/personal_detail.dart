@@ -40,22 +40,32 @@ class PersonalDetailState extends State<PersonalDetail> {
         elevation: 0,
       ),
       body: Container(
+        alignment: Alignment.center,
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             const SizedBox(
-              height: 30,
+              height: 100,
             ),
             titleAndDatePublishText(title, widget.snapshot),
             descriptionText(description),
-            UpdateNoteButton(
-              controllerTextDescription: controllerTextDescription,
-              controllerTextTitle: controllerTextTitle,
-              description: description,
-              snapshot: widget.snapshot,
-              title: title,
-              onClickedYesButton: updateNote,
+             SizedBox(
+               width: 128,
+              child:  Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    UpdateNoteButton(
+                      controllerTextDescription: controllerTextDescription,
+                      controllerTextTitle: controllerTextTitle,
+                      description: description,
+                      snapshot: widget.snapshot,
+                      title: title,
+                      onClickedYesButton: updateNote,
+                    ),
+                    DeleteNoteButton(onClickedYesButton: deleteNote)
+                  ]
+              ),
             ),
-            DeleteNoteButton(onClickedYesButton: deleteNote)
           ],
         ),
       ),

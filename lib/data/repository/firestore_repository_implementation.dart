@@ -40,7 +40,7 @@ class FirestoreRepositoryImpl implements FirestoreRepository {
   Stream<QuerySnapshot<Map<String, dynamic>>> getPublicNotes()  =>  firebaseProvider.getPublicNotes();
 
   @override
-   Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes() => firebaseProvider.getPrivateNotes();
+   Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes(bool publicOrNot) => firebaseProvider.getPrivateNotes(publicOrNot);
 
   @override
   Future<void> updateDislikeCount(String id, int dislike) async => firebaseProvider.updateDislikeCount(id, dislike);

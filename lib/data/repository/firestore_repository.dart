@@ -19,7 +19,7 @@ abstract class FirestoreRepository {
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getPublicNotes();
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes(bool publicOrNot);
 
   Future<void> updateLikeCount(String id, int like);
 

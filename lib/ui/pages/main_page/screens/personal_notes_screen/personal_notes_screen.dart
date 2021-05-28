@@ -3,13 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/widgets/icon_buttons.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/widgets/search_textField.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/widgets/buttons/popup_menu_button.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/widgets/floating_action_button.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/widgets/iconButton_logout.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/widgets/alert_dialog.dart';
 
 import 'widgets/personal_notes_list.dart';
-
 
 class PersonalNotesScreen extends StatefulWidget {
   @override
@@ -22,6 +22,7 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
   TextEditingController searchController = TextEditingController();
   FirestoreRepositoryImpl firestoreRepository = FirestoreRepositoryImpl();
   bool public;
+  bool publicOrNot;
 
   @override
   void initState() {
@@ -34,11 +35,15 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
         appBar: AppBar(
           automaticallyImplyLeading: false,
           actions: <Widget>[
-            iconButtons(() {
+            iconButtonLogout(() {
               showDialog<dynamic>(
-                  context: context,
-                  builder: (_) => alertDialog(context));
-            })
+                  context: context, builder: (_) => alertDialog(context));
+            }),
+          PopupMenuButtonWidget(selectedItem: (bool selectedValue) {
+            setState(() {
+              publicOrNot = selectedValue;
+            });
+          })
           ],
           backgroundColor: Colors.white38,
           elevation: 0,
@@ -47,8 +52,9 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
         ),
         floatingActionButton: floatingActionButton(context),
         body: StreamBuilder<QuerySnapshot<Object>>(
-          stream: FirestoreRepositoryImpl().getPrivateNotes(),
-          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot<dynamic>> snapshot) {
+          stream: FirestoreRepositoryImpl().getPrivateNotes(publicOrNot),
+          builder: (BuildContext context,
+              AsyncSnapshot<QuerySnapshot<dynamic>> snapshot) {
             if (!snapshot.hasData) {
               circularProgress();
             } else if (snapshot.hasData) {
@@ -57,9 +63,9 @@ class PersonalNotesScreenState extends State<PersonalNotesScreen> {
                   children: <Widget>[
                     textFieldSearch(searchController),
                     Padding(
-                      padding:const  EdgeInsets.only(top: 10, left: 20, right: 20),
-                      child: personalNotesList(public, snapshot)
-                    ),
+                        padding:
+                            const EdgeInsets.only(top: 10, left: 20, right: 20),
+                        child: personalNotesList(public, snapshot)),
                   ],
                 ),
               );

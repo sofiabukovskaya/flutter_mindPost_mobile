@@ -80,11 +80,12 @@ class FirebaseProvider {
         .snapshots();
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes() {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes(bool publicOrNot) {
     getId().then((String id) => userId = id);
     return FirebaseFirestore.instance
         .collection('notes')
         .where('userId', isEqualTo: userId)
+    .where('public', isEqualTo: publicOrNot)
         .snapshots();
   }
 
