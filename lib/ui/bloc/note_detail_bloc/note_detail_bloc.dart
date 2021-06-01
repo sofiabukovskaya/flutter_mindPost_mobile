@@ -25,10 +25,10 @@ class NoteDetailBlock extends Bloc<NoteDetailEvent, NoteDetailState> {
     if (event is LikeEvent) {
       yield LoadingState();
       try {
-        yield LikingIsSuccessfulState();
         final String noteId = event.noteId;
         final int like = event.like;
         await FirestoreRepositoryImpl().updateLikeCount(noteId, like);
+        yield LikingIsSuccessfulState();
       } catch (_) {
         yield NoInternetConnectionState();
       }

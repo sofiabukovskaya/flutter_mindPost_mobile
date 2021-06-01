@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/ui/bloc/profile_bloc/profile_event.dart';
 
-Widget iconButtonLogout(Function logout) {
+Widget iconButtonLogout() {
   return IconButton(
       onPressed: () {
-        logout();
+       //подумать еще на счет этого (как добавить ивент)
       },
       icon: const Icon(
         Icons.logout,

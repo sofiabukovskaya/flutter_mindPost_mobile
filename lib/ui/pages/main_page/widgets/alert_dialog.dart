@@ -17,7 +17,7 @@ Widget alertDialog(BuildContext context) {
           )),
       TextButton(
           onPressed: () {
-            FirestoreRepositoryImpl().logout().then((dynamic ff) async {   //потом эту херню заменить на норм блок, это для теста
+            FirestoreRepositoryImpl().logout().then((_) async {   //потом эту херню заменить на норм блок, это для теста
               Navigator.push<dynamic>(
                   context,
                   MaterialPageRoute<dynamic>(

@@ -37,10 +37,10 @@ class FirestoreRepositoryImpl implements FirestoreRepository {
     Future<void> uploadImage(File image, String uploadedFileUrl) async => await firebaseProvider.uploadImage(image, uploadedFileUrl);
 
   @override
-  Stream<QuerySnapshot<Map<String, dynamic>>> getPublicNotes()  =>  firebaseProvider.getPublicNotes();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getPublicNotes(String orderBy)  =>  firebaseProvider.getPublicNotes(orderBy);
 
   @override
-   Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes(bool publicOrNot) => firebaseProvider.getPrivateNotes(publicOrNot);
+   Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes() => firebaseProvider.getPrivateNotes();
 
   @override
   Future<void> updateDislikeCount(String id, int dislike) async => firebaseProvider.updateDislikeCount(id, dislike);
@@ -59,5 +59,8 @@ class FirestoreRepositoryImpl implements FirestoreRepository {
 
   @override
   Future<void> signOutFromGoogleAcc() async => await firebaseProvider.signOutFromGoogleAcc();
+
+  @override
+  Stream<QuerySnapshot<Map<String, dynamic>>> getFilteredPublicNotes(bool public)  =>  firebaseProvider.getFilteredPublicNotes(public);
 
 }

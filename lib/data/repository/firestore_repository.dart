@@ -17,9 +17,9 @@ abstract class FirestoreRepository {
 
   Future<void> uploadImage(File image, String uploadedFileUrl);
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getPublicNotes();
+  Stream<QuerySnapshot<Map<String, dynamic>>> getPublicNotes(String orderBy);
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes(bool publicOrNot);
+  Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes();
 
   Future<void> updateLikeCount(String id, int like);
 
@@ -32,4 +32,6 @@ abstract class FirestoreRepository {
   Future<void> signInWithGoogle();
 
   Future<void> signOutFromGoogleAcc();
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getFilteredPublicNotes(bool public);
 }

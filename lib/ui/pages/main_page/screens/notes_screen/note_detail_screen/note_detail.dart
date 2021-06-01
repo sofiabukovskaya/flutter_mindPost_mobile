@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +59,15 @@ class NoteDetailScreenState extends State<NoteDetail> {
             if (state is LoadingState) {
               return circularProgress();
             }
+            if(state is LikingIsSuccessfulState) {
+              Timer.run(() {
+                  _showToast(context);
+              });
+            } if (state is DislikingIsSuccessfulState) {
+              Timer.run(() {
+                _showToastDislike(context);
+              });
+            }
             return Container(
               child: Column(
                 children: <Widget>[
@@ -106,7 +117,7 @@ class NoteDetailScreenState extends State<NoteDetail> {
                                           like++;
                                           clickedLike = true;
                                           clickedDislike = true;
-                                          _showToast(context);
+
                                         });
                                     },
                             ),
@@ -132,7 +143,6 @@ class NoteDetailScreenState extends State<NoteDetail> {
                                         dislike++;
                                         clickedDislike = true;
                                         clickedLike = true;
-                                        _showToastDislike(context);
                                       });
                                     },
                             ),

@@ -1,13 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mindpost/data/repository/firestore_repository_implementation.dart';
-import 'package:flutter_mindpost/ui/common/common_widgets.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/widgets/search_textField.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/widgets/buttons/popup_menu_button.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_mindpost/ui/bloc/personal_note_bloc/personal_note_bloc.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/widgets/floating_action_button.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/widgets/iconButton_logout.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/widgets/alert_dialog.dart';
+
 
 import 'widgets/personal_notes_list.dart';
 
@@ -20,58 +17,33 @@ class PersonalNotesScreen extends StatefulWidget {
 
 class PersonalNotesScreenState extends State<PersonalNotesScreen> {
   TextEditingController searchController = TextEditingController();
-  FirestoreRepositoryImpl firestoreRepository = FirestoreRepositoryImpl();
   bool public;
   bool publicOrNot;
+  String queryTextTitle;
 
   @override
   void initState() {
     super.initState();
+    searchController.addListener(() {
+      setState(() {
+        queryTextTitle = searchController.text.toString();
+      });
+        print('$queryTextTitle');
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    searchController.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          automaticallyImplyLeading: false,
-          actions: <Widget>[
-            iconButtonLogout(() {
-              showDialog<dynamic>(
-                  context: context, builder: (_) => alertDialog(context));
-            }),
-          PopupMenuButtonWidget(selectedItem: (bool selectedValue) {
-            setState(() {
-              publicOrNot = selectedValue;
-            });
-          })
-          ],
-          backgroundColor: Colors.white38,
-          elevation: 0,
-          title: titleAppBar('Personal notes'),
-          centerTitle: true,
-        ),
         floatingActionButton: floatingActionButton(context),
-        body: StreamBuilder<QuerySnapshot<Object>>(
-          stream: FirestoreRepositoryImpl().getPrivateNotes(publicOrNot),
-          builder: (BuildContext context,
-              AsyncSnapshot<QuerySnapshot<dynamic>> snapshot) {
-            if (!snapshot.hasData) {
-              circularProgress();
-            } else if (snapshot.hasData) {
-              return SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    textFieldSearch(searchController),
-                    Padding(
-                        padding:
-                            const EdgeInsets.only(top: 10, left: 20, right: 20),
-                        child: personalNotesList(public, snapshot)),
-                  ],
-                ),
-              );
-            }
-            return circularProgress();
-          },
-        ));
+        body: BlocProvider<PersonalNotesBloc>(create: (BuildContext context) => PersonalNotesBloc(),
+          child:  PersonalNotesList(),)
+    );
   }
 }
