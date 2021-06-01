@@ -12,6 +12,8 @@ class LoadedPersonalNotesState extends PersonalNotesState {
   final Stream<QuerySnapshot<Map<String, dynamic>>>  loadedNotesList;
 }
 
+class NoSearchingPersonalNoteState extends PersonalNotesState{}
+
 class AddedNoteButtonPressedState extends PersonalNotesState {}
 
 class NoDataNotesState extends PersonalNotesState {}

@@ -6,7 +6,7 @@ import 'package:flutter_mindpost/ui/bloc/personal_note_bloc/personal_note_bloc.d
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/widgets/floating_action_button.dart';
 
 
-import 'widgets/personal_notes_list.dart';
+import 'personal_notes_list.dart';
 
 class PersonalNotesScreen extends StatefulWidget {
   @override

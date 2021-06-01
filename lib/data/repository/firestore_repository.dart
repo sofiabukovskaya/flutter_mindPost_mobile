@@ -17,7 +17,7 @@ abstract class FirestoreRepository {
 
   Future<void> uploadImage(File image, String uploadedFileUrl);
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getPublicNotes(String orderBy);
+  Stream<QuerySnapshot<Map<String, dynamic>>> getPublicNotes();
 
   Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes();
 
@@ -33,5 +33,10 @@ abstract class FirestoreRepository {
 
   Future<void> signOutFromGoogleAcc();
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getFilteredPublicNotes(bool public);
+  Stream<QuerySnapshot<Map<String, dynamic>>> getFilteredPrivateNotes(bool public);
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSearchPrivateNotes(String searchQuery);
+
+  Stream<QuerySnapshot<Map<String, dynamic>>> getFilteredPublicNotes(String orderByQuery);
+
 }

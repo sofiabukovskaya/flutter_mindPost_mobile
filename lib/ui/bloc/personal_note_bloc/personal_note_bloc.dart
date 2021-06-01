@@ -25,8 +25,19 @@ class PersonalNotesBloc extends Bloc<PersonalNotesEvent, PersonalNotesState> {
         yield AddedNoteButtonPressedState();
     } if(event is PersonalNotesOrderBy){
       final bool publicOrNot = event.public;
-      final Stream<QuerySnapshot<Map<String, dynamic>>> loadedFilteredNotes = FirestoreRepositoryImpl().getFilteredPublicNotes(publicOrNot);
+      final Stream<QuerySnapshot<Map<String, dynamic>>> loadedFilteredNotes = FirestoreRepositoryImpl().getFilteredPrivateNotes(publicOrNot);
       yield LoadedPersonalNotesState(loadedNotesList: loadedFilteredNotes);
+    } if(event is PersonalNotesSearchEvent){
+      final String query = event.userQuerySearch;
+      try{
+        final Stream<QuerySnapshot<Map<String, dynamic>>> loadedSearchNotes = FirestoreRepositoryImpl().getSearchPrivateNotes(query);
+        if(loadedSearchNotes.isEmpty != null) {
+          yield NoSearchingPersonalNoteState();
+        }
+        yield LoadedPersonalNotesState(loadedNotesList: loadedSearchNotes);
+      } catch(_) {
+       yield ErrorInternetConnectionState();
+      }
     }
   }
 

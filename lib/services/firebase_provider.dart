@@ -73,11 +73,10 @@ class FirebaseProvider {
         .get();
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getPublicNotes(String text) {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getPublicNotes() {
     return FirebaseFirestore.instance
         .collection('notes')
         .where('public', isEqualTo: true)
-        .orderBy(text)
         .snapshots();
   }
 
@@ -168,12 +167,29 @@ class FirebaseProvider {
     await firebaseAuth.signOut();
   }
 
-  Stream<QuerySnapshot<Map<String, dynamic>>> getFilteredPublicNotes(bool public) {
+  Stream<QuerySnapshot<Map<String, dynamic>>> getFilteredPrivateNotes(bool public) {
     getId().then((String id) => userId = id);
     return FirebaseFirestore.instance
         .collection('notes')
         .where('userId', isEqualTo: userId)
         .where('public', isEqualTo: public)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>>  getSearchPrivateNotes(String searchQuery) {
+    getId().then((String id) => userId = id);
+    return FirebaseFirestore.instance
+        .collection('notes')
+        .where('userId', isEqualTo: userId)
+        .where('title', isGreaterThanOrEqualTo: searchQuery)
+        .snapshots();
+  }
+
+  Stream<QuerySnapshot<Map<String, dynamic>>>  getFilteredPublicNotes(String orderByQuery) {
+    return FirebaseFirestore.instance
+        .collection('notes')
+        .where('public', isEqualTo: true)
+        .orderBy(orderByQuery)
         .snapshots();
   }
 }

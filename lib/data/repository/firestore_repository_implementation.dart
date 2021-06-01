@@ -37,7 +37,7 @@ class FirestoreRepositoryImpl implements FirestoreRepository {
     Future<void> uploadImage(File image, String uploadedFileUrl) async => await firebaseProvider.uploadImage(image, uploadedFileUrl);
 
   @override
-  Stream<QuerySnapshot<Map<String, dynamic>>> getPublicNotes(String orderBy)  =>  firebaseProvider.getPublicNotes(orderBy);
+  Stream<QuerySnapshot<Map<String, dynamic>>> getPublicNotes()  =>  firebaseProvider.getPublicNotes();
 
   @override
    Stream<QuerySnapshot<Map<String, dynamic>>> getPrivateNotes() => firebaseProvider.getPrivateNotes();
@@ -61,6 +61,13 @@ class FirestoreRepositoryImpl implements FirestoreRepository {
   Future<void> signOutFromGoogleAcc() async => await firebaseProvider.signOutFromGoogleAcc();
 
   @override
-  Stream<QuerySnapshot<Map<String, dynamic>>> getFilteredPublicNotes(bool public)  =>  firebaseProvider.getFilteredPublicNotes(public);
+  Stream<QuerySnapshot<Map<String, dynamic>>> getFilteredPrivateNotes(bool public)  =>  firebaseProvider.getFilteredPrivateNotes(public);
+
+  @override
+  Stream<QuerySnapshot<Map<String, dynamic>>> getSearchPrivateNotes(String searchQuery) => firebaseProvider.getSearchPrivateNotes(searchQuery);
+
+  @override
+  Stream<QuerySnapshot<Map<String, dynamic>>> getFilteredPublicNotes(String orderByQuery) => firebaseProvider.getFilteredPublicNotes(orderByQuery);
+
 
 }

@@ -26,15 +26,16 @@ class PersonalNotesListState extends State<PersonalNotesList> {
   bool public;
   bool publicOrNot;
   String queryTextTitle;
+  List<String> querySearch = <String>[];
 
   @override
   void initState() {
     super.initState();
     personalNotesBloc = BlocProvider.of<PersonalNotesBloc>(context);
     searchController.addListener(() {
-      setState(() {
         queryTextTitle = searchController.text.toString();
-      });
+        querySearch.insert(0, queryTextTitle);
+        personalNotesBloc.add(PersonalNotesSearchEvent(queryTextTitle));
       print('$queryTextTitle');
     });
   }
@@ -45,10 +46,6 @@ class PersonalNotesListState extends State<PersonalNotesList> {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         actions: <Widget>[
-          // iconButtonLogout(() {
-          //   showDialog<dynamic>(
-          //       context: context, builder: (_) => alertDialog(context));
-          // }),
           PopupMenuButtonWidget(selectedItem: (bool selectedValue) {
             setState(() {
               publicOrNot = selectedValue;
@@ -73,6 +70,10 @@ class PersonalNotesListState extends State<PersonalNotesList> {
             if (state is NoDataNotesState) {
               return const Center(
                 child: Text('No notes yet'),
+              );
+            } if(state is NoSearchingPersonalNoteState) {
+              return const Center(
+                child: Text('Oh, probably you have not note(s) with this title'),
               );
             }
             if (state is ErrorInternetConnectionState) {
