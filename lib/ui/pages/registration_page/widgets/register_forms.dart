@@ -156,12 +156,7 @@ class RegistrationFormState extends State<RegistrationForm> {
                       AppLocalizations.of(context).translate('sign_up_string'),
                       const Color(0x80008B83), ()  {
                         if(isChecked == false) {
-                          final SnackBar snackBar = SnackBar(content: const Text('Please, select a checkbox'),
-                          action: SnackBarAction(
-                            label: 'Ok',
-                            onPressed: (){},
-                          ));
-                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                          showSnackBar(context, 'Please, select a checkbox');
                         } else {
                           _registrationBloc.add(Submitted
                             (email: emailController.text.trim(), phone: phoneNumberController.text.trim(), name: nameController.text.trim(), surname: surnameController.text.trim(), nickname: nicknameController.text.trim(), birthday: dateOfBirthdayController.text.trim(), password: passwordController.text.trim()));

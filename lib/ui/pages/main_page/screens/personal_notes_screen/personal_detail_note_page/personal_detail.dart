@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_mindpost/ui/bloc/personal_note_detail_bloc/personal_note_detail_bloc.dart';
 import 'package:flutter_mindpost/ui/bloc/personal_note_detail_bloc/personal_note_detail_event.dart';
 import 'package:flutter_mindpost/ui/bloc/personal_note_detail_bloc/personal_note_detail_state.dart';
+import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/widgets/buttons/deleteNote_button.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/widgets/description_text.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/widgets/title_datePublich_text.dart';
@@ -50,7 +51,7 @@ class PersonalDetailState extends State<PersonalDetail> {
             builder: (BuildContext context, PersonalNoteDetailState state) {
               if (state is DeletedPersonalNoteState) {
                 Timer.run(() {
-                  _showToast(context, 'You note is deleted.');
+                  showSnackBar(context, 'You note is deleted.');
                 });
 
               }
@@ -58,18 +59,18 @@ class PersonalDetailState extends State<PersonalDetail> {
                   title = controllerTextTitle.text;
                   description = controllerTextDescription.text;
                 Timer.run(() {
-                  _showToast(context, 'You note is updated.');
+                  showSnackBar(context, 'You note is updated.');
                 });
                 Navigator.of(context).pop(true);
               }
               if (state is FailEditPersonalNoteState) {
                 Timer.run(() {
-                  _showToast(context, 'Fill all fields, please!!');
+                  showSnackBar(context, 'Fill all fields, please!!');
                 });
               }
               if (state is FailPersonalNoteState) {
                 Timer.run(() {
-                  _showToast(context, 'You note cannot be deleted, sorry');
+                  showSnackBar(context, 'You note cannot be deleted, sorry');
                 });
               }
               return Container(
@@ -113,16 +114,5 @@ class PersonalDetailState extends State<PersonalDetail> {
   void updateNote() {
     personalNoteDetailBloc.add(UpdatePersonalNoteEvent(widget.snapshot.id,
         controllerTextTitle.text, controllerTextDescription.text));
-  }
-
-  void _showToast(BuildContext context, String title) {
-    final ScaffoldMessengerState scaffold = ScaffoldMessenger.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        content: Text(title),
-        action: SnackBarAction(
-            label: 'OK', onPressed: scaffold.hideCurrentSnackBar),
-      ),
-    );
   }
 }

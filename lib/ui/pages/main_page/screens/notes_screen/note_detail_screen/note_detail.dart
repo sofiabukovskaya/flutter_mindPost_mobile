@@ -61,11 +61,11 @@ class NoteDetailScreenState extends State<NoteDetail> {
             }
             if(state is LikingIsSuccessfulState) {
               Timer.run(() {
-                  _showToast(context);
+                 showSnackBar(context, 'You like this note');
               });
             } if (state is DislikingIsSuccessfulState) {
               Timer.run(() {
-                _showToastDislike(context);
+                showSnackBar(context, 'You dislike this note');
               });
             }
             return Container(
@@ -160,27 +160,5 @@ class NoteDetailScreenState extends State<NoteDetail> {
             );
           }
         ));
-  }
-
-  void _showToast(BuildContext context) {
-    final ScaffoldMessengerState scaffold = ScaffoldMessenger.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        content: const Text('You like this note'),
-        action: SnackBarAction(
-            label: 'OK', onPressed: scaffold.hideCurrentSnackBar),
-      ),
-    );
-  }
-
-  void _showToastDislike(BuildContext context) {
-    final ScaffoldMessengerState scaffold = ScaffoldMessenger.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        content: const Text('You dislike this note'),
-        action: SnackBarAction(
-            label: 'OK', onPressed: scaffold.hideCurrentSnackBar),
-      ),
-    );
   }
 }

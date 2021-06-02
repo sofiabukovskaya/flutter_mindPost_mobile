@@ -119,3 +119,14 @@ Center circularProgress() {
     ),
   );
 }
+
+void showSnackBar(BuildContext context, String title) {
+  final ScaffoldMessengerState scaffold = ScaffoldMessenger.of(context);
+  scaffold.showSnackBar(
+    SnackBar(
+      content: Text(title),
+      action: SnackBarAction(
+          label: 'OK', onPressed: scaffold.hideCurrentSnackBar),
+    ),
+  );
+}

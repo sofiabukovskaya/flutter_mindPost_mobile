@@ -89,11 +89,11 @@ class _AddNoteListState extends State<AddNoteList> {
             builder: (BuildContext context, AddNoteState state) {
               if (state is SuccessfulAddNoteState) {
                 Timer.run(() {
-                  _showToast(context, 'You added a note! :)');
+                  showSnackBar(context, 'You add this note');
                 });
               } if(state is FailAddNoteState) {
                 Timer.run(() {
-                  _showToast(context, 'Fill in all fields, please!');
+                  showSnackBar(context, 'Fill in all fields, please!');
                 });
               }
               return ListView(
@@ -158,14 +158,4 @@ class _AddNoteListState extends State<AddNoteList> {
             }));
   }
 
-  void _showToast(BuildContext context, String title) {
-    final ScaffoldMessengerState scaffold = ScaffoldMessenger.of(context);
-    scaffold.showSnackBar(
-      SnackBar(
-        content:  Text(title),
-        action: SnackBarAction(
-            label: 'OK', onPressed: scaffold.hideCurrentSnackBar),
-      ),
-    );
-  }
 }

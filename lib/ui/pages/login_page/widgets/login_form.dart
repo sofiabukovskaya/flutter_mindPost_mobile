@@ -120,13 +120,7 @@ class LoginFormState extends State<LoginForm> {
                             .translate('sign_in_string'),
                         const  Color(0x80008B83), () {
                           if(emailController.text == '' && passwordController.text == '' || passwordController.text == '' || emailController.text == '') {
-                            final SnackBar snackBar = SnackBar(content: const Text('Please, enter all details'),
-                                action: SnackBarAction(
-                                  textColor: Colors.teal,
-                                  label: 'Ok',
-                                  onPressed: (){},
-                                ));
-                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                           showSnackBar(context, 'Please, enter all details');
                           } else {
                             loginBloc.add(SignInEvent(emailController.text.trim(),
                                 passwordController.text.trim()));
