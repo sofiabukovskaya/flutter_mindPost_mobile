@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -43,24 +45,8 @@ class LoginFormState extends State<LoginForm> {
             Navigator.pushNamed(context, '/login');
           });
         } else if (state is LoginLoadingState) {
-          Future<dynamic>.delayed(const Duration(seconds: 3), () {
-            setState(() {
-              showDialog<dynamic>(
-                context: context,
-                barrierDismissible: false,
-                builder: (BuildContext context) {
-                  return Dialog(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
-                        circularProgress(),
-                        const Text('Loading'),
-                      ],
-                    ),
-                  );
-                },
-              );
-            });
+          Timer.run(() {
+            circularProgress();
           });
         }
         if (state is LoginInvalidState) {

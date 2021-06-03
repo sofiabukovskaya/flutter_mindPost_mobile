@@ -1,12 +1,14 @@
-import 'dart:async';
+
 import 'dart:io';
 
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mindpost/services/api/firebase_ml_api.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_mindpost/ui/bloc/scan_photo_bloc/scan_photo_bloc.dart';
+import 'package:flutter_mindpost/ui/bloc/scan_photo_bloc/scan_photo_event.dart';
+import 'package:flutter_mindpost/ui/bloc/scan_photo_bloc/scan_photo_state.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/add_note_page/scan_photo_page/widgets/build_image.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/add_note_page/scan_photo_page/widgets/text_area_widget.dart';
-import 'package:image_picker/image_picker.dart';
-
 import 'buttons_widget.dart';
 
 class TextRecognitionWidget extends StatefulWidget {
@@ -21,21 +23,47 @@ class TextRecognitionWidget extends StatefulWidget {
 class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
   String text = '';
   File image;
+  ScanPhotoBloc scanPhotoBloc;
+
   @override
-  Widget build(BuildContext context) => Expanded(
+  void initState() {
+    super.initState();
+    scanPhotoBloc = BlocProvider.of<ScanPhotoBloc>(context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<ScanPhotoBloc, ScanPhotoState>(
+        builder: (BuildContext context, ScanPhotoState state) {
+      if (state is UpdateTextFieldState) {
+        text = state.text;
+      }
+      if (state is UpdateImageState) {
+        image = File(state.file.path);
+      } if(state is ClearImageAndTextState) {
+          image = null;
+          text = '';
+      }
+      return Expanded(
         child: Column(
           children: <Widget>[
             const SizedBox(height: 60),
-           Container(
-             height: 300,
-            width: 300,
-            child: buildImage() ,
-        ),
+            Container(
+              height: 300,
+              width: 300,
+              child: buildImage(context, image),
+            ),
             const SizedBox(height: 60),
             ButtonsWidget(
-              onClickedPickImage: pickImage,
-              onClickedScanText: scanText,
-              onClickedClear: clear,
+              onClickedPickImage: () async {
+                scanPhotoBloc.add(PickImageEvent());
+              },
+              onClickedScanText: () {
+                scanPhotoBloc.add(ScanForTextEvent(image));
+              },
+              onClickedClear: () {
+                scanPhotoBloc.add(ClearImageEvent());
+              },
             ),
             const SizedBox(height: 30),
             TextAreaWidget(
@@ -45,48 +73,11 @@ class _TextRecognitionWidgetState extends State<TextRecognitionWidget> {
           ],
         ),
       );
-
-  Widget buildImage() => Container(
-        child: image != null
-            ? Container(
-                height: 150,
-                width: 150,
-                child: Image.file(image, fit: BoxFit.cover,),
-              )
-            : const Icon(Icons.photo, size: 50, color: Colors.black26),
-      );
-
-  Future<void>pickImage() async {
-    final File file = await ImagePicker.pickImage(source: ImageSource.gallery);
-    setImage(File(file.path));
+    });
   }
-
-  Future<void> scanText() async {
-    final String text = await FirebaseMLApi.recogniseText(image);
-    print(text);
-    setText(text);
-  }
-
-  void clear() {
-    setImage(null);
-    setText('');
-  }
-
   void copyToClipboard() {
     if (text.trim() != '') {
       FlutterClipboard.copy(text);
     }
-  }
-
-  void setImage(File newImage) {
-    setState(() {
-      image = newImage;
-    });
-  }
-
-  void setText(String newText) {
-    setState(() {
-      text = newText;
-    });
   }
 }

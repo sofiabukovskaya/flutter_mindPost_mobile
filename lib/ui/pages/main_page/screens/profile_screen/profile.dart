@@ -6,9 +6,9 @@ import 'package:flutter_mindpost/ui/bloc/profile_bloc/profile_event.dart';
 import 'package:flutter_mindpost/ui/bloc/profile_bloc/profile_state.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/login_page.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/widgets/alert_dialog_logout.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/widgets/list_title.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/widgets/user_avatar.dart';
-
 
 class Profile extends StatefulWidget {
   @override
@@ -34,31 +34,15 @@ class _ProfileState extends State<Profile> {
         actions: <Widget>[
           IconButton(
               onPressed: () {
-                showDialog<dynamic>(context: context, builder: (_){
-                  return AlertDialog(
-                    title: const Text('Logout'),
-                    content: const Text('Do you wanna logout?'),
-                    actions: <Widget>[
-                      TextButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Text(
-                            'No',
-                            style: TextStyle(color: Colors.red),
-                          )),
-                      TextButton(
-                          onPressed: () {
-                            profileBloc.add(ProfileLogoutEvent());
-                          },
-                          child: const Text(
-                            'Yes',
-                            style: TextStyle(color: Colors.black87),
-                          ))
-                    ],
-                    elevation: 8.0,
-                  );
-                });
+                showDialog<dynamic>(
+                    context: context,
+                    builder: (_) {
+                      return AlertDialogLogout(
+                        onClickedYesButton: () {
+                          profileBloc.add(ProfileLogoutEvent());
+                        },
+                      );
+                    });
               },
               icon: const Icon(
                 Icons.logout,
