@@ -12,6 +12,7 @@ import 'package:flutter_mindpost/ui/pages/main_page/screens/calendar_screen/widg
 import 'package:flutter_mindpost/ui/pages/main_page/screens/calendar_screen/widgets/alert_dialog_add_event.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/calendar_screen/widgets/calendar_style.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/calendar_screen/widgets/header_style.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 
 import 'package:table_calendar/table_calendar.dart';
 
@@ -43,19 +44,24 @@ class _CalendarListState extends State<CalendarList> {
     return Scaffold(
       body: BlocBuilder<CalendarBloc, CalendarState>(
           builder: (BuildContext context, CalendarState state) {
-            if(state is SuccessesCalendarState) {
+            if(state is FailCalendarState){
               Timer.run(() {
-                showSnackBar(context, 'Your event is added!');
-              });
-            } if(state is FailCalendarState){
-              Timer.run(() {
-                showSnackBar(context, 'Something go wrong:(');
+                showSnackBar(context,AppLocalizations.of(context).translate('error_string'));
               });
             } if(state is DeletingCalendarDataState){
               printTime = '';
               Timer.run(() {
-                showSnackBar(context, 'Event has been deleted');
+                showSnackBar(context, AppLocalizations.of(context).translate('event_delete_string'));
               });
+            } if(state is SelectDayCalendarState){
+              selectedDay = state.selectDay;
+              focusedDay = state.focusDay;
+            } if(state is SelectTimeCalendarState) {
+              Timer.run(() {
+                showSnackBar(context, AppLocalizations.of(context).translate('event_add_string'));
+              });
+              time = state.pickedTime;
+              printTime = time.format(context);
             }
         return ListView(
           children: <Widget>[
@@ -74,10 +80,7 @@ class _CalendarListState extends State<CalendarList> {
                     startingDayOfWeek: StartingDayOfWeek.monday,
                     daysOfWeekVisible: true,
                     onDaySelected: (DateTime selectDay, DateTime focusDay) {
-                      setState(() {
-                        selectedDay = selectDay;
-                        focusedDay = focusDay;
-                      });
+                      calendarBloc.add(SelectDayCalendarEvent(selectDay, focusDay));
                     },
                     selectedDayPredicate: (DateTime date) {
                       return isSameDay(selectedDay, date);
@@ -118,7 +121,7 @@ class _CalendarListState extends State<CalendarList> {
             calendarBloc.add(AddCalendarDataEvent(selectedEvents, selectedDay, eventController.text));
           })
         ),
-        label: Text('Add Event',
+        label: Text(AppLocalizations.of(context).translate('add_event_string'),
             style: textStyle(18.0, FontWeight.w500, Colors.white)),
         icon: const Icon(Icons.add),
       ),
@@ -144,9 +147,6 @@ class _CalendarListState extends State<CalendarList> {
             child: child,
           );
         });
-    setState(() {
-      time = pickedTime;
-      printTime = time.format(context);
-    });
+    calendarBloc.add(AddTimeCalendarDataEvent(pickedTime));
   }
 }

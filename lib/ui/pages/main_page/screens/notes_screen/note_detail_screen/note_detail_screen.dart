@@ -11,11 +11,11 @@ class NoteDetailScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return NoteDetailScreenState();
+    return _NoteDetailScreenState();
   }
 }
 
-class NoteDetailScreenState extends State<NoteDetailScreen> {
+class _NoteDetailScreenState extends State<NoteDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<NoteDetailBlock>(

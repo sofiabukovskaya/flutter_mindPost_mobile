@@ -7,11 +7,11 @@ import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/profi
 class ProfileScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return ProfileScreenState();
+    return _ProfileScreenState();
   }
 }
 
-class ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

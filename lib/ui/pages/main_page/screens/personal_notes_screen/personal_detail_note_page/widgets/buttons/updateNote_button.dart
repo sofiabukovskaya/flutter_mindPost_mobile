@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 
 class UpdateNoteButton extends StatelessWidget {
   const UpdateNoteButton(
@@ -34,7 +35,8 @@ class UpdateNoteButton extends StatelessWidget {
               context: context,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  title: const Text('Change info'),
+                  title:  Text(AppLocalizations.of(context)
+                      .translate('change_info_string')),
                   content: Form(
                       child: Container(
                     height: 150,
@@ -45,7 +47,8 @@ class UpdateNoteButton extends StatelessWidget {
                           controller: controllerTextTitle,
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
-                            labelText: 'Title:',
+                            labelText: AppLocalizations.of(context)
+                                .translate('title_string'),
                             hintText: '$title',
                           ),
                           onSaved: (String artistValue) {},
@@ -54,7 +57,8 @@ class UpdateNoteButton extends StatelessWidget {
                           controller: controllerTextDescription,
                           keyboardType: TextInputType.name,
                           decoration: InputDecoration(
-                            labelText: 'Description:',
+                            labelText: AppLocalizations.of(context)
+                                .translate('description_string'),
                             hintText: '$description',
                           ),
                           onSaved: (String artistValue) {},
@@ -64,12 +68,14 @@ class UpdateNoteButton extends StatelessWidget {
                   )),
                   actions: <TextButton>[
                     TextButton(
-                        child: const Text('NO'),
+                        child:  Text(AppLocalizations.of(context)
+                            .translate('no_string')),
                         onPressed: () {
                           Navigator.of(context).pop(false);
                         }),
                     TextButton(
-                        child: const Text('YES'),
+                        child: Text(AppLocalizations.of(context)
+                            .translate('yes_string')),
                         onPressed: onClickedYesButton),
                   ],
                 );

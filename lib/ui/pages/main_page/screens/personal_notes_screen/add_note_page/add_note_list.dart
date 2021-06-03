@@ -12,8 +12,9 @@ import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_scree
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/add_note_page/widgets/default_image.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/add_note_page/widgets/description_textField.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/add_note_page/widgets/switcher.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/add_note_page/widgets/title_textField.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/add_note_page/widgets/title_text_field.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/add_note_page/widgets/upload_image.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -44,6 +45,10 @@ class _AddNoteListState extends State<AddNoteList> {
   void initState() {
     super.initState();
     addNoteBloc = BlocProvider.of<AddNoteBloc>(context);
+
+    lockedIcon = const Icon(Icons.lock_outline,
+      color: Colors.black54,
+      size: 30);
   }
 
   @override
@@ -52,7 +57,7 @@ class _AddNoteListState extends State<AddNoteList> {
         appBar: AppBar(
           iconTheme: const IconThemeData(color: Colors.black),
           title: Text(
-            'Add note',
+            AppLocalizations.of(context).translate('add_note_string'),
             style: textStyle(20.0, FontWeight.w500, Colors.black87),
           ),
           centerTitle: true,
@@ -89,12 +94,25 @@ class _AddNoteListState extends State<AddNoteList> {
             builder: (BuildContext context, AddNoteState state) {
               if (state is SuccessfulAddNoteState) {
                 Timer.run(() {
-                  showSnackBar(context, 'You add this note');
+                  showSnackBar(context, AppLocalizations.of(context).translate('add_note_string'));
                 });
               } if(state is FailAddNoteState) {
                 Timer.run(() {
-                  showSnackBar(context, 'Fill in all fields, please!');
+                  showSnackBar(context, AppLocalizations.of(context).translate('fill_all_note_string'));
                 });
+              } if(state is ChangeLockIconState) {
+                switched = state.selectedItem;
+                switched == false
+                    ? lockedIcon = const Icon(
+                  Icons.lock_outline,
+                  color: Colors.black54,
+                  size: 30,
+                )
+                    : lockedIcon = const Icon(
+                  Icons.lock_open_sharp,
+                  color: Colors.black54,
+                  size: 30,
+                );
               }
               return ListView(
                 children: <Widget>[
@@ -115,7 +133,7 @@ class _AddNoteListState extends State<AddNoteList> {
                     Padding(
                       padding: const EdgeInsets.only(top: 15, bottom: 10),
                       child: Text(
-                        'Privacy setting',
+                        AppLocalizations.of(context).translate('privacy_string'),
                         style: textStyle(18.0, FontWeight.w400, Colors.black87),
                       ),
                     ),
@@ -128,27 +146,14 @@ class _AddNoteListState extends State<AddNoteList> {
                         Padding(
                           padding: const EdgeInsets.only(top: 10, left: 10),
                           child: Text(
-                            'Public note',
+                            AppLocalizations.of(context).translate('public_note_string'),
                             style: GoogleFonts.poppins(
                                 fontSize: 18, fontWeight: FontWeight.w300),
                           ),
                         ),
                         switchItem(context, switched, lockedIcon,
                             (bool selectedValue) {
-                          setState(() {
-                            switched = selectedValue;
-                            switched == false
-                                ? lockedIcon = const Icon(
-                                    Icons.lock_outline,
-                                    color: Colors.black54,
-                                    size: 30,
-                                  )
-                                : lockedIcon = const Icon(
-                                    Icons.lock_open_sharp,
-                                    color: Colors.black54,
-                                    size: 30,
-                                  );
-                          });
+                          addNoteBloc.add(ChangeLockIconEvent(selectedValue));
                         })
                       ],
                     )

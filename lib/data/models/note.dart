@@ -3,6 +3,6 @@ class Note{
   final String title;
   final String description;
   final String photoUrl;
-  final bool public;
   final String datePublish;
+  final bool public;
 }

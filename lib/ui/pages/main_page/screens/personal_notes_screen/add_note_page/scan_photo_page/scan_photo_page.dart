@@ -9,11 +9,11 @@ import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_scree
 class ScanPhotoPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return ScanPhotoPageState();
+    return _ScanPhotoPageState();
   }
 }
 
-class ScanPhotoPageState extends State<ScanPhotoPage> {
+class _ScanPhotoPageState extends State<ScanPhotoPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -9,6 +9,7 @@ import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/widgets/notes_list_item.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/widgets/popup_menu_button_widget.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/widgets/search_textField.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 
 
 class NotesList extends StatefulWidget {
@@ -20,6 +21,7 @@ class _NotesListState extends State<NotesList> {
   PublicNotesBloc publicNotesBloc;
   TextEditingController searchController = TextEditingController();
   String selectedItemSorting = 'dislike';
+
   @override
   void initState() {
     super.initState();
@@ -44,15 +46,15 @@ class _NotesListState extends State<NotesList> {
         ],
         backgroundColor: Colors.white38,
         elevation: 0,
-        title: titleAppBar('Notes feed'),
+        title: titleAppBar(AppLocalizations.of(context).translate('notes_feed_string')),
         centerTitle: true,
       ),
       body: BlocBuilder<PublicNotesBloc, NotesState>(
           bloc: publicNotesBloc,
           builder: (BuildContext context, NotesState state) {
             if(state is NoPublicNotesState) {
-              return const Center(
-                child: Text('Sorry, no notes feed :( '),
+              return  Center(
+                child: Text(AppLocalizations.of(context).translate('no_notes_feed_string')),
               );
             } if(state is LoadingPublicNotesState) {
               return circularProgress();
@@ -68,7 +70,7 @@ class _NotesListState extends State<NotesList> {
                     return SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
-                          textFieldSearch(searchController),
+                          textFieldSearch(context, searchController),
                           Padding(
                             padding:
                             const EdgeInsets.only(top: 15, left: 50, right: 50),

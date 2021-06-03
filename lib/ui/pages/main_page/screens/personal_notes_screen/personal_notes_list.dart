@@ -13,14 +13,14 @@ import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_scree
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/widgets/list_items/publishDate_text.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/widgets/list_items/title_text.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/widgets/popup_menu_button.dart';
-
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 
 class PersonalNotesList extends StatefulWidget {
   @override
-  State<StatefulWidget> createState() => PersonalNotesListState();
+  State<StatefulWidget> createState() => _PersonalNotesListState();
 }
 
-class PersonalNotesListState extends State<PersonalNotesList> {
+class _PersonalNotesListState extends State<PersonalNotesList> {
   PersonalNotesBloc personalNotesBloc;
   TextEditingController searchController = TextEditingController();
   bool public;
@@ -32,10 +32,11 @@ class PersonalNotesListState extends State<PersonalNotesList> {
   void initState() {
     super.initState();
     personalNotesBloc = BlocProvider.of<PersonalNotesBloc>(context);
+
     searchController.addListener(() {
-        queryTextTitle = searchController.text.toString();
-        querySearch.insert(0, queryTextTitle);
-        personalNotesBloc.add(PersonalNotesSearchEvent(queryTextTitle));
+      queryTextTitle = searchController.text.toString();
+      querySearch.insert(0, queryTextTitle);
+      personalNotesBloc.add(PersonalNotesSearchEvent(queryTextTitle));
       print('$queryTextTitle');
     });
   }
@@ -56,29 +57,34 @@ class PersonalNotesListState extends State<PersonalNotesList> {
         ],
         backgroundColor: Colors.white38,
         elevation: 0,
-        title: titleAppBar('Personal notes'),
+        title: titleAppBar(
+            AppLocalizations.of(context).translate('personal_notes_string')),
         centerTitle: true,
       ),
       body: BlocBuilder<PersonalNotesBloc, PersonalNotesState>(
           bloc: personalNotesBloc,
           builder: (BuildContext context, PersonalNotesState state) {
-            if(state is LoadingPersonalNotesState) {
+            if (state is LoadingPersonalNotesState) {
               return Center(
                 child: circularProgress(),
               );
             }
             if (state is NoDataNotesState) {
-              return const Center(
-                child: Text('No notes yet'),
+              return Center(
+                child: Text(
+                    AppLocalizations.of(context).translate('no_data_string')),
               );
-            } if(state is NoSearchingPersonalNoteState) {
-              return const Center(
-                child: Text('Oh, probably you have not note(s) with this title'),
+            }
+            if (state is NoSearchingPersonalNoteState) {
+              return Center(
+                child: Text(AppLocalizations.of(context)
+                    .translate('search_remark_string')),
               );
             }
             if (state is ErrorInternetConnectionState) {
-              return const Center(
-                child: Text('No internet connection'),
+              return Center(
+                child: Text(AppLocalizations.of(context)
+                    .translate('no_internet_connection_string')),
               );
             }
             if (state is LoadedPersonalNotesState) {
@@ -87,12 +93,15 @@ class PersonalNotesListState extends State<PersonalNotesList> {
                 builder: (BuildContext context,
                     AsyncSnapshot<QuerySnapshot<dynamic>> snapshot) {
                   if (!snapshot.hasData) {
-                    return const Center(child:  Text('No data'),);
+                    return Center(
+                      child: Text(AppLocalizations.of(context)
+                          .translate('no_data_string')),
+                    );
                   } else if (snapshot.hasData) {
                     return SingleChildScrollView(
                       child: Column(
                         children: <Widget>[
-                          textFieldSearch(searchController),
+                          textFieldSearch(context,searchController),
                           Padding(
                               padding: const EdgeInsets.only(
                                   top: 10, left: 20, right: 20),
@@ -103,7 +112,8 @@ class PersonalNotesListState extends State<PersonalNotesList> {
                                   itemCount: snapshot.data.docs.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {
-                                    public = snapshot.data.docs[index]['public'];
+                                    public =
+                                        snapshot.data.docs[index]['public'];
                                     return Container(
                                         height: 150,
                                         width: 100,

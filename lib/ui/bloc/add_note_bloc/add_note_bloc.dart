@@ -34,6 +34,8 @@ class AddNoteBloc extends Bloc<AddNoteEvent, AddNoteState>{
         } catch(_){
           yield FailAddNoteState();
         }
+      } if( event is ChangeLockIconEvent){
+        yield ChangeLockIconState(event.selectedItem);
       }
   }
 

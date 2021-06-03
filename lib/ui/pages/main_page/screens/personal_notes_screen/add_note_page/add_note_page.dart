@@ -8,11 +8,11 @@ import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_scree
 class AddNotePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return AddNotePageState();
+    return _AddNotePageState();
   }
 }
 
-class AddNotePageState extends State<AddNotePage> {
+class _AddNotePageState extends State<AddNotePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

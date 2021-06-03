@@ -13,7 +13,7 @@ abstract class FirestoreRepository {
   Future<DocumentSnapshot<Map<String, dynamic>>> getUserData();
 
   Future<void> addDataNote(String title, String description,
-      String uploadedFileUrl, bool switched, String dateformat);
+      String uploadedFileUrl, bool switched, String dateFormat);
 
   Future<void> uploadImage(File image, String uploadedFileUrl);
 

@@ -8,6 +8,7 @@ import 'package:flutter_mindpost/ui/bloc/note_detail_bloc/note_detail_bloc.dart'
 import 'package:flutter_mindpost/ui/bloc/note_detail_bloc/note_detail_event.dart';
 import 'package:flutter_mindpost/ui/bloc/note_detail_bloc/note_detail_state.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 
 class NoteDetail extends StatefulWidget {
   const NoteDetail({Key key, this.snapshot}) : super(key: key);
@@ -15,11 +16,11 @@ class NoteDetail extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return NoteDetailScreenState();
+    return _NoteDetailScreenState();
   }
 }
 
-class NoteDetailScreenState extends State<NoteDetail> {
+class _NoteDetailScreenState extends State<NoteDetail> {
   NoteDetailBlock noteDetailBlock;
 
   String title = '';
@@ -52,8 +53,8 @@ class NoteDetailScreenState extends State<NoteDetail> {
           bloc: noteDetailBlock,
           builder: (BuildContext context, NoteDetailState state) {
             if (state is NoInternetConnectionState) {
-              return const Center(
-                child: Text('No internet connection'),
+              return  Center(
+                child: Text( AppLocalizations.of(context).translate('no_internet_string')),
               );
             }
             if (state is LoadingState) {
@@ -61,11 +62,11 @@ class NoteDetailScreenState extends State<NoteDetail> {
             }
             if(state is LikingIsSuccessfulState) {
               Timer.run(() {
-                 showSnackBar(context, 'You like this note');
+                 showSnackBar(context, AppLocalizations.of(context).translate('you_like_string'));
               });
             } if (state is DislikingIsSuccessfulState) {
               Timer.run(() {
-                showSnackBar(context, 'You dislike this note');
+                showSnackBar(context,  AppLocalizations.of(context).translate('you_dislike_string'));
               });
             }
             return Container(

@@ -7,8 +7,9 @@ import 'package:flutter_mindpost/ui/bloc/profile_bloc/profile_state.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/login_page.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/widgets/alert_dialog_logout.dart';
-import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/widgets/list_title.dart';
+import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/widgets/title_list.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/profile_screen/widgets/user_avatar.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -51,7 +52,7 @@ class _ProfileState extends State<Profile> {
         ],
         backgroundColor: Colors.white38,
         elevation: 0,
-        title: titleAppBar('Profile'),
+        title: titleAppBar(AppLocalizations.of(context).translate('profile_string')),
         centerTitle: true,
       ),
       body: BlocBuilder<ProfileBloc, ProfileState>(
@@ -69,9 +70,7 @@ class _ProfileState extends State<Profile> {
                 builder:
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   if (!snapshot.hasData) {
-                    return const Center(
-                      child: Text('No data yet'),
-                    );
+                    return circularProgress();
                   } else if (snapshot.hasData) {
                     return SingleChildScrollView(
                       child: Column(
@@ -84,15 +83,15 @@ class _ProfileState extends State<Profile> {
                                 height: 298,
                                 child: Column(
                                   children: <Widget>[
-                                    titleList('Name: ',
+                                    titleList( AppLocalizations.of(context).translate('name_string'),
                                         '${snapshot.data['name'].toString()}'),
-                                    titleList('Surname: ',
+                                    titleList( AppLocalizations.of(context).translate('surname_string'),
                                         '${snapshot.data['surname'].toString()}'),
-                                    titleList('Nickname: ',
+                                    titleList( AppLocalizations.of(context).translate('nickname_string'),
                                         '${snapshot.data['nickname'].toString()}'),
-                                    titleList('Date of birth: ',
+                                    titleList(AppLocalizations.of(context).translate('date_birthday_string'),
                                         '${snapshot.data['birthday'].toString()}'),
-                                    titleList('Account: ',
+                                    titleList( AppLocalizations.of(context).translate('account_string'),
                                         '${snapshot.data['account_type'].toString()}')
                                   ],
                                 )),

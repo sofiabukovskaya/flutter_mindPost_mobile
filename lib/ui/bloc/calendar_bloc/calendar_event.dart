@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/data/models/event.dart';
 
 class CalendarEvent{}
@@ -21,6 +22,14 @@ class DeleteCalendarDataEvent extends CalendarEvent{
   final DateTime selectedDay;
  final String printTime;
 
-
 }
-class AddTimeCalendarDataEvent extends CalendarEvent{}
+class AddTimeCalendarDataEvent extends CalendarEvent{
+  AddTimeCalendarDataEvent(this.pickedTime);
+  final TimeOfDay pickedTime;
+}
+
+class SelectDayCalendarEvent extends CalendarEvent{
+  SelectDayCalendarEvent(this.selectDay, this.focusDay);
+  final DateTime selectDay;
+  final DateTime focusDay;
+}

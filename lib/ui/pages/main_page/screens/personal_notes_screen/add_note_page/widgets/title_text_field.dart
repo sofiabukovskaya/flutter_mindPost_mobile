@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 
 Widget titleTextField(BuildContext context, TextEditingController titleNote) {
   return  Center(
@@ -15,7 +16,8 @@ Widget titleTextField(BuildContext context, TextEditingController titleNote) {
           textAlign: TextAlign.center,
           decoration: InputDecoration(
             counterText: '',
-            hintText: 'Title',
+            hintText: AppLocalizations.of(context)
+                .translate('title_string'),
             hintStyle: textStyle(
                 20.0, FontWeight.w600, const Color(0x4D00847c)),
           ),

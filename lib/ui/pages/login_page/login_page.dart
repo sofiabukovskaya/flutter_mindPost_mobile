@@ -2,17 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_mindpost/ui/bloc/login_bloc/login_bloc.dart';
-import 'package:flutter_mindpost/ui/pages/login_page/widgets/label_welcome.dart';
 import 'package:flutter_mindpost/ui/pages/login_page/widgets/login_form.dart';
+
+import 'widgets/labels/label_welcome.dart';
 
 class LoginPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return LoginPageState();
+    return _LoginPageState();
   }
 }
 
-class LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider<LoginBloc>(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 
 Widget descriptionTextField(BuildContext context, TextEditingController descriptionNote) {
   return SingleChildScrollView(
@@ -16,7 +17,7 @@ Widget descriptionTextField(BuildContext context, TextEditingController descript
               18.0, FontWeight.w400, Colors.black54),
           decoration: InputDecoration(
               border: const OutlineInputBorder(),
-              hintText: 'Write about your day thoughts, day, desires...',
+              hintText: AppLocalizations.of(context).translate('additional_info_string'),
               hintStyle: textStyle(20.0, FontWeight.w600,  const Color(0x4D00847c)),
               isDense: true,
               contentPadding:

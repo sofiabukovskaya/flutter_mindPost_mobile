@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 
 Widget uploadImage(BuildContext context, Function loadImage) {
   return Padding(
@@ -8,7 +9,8 @@ Widget uploadImage(BuildContext context, Function loadImage) {
     child: Row(
       children: <Widget>[
         Text(
-          'Attach a picture',
+          AppLocalizations.of(context)
+              .translate('attach_picture_string'),
           style: textStyle(18.0,FontWeight.w400, Colors.black87),
         ),
         IconButton(

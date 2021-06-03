@@ -11,11 +11,11 @@ class PersonalDetailNotePage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return PersonalDetailNotePageState();
+    return _PersonalDetailNotePageState();
   }
 }
 
-class PersonalDetailNotePageState extends State<PersonalDetailNotePage> {
+class _PersonalDetailNotePageState extends State<PersonalDetailNotePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

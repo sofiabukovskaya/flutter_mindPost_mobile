@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 
 Widget alertDialogClearImage(BuildContext context, Function clearImage, File image) {
   return GestureDetector(
@@ -9,30 +10,30 @@ Widget alertDialogClearImage(BuildContext context, Function clearImage, File ima
             context: context,
             builder: (_) =>
                 AlertDialog(
-                  title: const Text('Delete picture'),
-                  content: const Text(
-                      'Do you wanna delete a picture?'),
+                  title:  Text(AppLocalizations.of(context)
+                      .translate('delete_note_string')),
+                  content:  Text(
+                      AppLocalizations.of(context)
+                          .translate('delete_picture_question')),
                   actions: <Widget>[
                     TextButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: const Text(
-                          'No',
-                          style: TextStyle(
+                        child:  Text(
+                          AppLocalizations.of(context)
+                              .translate('no_string'),
+                          style: const TextStyle(
                               color: Colors.red),
                         )),
                     TextButton(
                         onPressed: () {
                           clearImage();
-                          // setState(() {
-                          //   image = null;
-                          // });
-                          // Navigator.pop(context);
                         },
-                        child: const Text(
-                          'Yes',
-                          style: TextStyle(
+                        child:  Text(
+                          AppLocalizations.of(context)
+                              .translate('yes_string'),
+                          style: const TextStyle(
                               color: Colors.black87),
                         ))
                   ],

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mindpost/utils/validators.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 Widget buttonsFacebookGoogle(
@@ -70,7 +71,7 @@ Widget button(
   );
 }
 
-Widget textField(
+Widget searchTextField(
     TextEditingController controller, Icon icon, Color color, String label) {
   return TextFormField(
     controller: controller,
@@ -120,6 +121,67 @@ Center circularProgress() {
   );
 }
 
+Widget textField(TextEditingController textEditingController, String labelText, TextInputType textInputType, {Function function}) {
+  return TextFormField(
+    controller: textEditingController,
+    decoration: InputDecoration(
+      filled: true,
+      labelText: labelText,
+      fillColor: const Color(0x1A008B83),
+      border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: BorderSide.none),
+      labelStyle: GoogleFonts.poppins(
+        textStyle: const TextStyle(
+            color: Colors.black45,
+            fontSize: 18.0,
+            fontWeight: FontWeight.w600),
+      ),
+    ),
+    onTap: function,
+    keyboardType: textInputType,
+    cursorColor: const Color(0x99008B83),
+  );
+}
+
+Widget passwordTextField(TextEditingController passwordController, String labelText, TextInputType textInputType, Function changeState, bool
+    passwordVisibility) {
+  return TextFormField(
+    autovalidateMode: AutovalidateMode.always,
+    obscureText: passwordVisibility,
+    validator: (String input) {
+      return !Validators().isValidPassword(input) ? 'Invalid password, please write with numbers''\n'' and less not less 6 symbols' : null;
+    },
+    controller: passwordController,
+    decoration: InputDecoration(
+        filled: true,
+        labelText: 'Password',
+        fillColor: const Color(0x1A008B83),
+        border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            borderSide: BorderSide.none),
+        labelStyle: GoogleFonts.poppins(
+          textStyle: const TextStyle(
+              color: Colors.black45,
+              fontSize: 18.0,
+              fontWeight: FontWeight.w600),
+        ),
+        suffixIcon: IconButton(
+          icon: Icon(
+              passwordVisibility ? Icons.visibility_off
+                  : Icons.visibility
+          ),
+          onPressed: () {
+            changeState();
+          },
+          color: const Color(0x99008B83),
+        )
+    ),
+    keyboardType: TextInputType.text,
+    cursorColor: const Color(0x99008B83),
+  );
+}
+
 void showSnackBar(BuildContext context, String title) {
   final ScaffoldMessengerState scaffold = ScaffoldMessenger.of(context);
   scaffold.showSnackBar(
@@ -130,3 +192,7 @@ void showSnackBar(BuildContext context, String title) {
     ),
   );
 }
+
+
+
+

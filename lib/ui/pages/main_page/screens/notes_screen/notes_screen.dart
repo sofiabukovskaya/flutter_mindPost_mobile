@@ -10,13 +10,11 @@ import 'package:flutter_mindpost/ui/pages/main_page/screens/notes_screen/notes_l
 class NotesScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return NotesScreenState();
+    return _NotesScreenState();
   }
 }
 
-class NotesScreenState extends State<NotesScreen> {
-  TextEditingController searchController = TextEditingController();
-  String selectedItemSorting = 'dislike';
+class _NotesScreenState extends State<NotesScreen> {
 
   @override
   Widget build(BuildContext context) {

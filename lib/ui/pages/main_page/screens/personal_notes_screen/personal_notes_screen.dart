@@ -11,33 +11,11 @@ import 'personal_notes_list.dart';
 class PersonalNotesScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return PersonalNotesScreenState();
+    return _PersonalNotesScreenState();
   }
 }
 
-class PersonalNotesScreenState extends State<PersonalNotesScreen> {
-  TextEditingController searchController = TextEditingController();
-  bool public;
-  bool publicOrNot;
-  String queryTextTitle;
-
-  @override
-  void initState() {
-    super.initState();
-    searchController.addListener(() {
-      setState(() {
-        queryTextTitle = searchController.text.toString();
-      });
-        print('$queryTextTitle');
-    });
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    searchController.dispose();
-  }
-
+class _PersonalNotesScreenState extends State<PersonalNotesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

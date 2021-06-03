@@ -11,11 +11,11 @@ import 'package:flutter_mindpost/ui/pages/main_page/screens/calendar_screen/cale
 class CalendarScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return CalendarScreenState();
+    return _CalendarScreenState();
   }
 }
 
-class CalendarScreenState extends State<CalendarScreen> {
+class _CalendarScreenState extends State<CalendarScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

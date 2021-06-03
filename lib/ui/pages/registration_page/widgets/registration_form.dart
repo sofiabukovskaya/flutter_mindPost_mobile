@@ -6,30 +6,20 @@ import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_event.da
 import 'package:flutter_mindpost/ui/bloc/registration_bloc/registration_state.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/main_page.dart';
-import 'package:flutter_mindpost/ui/pages/registration_page/widgets/text_fields/confirm_password.dart';
-import 'package:flutter_mindpost/ui/pages/registration_page/widgets/text_fields/date_of_birth_form.dart';
-import 'package:flutter_mindpost/ui/pages/registration_page/widgets/text_fields/email_form.dart';
-import 'package:flutter_mindpost/ui/pages/registration_page/widgets/text_fields/name_form.dart';
-import 'package:flutter_mindpost/ui/pages/registration_page/widgets/text_fields/nickname_form.dart';
-import 'package:flutter_mindpost/ui/pages/registration_page/widgets/text_fields/password_form.dart';
-import 'package:flutter_mindpost/ui/pages/registration_page/widgets/text_fields/phone_number_form.dart';
-import 'package:flutter_mindpost/ui/pages/registration_page/widgets/text_fields/surname_form.dart';
-import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
 import 'package:flutter_mindpost/utils/app_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'label_sign_in.dart';
+import '../../../../utils/routes/scale_route.dart';
+import 'labels/label_sign_in.dart';
 
 class RegistrationForm extends StatefulWidget {
-
-
   @override
   State<StatefulWidget> createState() {
-    return RegistrationFormState();
+    return _RegistrationFormState();
   }
 }
 
-class RegistrationFormState extends State<RegistrationForm> {
+class _RegistrationFormState extends State<RegistrationForm> {
   bool isChecked = false;
   bool passwordVisible = true;
   final TextEditingController nameController = TextEditingController();
@@ -43,24 +33,25 @@ class RegistrationFormState extends State<RegistrationForm> {
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
-  RegistrationBloc _registrationBloc;
+  //RegistrationBloc registrationBloc;
 
   @override
   void initState() {
     super.initState();
-    _registrationBloc = BlocProvider.of<RegistrationBloc>(context);
+    context.read<RegistrationBloc>();
+    //registrationBloc = BlocProvider.of<RegistrationBloc>(context);
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RegistrationBloc, RegistrationState>(
-        bloc: _registrationBloc,
+        bloc: context.read<RegistrationBloc>(),
         builder: (BuildContext context, RegistrationState state) {
-          if(state is RegistrationLoadingState) {
+          if (state is RegistrationLoadingState) {
             circularProgress();
           }
-          if(state is RegistrationSuccessState) {
-           Navigator.push<dynamic>(context, ScaleRoute(page: MainPage()));
+          if (state is RegistrationSuccessState) {
+            Navigator.push<dynamic>(context, ScaleRoute(page: MainPage()));
           }
           return Column(
             children: <Widget>[
@@ -78,41 +69,50 @@ class RegistrationFormState extends State<RegistrationForm> {
                       thickness: 5.0,
                       child: ListView(
                         children: <Widget>[
-                          nameFormField(context, nameController),
+                          textField(nameController,  AppLocalizations.of(context).translate('name_string'), TextInputType.name),
                           Padding(
                             padding: const EdgeInsets.only(top: 14.0),
-                            child: surnameFormField(context, surnameController),
+                            child: textField(surnameController,  AppLocalizations.of(context).translate('surname_string'),
+                                TextInputType.name),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 14.0),
-                            child:
-                                nicknameFormField(context, nicknameController),
+                            child: textField(nicknameController,  AppLocalizations.of(context).translate('nickname_string'),
+                                TextInputType.text),
                           ),
                           Padding(
                               padding: const EdgeInsets.only(top: 14.0),
-                              child: emailFormField(context, emailController)),
+                              child: textField(emailController,  AppLocalizations.of(context).translate('email_enter_string'),
+                                  TextInputType.emailAddress)),
                           Padding(
                             padding: const EdgeInsets.only(top: 14.0),
-                            child: dateOfBirthForm(
-                                context, dateOfBirthdayController),
+                            child: textField(dateOfBirthdayController, AppLocalizations.of(context).translate('date_birthday_string'),
+                            TextInputType.datetime, function: () async {
+                                  final DateTime date = await showDatePicker(
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1900),
+                                      lastDate: DateTime(2100));
+                                  dateOfBirthdayController.text = date.toString().substring(0, 10);
+                                }),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 14.0),
-                            child: phoneNumberFormField(
-                                context, phoneNumberController),
+                            child: textField(phoneNumberController,
+                                AppLocalizations.of(context).translate('phone_number_string'), TextInputType.phone),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 14.0),
-                            child:
-                                passwordFormField(context, passwordController, passwordVisible, (){
-                                  setState(() {
-                                  passwordVisible =!passwordVisible;
-                                });}),
+                            child: passwordTextField(passwordController,
+                                AppLocalizations.of(context).translate('password_enter_string'), TextInputType.visiblePassword, () {
+                              setState(() {
+                                passwordVisible = !passwordVisible;
+                              });
+                            }, passwordVisible),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(top: 14.0),
-                            child: confirmPasswordFormField(
-                                context, confirmPasswordController),
+                            child: textField(confirmPasswordController,  AppLocalizations.of(context).translate('confirm_password_string'), TextInputType.visiblePassword),
                           ),
                         ],
                       )),
@@ -154,16 +154,22 @@ class RegistrationFormState extends State<RegistrationForm> {
                   child: button(
                       context,
                       AppLocalizations.of(context).translate('sign_up_string'),
-                      const Color(0x80008B83), ()  {
-                        if(isChecked == false) {
-                          showSnackBar(context, 'Please, select a checkbox');
-                        } else {
-                          _registrationBloc.add(Submitted
-                            (email: emailController.text.trim(), phone: phoneNumberController.text.trim(), name: nameController.text.trim(), surname: surnameController.text.trim(), nickname: nicknameController.text.trim(), birthday: dateOfBirthdayController.text.trim(), password: passwordController.text.trim()));
-                        }
+                      const Color(0x80008B83), () {
+                    if (isChecked == false) {
+                      showSnackBar(context,  AppLocalizations.of(context).translate('please_select_checkbox_string'));
+                    } else {
+                      context.read<RegistrationBloc>().add(Submitted(
+                          email: emailController.text.trim(),
+                          phone: phoneNumberController.text.trim(),
+                          name: nameController.text.trim(),
+                          surname: surnameController.text.trim(),
+                          nickname: nicknameController.text.trim(),
+                          birthday: dateOfBirthdayController.text.trim(),
+                          password: passwordController.text.trim()));
+                    }
                   })),
               Padding(
-                  padding:const  EdgeInsets.only(top: 15, left: 38, right: 40),
+                  padding: const EdgeInsets.only(top: 15, left: 38, right: 40),
                   child: labelSignIn(context)),
             ],
           );

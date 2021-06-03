@@ -10,11 +10,11 @@ import 'package:flutter_mindpost/ui/pages/main_page/widgets/tab_bar.dart';
 class MainPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return MainPageState();
+    return _MainPageState();
   }
 }
 
-class MainPageState extends State<MainPage>
+class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
 
   @override

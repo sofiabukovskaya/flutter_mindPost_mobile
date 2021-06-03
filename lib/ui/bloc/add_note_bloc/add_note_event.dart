@@ -1,5 +1,6 @@
 import 'dart:io';
 
+
 class AddNoteEvent{}
 
 class AddNoteTextEvent extends AddNoteEvent{
@@ -15,6 +16,9 @@ class UploadImageEvent extends AddNoteEvent{
   final File image;
   final String uploadedFileUrl;
 }
-class PickImageFromStorage extends AddNoteEvent{
+class PickImageFromStorage extends AddNoteEvent{}
 
+class ChangeLockIconEvent extends AddNoteEvent{
+  ChangeLockIconEvent(this.selectedItem);
+  final bool selectedItem;
 }

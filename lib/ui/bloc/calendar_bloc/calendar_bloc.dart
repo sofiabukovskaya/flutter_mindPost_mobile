@@ -26,7 +26,6 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState>{
             ];
           }
         }
-        yield SuccessesCalendarState();
         yield EmptyState();
       }catch(_){
         yield FailCalendarState();
@@ -52,6 +51,10 @@ class CalendarBloc extends Bloc<CalendarEvent, CalendarState>{
       } catch(_){
         yield FailCalendarState();
       }
+    } if(event is SelectDayCalendarEvent) {
+      yield SelectDayCalendarState(focusDay: event.focusDay, selectDay: event.selectDay);
+    } if(event is AddTimeCalendarDataEvent){
+      yield SelectTimeCalendarState(event.pickedTime);
     }
   }
 }

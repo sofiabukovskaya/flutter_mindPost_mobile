@@ -11,6 +11,7 @@ import 'package:flutter_mindpost/ui/common/common_widgets.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/widgets/buttons/deleteNote_button.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/widgets/description_text.dart';
 import 'package:flutter_mindpost/ui/pages/main_page/screens/personal_notes_screen/personal_detail_note_page/widgets/title_datePublich_text.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 import 'widgets/buttons/updateNote_button.dart';
 
 class PersonalDetail extends StatefulWidget {
@@ -19,11 +20,11 @@ class PersonalDetail extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return PersonalDetailState();
+    return _PersonalDetailState();
   }
 }
 
-class PersonalDetailState extends State<PersonalDetail> {
+class _PersonalDetailState extends State<PersonalDetail> {
   TextEditingController controllerTextTitle = TextEditingController();
   TextEditingController controllerTextDescription = TextEditingController();
   PersonalNoteDetailBloc personalNoteDetailBloc;
@@ -51,26 +52,29 @@ class PersonalDetailState extends State<PersonalDetail> {
             builder: (BuildContext context, PersonalNoteDetailState state) {
               if (state is DeletedPersonalNoteState) {
                 Timer.run(() {
-                  showSnackBar(context, 'You note is deleted.');
+                  showSnackBar(context, AppLocalizations.of(context)
+                      .translate('deleting_note_string'));
                 });
-
               }
               if (state is SuccessfulEditPersonalNoteState) {
                   title = controllerTextTitle.text;
                   description = controllerTextDescription.text;
                 Timer.run(() {
-                  showSnackBar(context, 'You note is updated.');
+                  showSnackBar(context, AppLocalizations.of(context)
+                      .translate('deleting_note_string'));
                 });
                 Navigator.of(context).pop(true);
               }
               if (state is FailEditPersonalNoteState) {
                 Timer.run(() {
-                  showSnackBar(context, 'Fill all fields, please!!');
+                  showSnackBar(context, AppLocalizations.of(context)
+                      .translate('fill_all_note_string'));
                 });
               }
               if (state is FailPersonalNoteState) {
                 Timer.run(() {
-                  showSnackBar(context, 'You note cannot be deleted, sorry');
+                  showSnackBar(context, AppLocalizations.of(context)
+                      .translate('deleting_cannot_note_string'));
                 });
               }
               return Container(

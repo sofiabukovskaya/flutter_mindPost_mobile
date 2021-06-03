@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 
 class PopupMenuButtonWidget extends StatelessWidget {
 
@@ -24,7 +25,7 @@ class PopupMenuButtonWidget extends StatelessWidget {
               enabled: false,
               child: ListTile(
                 title: Text(
-                  'Order by...',
+                  AppLocalizations.of(context).translate('order_by_string'),
                   style: textStyle(14.0, FontWeight.w400, Colors.black87),
                   textAlign: TextAlign.center,
                 ),
@@ -33,7 +34,7 @@ class PopupMenuButtonWidget extends StatelessWidget {
             PopupMenuItem<String>(
               child: ListTile(
                 title: Text(
-                  'By title',
+                  AppLocalizations.of(context).translate('by_title_string'),
                   style: textStyle(14.0, FontWeight.w400, Colors.black87),
                 ),
                 leading: const Icon(Icons.text_fields),
@@ -46,7 +47,7 @@ class PopupMenuButtonWidget extends StatelessWidget {
             ),
             PopupMenuItem<String>(
               child: ListTile(
-                title: Text('By author nickname',
+                title: Text(AppLocalizations.of(context).translate('by_author_string'),
                     style: textStyle(14.0, FontWeight.w400, Colors.black87)),
                 leading: const Icon(Icons.person),
                 minLeadingWidth: 10,
@@ -58,7 +59,7 @@ class PopupMenuButtonWidget extends StatelessWidget {
             ),
             PopupMenuItem<String>(
               child: ListTile(
-                title: Text('By count of likes',
+                title: Text(AppLocalizations.of(context).translate('by_count_likes_string'),
                     style: textStyle(14.0, FontWeight.w400, Colors.black87)),
                 leading: const Icon(Icons.favorite),
                 minLeadingWidth: 10,
@@ -70,7 +71,7 @@ class PopupMenuButtonWidget extends StatelessWidget {
             ),
             PopupMenuItem<String>(
               child: ListTile(
-                title: Text('By count dislikes',
+                title: Text(AppLocalizations.of(context).translate('by_count_dislikes_string'),
                     style: textStyle(14.0, FontWeight.w400, Colors.black87)),
                 leading: const Icon(Icons.cancel_outlined),
                 minLeadingWidth: 10,

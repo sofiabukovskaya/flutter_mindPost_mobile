@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
-
 import 'package:flutter_mindpost/ui/pages/forgot_password_page/forgot_password_page.dart';
-import 'package:flutter_mindpost/ui/pages/splash_page/scale_transition.dart';
 import 'package:flutter_mindpost/utils/app_localizations.dart';
+
+import '../../../../../utils/routes/scale_route.dart';
 
 
 Widget labelForgotPassword(BuildContext context) {

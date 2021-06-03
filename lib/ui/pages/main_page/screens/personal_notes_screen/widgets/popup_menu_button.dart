@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mindpost/ui/common/common_widgets.dart';
+import 'package:flutter_mindpost/utils/app_localizations.dart';
 
 
 class PopupMenuButtonWidget extends StatelessWidget {
@@ -24,7 +25,8 @@ class PopupMenuButtonWidget extends StatelessWidget {
             PopupMenuItem<bool>(
               child: ListTile(
                 title: Text(
-                  'Only private notes',
+                  AppLocalizations.of(context)
+                      .translate('private_string'),
                   style: textStyle(14.0, FontWeight.w400, Colors.black87),
                 ),
                 leading: const Icon(Icons.lock_outline),
@@ -37,7 +39,8 @@ class PopupMenuButtonWidget extends StatelessWidget {
             ),
             PopupMenuItem<bool>(
               child: ListTile(
-                title: Text('Only public notes',
+                title: Text( AppLocalizations.of(context)
+                    .translate('public_string'),
                     style: textStyle(14.0, FontWeight.w400, Colors.black87)),
                 leading: const Icon(Icons.lock_open_outlined),
                 minLeadingWidth: 10,
